@@ -311,8 +311,8 @@ def cmd_daily():
         )
     if not lines:
         lines.append("Quiet day. The board resets at midnight — tomorrow is unwritten.")
-    elif crowned:
-        lines.append(f"\n👑 respect to {' · '.join(crowned)} — see the rest of you here tomorrow.")
+    el    if crowned:
+        lines.append(f"\n👑 {' · '.join(crowned)}")
     body = {
         "username": "Daily Board",
         "allowed_mentions": {"parse": []},
@@ -351,8 +351,7 @@ def create_focus_event():
         token=token,
         body={
             "name": "night grind - silent focus",
-            "description": ("one hour, cameras off, phones down. show up, pick a "
-                            "problem from the catalogs, disappear into it."),
+            "description": "focus hour in voice. cameras off.",
             "scheduled_start_time": start_iso,
             "scheduled_end_time": end_iso,
             "entity_type": 2,
@@ -489,8 +488,7 @@ def cmd_poll():
                         "content": (
                             f"<@{uid}> {verb}.\n"
                             f"Lifetime: **{totals['All']} solved** "
-                            f"({totals['Easy']}E / {totals['Medium']}M / {totals['Hard']}H).\n"
-                            "This week starts today. See you on the board at 08:00."
+                            f"({totals['Easy']}E / {totals['Medium']}M / {totals['Hard']}H)."
                         ),
                         "message_reference": {"message_id": msg["id"]},
                         "allowed_mentions": {"users": [uid]},
