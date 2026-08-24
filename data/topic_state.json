@@ -1,34 +1,92 @@
 {
  "arrays": [
-  "find-the-number-of-ways-to-place-people-ii",
-  "most-frequent-prime"
+  "find-the-number-of-ways-to-place-people-ii"
  ],
  "strings": [
-  "number-of-pairs-of-strings-with-concatenation-equal-to-target",
-  "rings-and-rods"
+  "number-of-pairs-of-strings-with-concatenation-equal-to-target"
  ],
  "binary-search": [
   "count-substrings-that-satisfy-k-constraint-ii",
-  "separate-squares-i"
+  "smallest-substring-with-identical-characters-ii"
  ],
  "linked-list": [
   "linked-list-cycle",
-  "remove-linked-list-elements"
+  "steps-to-make-array-non-decreasing"
  ],
  "stacks-and-queues": [
-  "beautiful-towers-ii",
-  "minimum-operations-to-convert-all-elements-to-zero"
+  "beautiful-towers-ii"
  ],
  "trees": [
-  "root-equals-sum-of-children",
-  "reachable-nodes-with-restrictions"
+  "root-equals-sum-of-children"
  ],
  "graphs": [
-  "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance",
-  "parallel-courses-ii"
+  "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance"
  ],
  "dynamic-programming": [
   "maximize-sum-of-weights-after-edge-removals",
-  "maximum-score-of-non-overlapping-intervals"
+  "twisted-mirror-path-count"
+ ],
+ "array": [
+  "make-two-arrays-equal-by-reversing-subarrays"
+ ],
+ "string": [
+  "majority-frequency-characters"
+ ],
+ "hash-table": [
+  "find-the-difference"
+ ],
+ "two-pointers": [
+  "path-existence-queries-in-a-graph-ii"
+ ],
+ "sliding-window": [
+  "minimum-positive-sum-subarray"
+ ],
+ "prefix-sum": [
+  "jump-game-vii"
+ ],
+ "stack": [
+  "minimum-deletions-to-make-string-balanced"
+ ],
+ "monotonic-stack": [
+  "final-prices-with-a-special-discount-in-a-shop"
+ ],
+ "queue": [
+  "minimum-operations-to-make-binary-array-elements-equal-to-one-i"
+ ],
+ "heap-priority-queue": [
+  "choose-k-elements-with-maximum-sum"
+ ],
+ "tree": [
+  "number-of-ways-to-assign-edge-weights-ii"
+ ],
+ "trie": [
+  "concatenated-words"
+ ],
+ "graph": [
+  "maximal-network-rank"
+ ],
+ "union-find": [
+  "validate-binary-tree-nodes"
+ ],
+ "backtracking": [
+  "generate-binary-strings-without-adjacent-zeros"
+ ],
+ "greedy": [
+  "minimum-cost-to-move-between-indices"
+ ],
+ "bit-manipulation": [
+  "maximum-points-after-collecting-coins-from-all-nodes"
+ ],
+ "math": [
+  "reaching-points"
+ ],
+ "matrix": [
+  "sort-matrix-by-diagonals"
+ ],
+ "sorting": [
+  "minimum-space-wasted-from-packaging"
+ ],
+ "design": [
+  "maximum-frequency-stack"
  ]
 }

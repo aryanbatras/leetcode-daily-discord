@@ -1,5 +1,4 @@
-"""Post every daily feed: topic dailies, codeforces, cp31, cses, tracks,
-core subjects, contests. One run = one workflow invocation."""
+"""Post every daily feed across all MF Grind channels."""
 
 import json
 import os
@@ -26,19 +25,26 @@ from mfcommon import (
 DATA = "data"
 LAUNCH_DAY = (2026, 8, 24)
 IST = timezone(timedelta(hours=5, minutes=30))
+GENERAL_CHANNEL_ID = 1541028380655231118
 
 TOPICS = [
-    ("arrays", "array"),
-    ("strings", "string"),
-    ("binary-search", "binary-search"),
-    ("linked-list", "linked-list"),
-    ("stacks-and-queues", "stack"),
-    ("trees", "tree"),
-    ("graphs", "graph"),
-    ("dynamic-programming", "dynamic-programming"),
+    "array", "string", "hash-table", "two-pointers", "sliding-window",
+    "prefix-sum", "binary-search", "stack", "monotonic-stack", "queue",
+    "heap-priority-queue", "linked-list", "tree", "trie", "graph",
+    "union-find", "backtracking", "greedy", "dynamic-programming",
+    "bit-manipulation", "math", "matrix", "sorting", "design",
 ]
-
-CF_BANDS = [800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
+BANDS = [800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
+CSES_SECTIONS = [
+    "Introductory Problems", "Sorting and Searching", "Dynamic Programming",
+    "Graph Algorithms", "Range Queries", "Tree Algorithms", "Mathematics",
+    "String Algorithms", "Geometry", "Advanced Techniques", "Additional Problems",
+]
+SUBJECTS = [
+    ("operating-systems", "Operating Systems"),
+    ("computer-networks", "Computer Networks"),
+    ("dbms", "DBMS"),
+]
 CF_COLORS = [
     (999, 0x95A5A6),
     (1199, 0x2ECC71),
@@ -47,6 +53,15 @@ CF_COLORS = [
     (1799, 0xE67E22),
     (99999, 0xE74C3C),
 ]
+
+_RATINGS_CACHE = None
+
+
+def ratings():
+    global _RATINGS_CACHE
+    if _RATINGS_CACHE is None:
+        _RATINGS_CACHE = load_json(f"{DATA}/ratings.json")
+    return _RATINGS_CACHE
 
 
 def cf_color(rating):
@@ -57,17 +72,12 @@ def cf_color(rating):
 
 
 def learn_lines(slug, frontend_id):
-    """Editorial-first resource links. Code is clearly labeled spoilers."""
     lines = []
-    shots = load_json(f"{DATA}/screenshots.json")
-    shot = shots.get(str(frontend_id))
+    shot = load_json(f"{DATA}/screenshots.json").get(str(frontend_id))
     if shot:
         lines.append(f"[Editorial screenshot]({shot})")
-    lines.append(
-        f"[LeetCode editorials](https://leetcode.com/problems/{slug}/solutions/)"
-    )
-    video_map = load_json(f"{DATA}/neetcode_map.json")
-    vid = video_map.get(slug)
+    lines.append(f"[LeetCode editorials](https://leetcode.com/problems/{slug}/solutions/)")
+    vid = load_json(f"{DATA}/neetcode_map.json").get(slug)
     if vid:
         lines.append(f"[NeetCode video]({vid['youtube']})")
     lines.append(
@@ -80,14 +90,10 @@ def learn_lines(slug, frontend_id):
 
 
 def learn_field(slug, frontend_id):
-    return {
-        "name": "Learn",
-        "value": truncate(learn_lines(slug, frontend_id), FIELD_VALUE_LIMIT, "…"),
-    }
+    return {"name": "Learn", "value": truncate(learn_lines(slug, frontend_id), FIELD_VALUE_LIMIT, "…")}
 
 
 def statement_embed(q, footer):
-    """Rich card for a LeetCode question dict."""
     difficulty = q["difficulty"]
     url = f"https://leetcode.com/problems/{q['titleSlug']}/"
     embed = {
@@ -105,7 +111,7 @@ def statement_embed(q, footer):
     fields = [
         {"name": "Difficulty", "value": difficulty, "inline": True},
         {"name": "Acceptance", "value": f"{q.get('acRate', 0):.1f}%", "inline": True},
-        {"name": "Rating", "value": str(load_json(f'{DATA}/ratings.json').get(q["titleSlug"], "unrated")), "inline": True},
+        {"name": "Rating", "value": str(ratings().get(q["titleSlug"], "unrated")), "inline": True},
     ]
     if topics:
         fields.append({"name": "Topics", "value": topics[:FIELD_VALUE_LIMIT]})
@@ -125,7 +131,6 @@ query total($f: QuestionListFilterInput!) {
 TOPIC_QUERY_PICK = """
 query pick($f: QuestionListFilterInput!, $skip: Int!) {
     problemsetQuestionList: questionList(categorySlug: "", limit: 1, skip: $skip, filters: $f) {
-        totalNum
         questions: data { titleSlug difficulty isPaidOnly }
     }
 }"""
@@ -144,146 +149,157 @@ query detail($slug: String!) {
 }"""
 
 
-def state_path(name):
-    return f"{DATA}/{name}"
-
-
-def recent_list(state, key, limit):
+def recent_set(state, key, limit=40):
     arr = state.setdefault(key, [])
     del arr[:-limit]
     return set(arr)
 
 
-def post_topics(hooks):
-    state_path_f = state_path("topic_state.json")
-    state = load_json(state_path_f) if os.path.exists(state_path_f) else {}
-    for key, tag_slug in TOPICS:
-        hook = hooks.get(key)
+def post_topics(hooks, digest):
+    path = f"{DATA}/topic_state.json"
+    state = load_json(path) if os.path.exists(path) else {}
+    for slug in TOPICS:
+        hook = hooks.get(slug)
         if not hook:
             continue
         try:
-            variables = {"f": {"tags": [tag_slug]}}
-            total = (
-                lc_graphql(TOPIC_QUERY_TOTAL, variables)["data"]["problemsetQuestionList"][
-                    "totalNum"
-                ]
-            )
-            recent = recent_list(state, key, 40)
+            variables = {"f": {"tags": [slug]}}
+            total = lc_graphql(TOPIC_QUERY_TOTAL, variables)["data"]["problemsetQuestionList"]["totalNum"]
+            recent = recent_set(state, slug)
             chosen = None
-            base = seeded_index(f"topic:{key}", total)
+            base = seeded_index(f"lc-topic:{slug}", total)
             for offset in range(6):
                 idx = (base + offset * 7) % total
-                picked = (
-                    lc_graphql(TOPIC_QUERY_PICK, {"f": {"tags": [tag_slug]}, "skip": idx})[
-                        "data"
-                    ]["problemsetQuestionList"]["questions"]
-                )
+                picked = lc_graphql(
+                    TOPIC_QUERY_PICK, {"f": {"tags": [slug]}, "skip": idx}
+                )["data"]["problemsetQuestionList"]["questions"]
                 if not picked:
                     continue
-                candidate = picked[0]
-                if candidate["isPaidOnly"] or candidate["titleSlug"] in recent:
+                cand = picked[0]
+                if cand["isPaidOnly"] or cand["titleSlug"] in recent:
                     continue
-                chosen = candidate
+                chosen = cand
                 break
             if not chosen:
-                print(f"{key}: no eligible problem found, skipping")
+                print(f"{slug}: no eligible problem, skipping")
                 continue
-            detail = lc_graphql(QUESTION_QUERY, {"slug": chosen["titleSlug"]})["data"][
-                "question"
-            ]
+            detail = lc_graphql(QUESTION_QUERY, {"slug": chosen["titleSlug"]})["data"]["question"]
             embed = statement_embed(detail, "random daily drill — solve before peeking")
-            send_embed(hook, embed, username=f"{key.replace('-', ' ').title()} Daily")
-            state[key].append(chosen["titleSlug"])
-            print(f"{key}: posted {chosen['titleSlug']}")
+            if send_embed(hook, embed, username=f"lc {slug.replace('-', ' ')}"):
+                digest.append(("leetcode/" + slug, detail["title"], detail["difficulty"]))
+                state[slug].append(chosen["titleSlug"])
+                print(f"{slug}: posted {chosen['titleSlug']}")
         except Exception as exc:
-            print(f"{key}: FAILED {exc}")
-    save_json(state_path_f, state)
+            print(f"{slug}: FAILED {exc}")
+    save_json(path, state)
 
 
-def post_codeforces(hooks):
+def post_codeforces(hooks, digest):
     problems = load_json(f"{DATA}/cf_problems.json")
-    band = CF_BANDS[datetime.now(IST).weekday()]
-    candidates = [p for p in problems if p["rating"] == band]
-    state_p = state_path("cf_state.json")
-    state = load_json(state_p) if os.path.exists(state_p) else {}
-    used = state.setdefault("used", [])
-    fresh = [p for p in candidates if f"{p['contestId']}{p['index']}" not in set(used)]
-    pool = fresh or candidates
-    pick = seeded_index("cf", len(pool)) if fresh else random.randrange(len(pool))
-    problem = pool[pick]
-    tags = ", ".join(problem["tags"][:6])
-    solved = problem.get("solvedCount", 0)
-    embed = {
-        "author": {"name": "Codeforces"},
-        "title": f"{problem['name']} ({problem['contestId']}{problem['index']})",
-        "url": f"https://codeforces.com/problemset/problem/{problem['contestId']}/{problem['index']}",
-        "color": cf_color(band),
-        "description": (
-            f"Today's target band is **{band}**. Timebox yourself to "
-            f"{max(20, (band - 700) // 10)} minutes, then read the editorial only after a real attempt."
-        ),
-        "fields": [
-            {"name": "Rating", "value": str(band), "inline": True},
-            {"name": "Solved by", "value": f"{solved:,}", "inline": True},
-            {"name": "Tags", "value": truncate(tags or "hidden on purpose", FIELD_VALUE_LIMIT, "…")},
-        ],
-        "footer": {"text": "cp/codeforces · rotating band daily"},
-    }
-    hook = hooks.get("codeforces")
-    if hook and send_embed(hook, embed, username="Codeforces Daily"):
-        used.append(f"{problem['contestId']}{problem['index']}")
-        del used[:-200]
-        save_json(state_p, state)
-        print(f"codeforces: posted {problem['name']} ({band})")
+    by_band = {}
+    for p in problems:
+        by_band.setdefault(p["rating"], []).append(p)
+    path = f"{DATA}/cf_state.json"
+    state = load_json(path) if os.path.exists(path) else {}
+    used = set(state.setdefault("used", []))
+    for band in BANDS:
+        hook = hooks.get(f"cf-{band}")
+        if not hook:
+            continue
+        candidates = by_band.get(band, [])
+        fresh = [p for p in candidates if f"{p['contestId']}{p['index']}" not in used]
+        pool = fresh or candidates
+        problem = pool[seeded_index(f"cf-{band}", len(pool))] if fresh else random.choice(pool)
+        tags = ", ".join(problem["tags"][:6])
+        embed = {
+            "author": {"name": "Codeforces"},
+            "title": f"{problem['name']} ({problem['contestId']}{problem['index']})",
+            "url": f"https://codeforces.com/problemset/problem/{problem['contestId']}/{problem['index']}",
+            "color": cf_color(band),
+            "description": (
+                f"A **{band}**-rated drill. Timebox: {max(20, (band - 700) // 10)} minutes, "
+                "then editorial only after a serious attempt."
+            ),
+            "fields": [
+                {"name": "Rating", "value": str(band), "inline": True},
+                {"name": "Solved by", "value": f"{problem.get('solvedCount', 0):,}", "inline": True},
+                {"name": "Tags", "value": truncate(tags or "hidden on purpose", FIELD_VALUE_LIMIT, "…")},
+            ],
+            "footer": {"text": "codeforces daily · stay in your growth band"},
+        }
+        if send_embed(hook, embed, username=f"codeforces {band}"):
+            digest.append((f"codeforces/{band}", problem["name"], str(band)))
+            used.add(f"{problem['contestId']}{problem['index']}")
+            print(f"cf-{band}: posted {problem['name']}")
+    state["used"] = list(used)[-500:]
+    save_json(path, state)
 
 
-def post_cp31(hooks):
+def post_cp31(hooks, digest):
     rows = load_json(f"{DATA}/cp31.json")
-    idx = days_since(*LAUNCH_DAY) % len(rows)
-    entry = rows[idx]
-    embed = {
-        "author": {"name": "TLE Eliminators CP-31 Sheet"},
-        "title": f"Slot {idx + 1}/372 — {entry['name']}",
-        "url": entry["url"],
-        "color": cf_color(entry["band"]),
-        "description": (
-            f"The sheet's steady curriculum: one handpicked problem per rating band, "
-            f"every single day. You are on the **{entry['band']}** rated block."
-        ),
-        "fields": [
-            {"name": "Band", "value": str(entry["band"]), "inline": True},
-            {"name": "Slot", "value": f"{entry['slot']}/31", "inline": True},
-            {"name": "Solved by", "value": f"{entry.get('solvedCount', 0):,}", "inline": True},
-        ],
-        "footer": {"text": "cp/cp31 · full sheet cycles every 372 days"},
-    }
-    hook = hooks.get("cp31")
-    if hook and send_embed(hook, embed, username="CP-31 Daily"):
-        print(f"cp31: posted slot {idx + 1}: {entry['name']}")
+    by_band = {}
+    for row in sorted(rows, key=lambda r: r["slot"]):
+        by_band.setdefault(row["band"], []).append(row)
+    day = days_since(*LAUNCH_DAY)
+    for band in BANDS:
+        hook = hooks.get(f"cp31-{band}")
+        if not hook:
+            continue
+        entries = by_band.get(band, [])
+        if not entries:
+            continue
+        entry = entries[day % len(entries)]
+        embed = {
+            "author": {"name": "TLE Eliminators CP-31"},
+            "title": f"Slot {entry['slot']}/31 — {entry['name']}",
+            "url": entry["url"],
+            "color": cf_color(band),
+            "description": (
+                "One handpicked problem per rating level, curated by TLE Eliminators for "
+                "reusable ideas. This channel always serves today's slot of its band."
+            ),
+            "fields": [
+                {"name": "Band", "value": str(band), "inline": True},
+                {"name": "Slot", "value": f"{entry['slot']}/31", "inline": True},
+                {"name": "Solved by", "value": f"{entry.get('solvedCount', 0):,}", "inline": True},
+            ],
+            "footer": {"text": "cp31 · sheet restarts every 31 days"},
+        }
+        if send_embed(hook, embed, username=f"cp-31 {band}"):
+            digest.append((f"cp31/{band}", entry["name"], str(band)))
+            print(f"cp31-{band}: posted slot {entry['slot']} {entry['name']}")
 
 
-def post_cses(hooks):
+def post_cses(hooks, digest):
     tasks = load_json(f"{DATA}/cses.json")
-    idx = days_since(*LAUNCH_DAY) % len(tasks)
-    task = tasks[idx]
-    embed = {
-        "author": {"name": "CSES Problem Set"},
-        "title": f"Task {task['id']} — {task['name']}",
-        "url": f"https://cses.fi/problemset/task/{task['id']}",
-        "color": 0x3498DB,
-        "description": (
-            "The classic algorithmic gym: 400 problems that quietly teach you every core technique. "
-            "No editorials until you have a verdict."
-        ),
-        "fields": [
-            {"name": "Category", "value": task["category"], "inline": True},
-            {"name": "Progress", "value": f"#{idx + 1} of {len(tasks)}", "inline": True},
-        ],
-        "footer": {"text": "cp/cses · full set cycles every year"},
-    }
-    hook = hooks.get("cses")
-    if hook and send_embed(hook, embed, username="CSES Daily"):
-        print(f"cses: posted {task['id']} {task['name']}")
+    by_section = {}
+    for t in tasks:
+        by_section.setdefault(t["category"], []).append(t)
+    day = days_since(*LAUNCH_DAY)
+    for section in CSES_SECTIONS:
+        hook = hooks.get(f"cses-{section.lower().replace(' ', '-')}")
+        if not hook:
+            continue
+        items = by_section.get(section, [])
+        if not items:
+            continue
+        task = items[day % len(items)]
+        pos = items.index(task) + 1
+        embed = {
+            "author": {"name": f"CSES — {section}"},
+            "title": f"Task {task['id']} — {task['name']}",
+            "url": f"https://cses.fi/problemset/task/{task['id']}",
+            "color": 0x3498DB,
+            "description": "No editorials until you have a verdict. These build technique quietly.",
+            "fields": [
+                {"name": "Position", "value": f"{pos}/{len(items)}", "inline": True},
+                {"name": "Section cycle", "value": f"day {day % len(items) + 1} of {len(items)}", "inline": True},
+            ],
+            "footer": {"text": "cses · classic algorithmic gym"},
+        }
+        if send_embed(hook, embed, username=f"cses {section.lower()}"):
+            digest.append((f"cses/{section.lower().replace(' ', '-')}", task["name"], section))
+            print(f"cses[{section}]: posted {task['id']} {task['name']}")
 
 
 TRACKS = [
@@ -293,7 +309,7 @@ TRACKS = [
 ]
 
 
-def post_tracks(hooks):
+def post_tracks(hooks, digest):
     for key, datafile, title, blurb in TRACKS:
         hook = hooks.get(key)
         if not hook:
@@ -302,7 +318,7 @@ def post_tracks(hooks):
         idx = days_since(*LAUNCH_DAY) % len(rows)
         row = rows[idx]
         leetcode_url = row.get("leetcode") or ""
-        if leetcode_url and leetcode_url.startswith("/"):
+        if leetcode_url.startswith("/"):
             leetcode_url = "https://leetcode.com" + leetcode_url
         desc_lines = [blurb + "."]
         if row.get("article"):
@@ -321,34 +337,68 @@ def post_tracks(hooks):
             ],
             "footer": {"text": f"tracks/{key} · solve today's, stay on pace"},
         }
-        if send_embed(hook, embed, username=f"{title} Track"):
+        if send_embed(hook, embed, username=f"{title} track"):
+            digest.append((key, row["name"], row.get("difficulty") or ""))
             print(f"{key}: posted #{idx + 1} {row['name']}")
 
 
-def post_core_subjects(hooks):
+def post_subjects(hooks, digest):
     subjects = load_json(f"{DATA}/core_subjects.json")
-    names = list(subjects.keys())
-    subject = names[days_since(*LAUNCH_DAY) % len(names)]
-    qs = subjects[subject]
-    qidx = (days_since(*LAUNCH_DAY) // len(names)) % len(qs)
-    qa = qs[qidx]
-    embed = {
-        "author": {"name": f"{subject} — Interview Drill"},
-        "title": truncate(qa["q"], 250, "…"),
-        "color": 0x16A085,
-        "description": (
-            "Say your answer out loud first, structure it, then research the hint. "
-            "Interviews reward organized thinking more than memorized answers."
-        ),
-        "fields": [
-            {"name": "Hint (after you try)", "value": truncate(qa["hint"], FIELD_VALUE_LIMIT, "…")},
-            {"name": "Cycle", "value": f"Q{qidx + 1}/{len(qs)}", "inline": True},
-        ],
-        "footer": {"text": "tracks/core-subjects · OS, networks and DBMS rotate"},
-    }
-    hook = hooks.get("core-subjects")
-    if hook and send_embed(hook, embed, username=f"{subject} Drill"):
-        print(f"core-subjects: posted [{subject}] {qa['q'][:60]}")
+    day = days_since(*LAUNCH_DAY)
+    for key, subject in SUBJECTS:
+        hook = hooks.get(key)
+        if not hook:
+            continue
+        qs = subjects.get(subject, [])
+        if not qs:
+            continue
+        qa = qs[day % len(qs)]
+        embed = {
+            "author": {"name": f"{subject} — Interview Drill"},
+            "title": truncate(qa["q"], 250, "…"),
+            "color": 0x16A085,
+            "description": (
+                "Say your answer out loud first, structure it, then research the hint. "
+                "Interviews reward organized thinking more than memorized answers."
+            ),
+            "fields": [
+                {"name": "Hint (after you try)", "value": truncate(qa["hint"], FIELD_VALUE_LIMIT, "…")},
+                {"name": "Cycle", "value": f"Q{day % len(qs) + 1}/{len(qs)}", "inline": True},
+            ],
+            "footer": {"text": f"tracks/{key} · full question bank cycles every {len(qs)} days"},
+        }
+        if send_embed(hook, embed, username=f"{subject} drill"):
+            digest.append((key, qa["q"], subject))
+            print(f"{key}: posted {qa['q'][:60]}")
+
+
+def post_system_design(hooks, digest):
+    doc = load_json(f"{DATA}/system_design.json")
+    day = days_since(*LAUNCH_DAY)
+    feeds = [("low-level-design", "low-level design", "LLD"), ("high-level-design", "high-level design", "HLD")]
+    for key, name, label in feeds:
+        hook = hooks.get(key)
+        if not hook:
+            continue
+        qs = doc[name]
+        qa = qs[day % len(qs)]
+        embed = {
+            "author": {"name": f"{label} — Design Interview"},
+            "title": truncate(qa["q"], 250, "…"),
+            "color": 0x8E44AD,
+            "description": (
+                "Sketch components and trade-offs on paper first: entities, APIs, storage, "
+                "bottlenecks. The hint tells you where the conversation should land."
+            ),
+            "fields": [
+                {"name": "Key concepts", "value": truncate(qa["hint"], FIELD_VALUE_LIMIT, "…")},
+                {"name": "Cycle", "value": f"Q{day % len(qs) + 1}/{len(qs)}", "inline": True},
+            ],
+            "footer": {"text": f"system-design/{key} · popular asks rotating daily"},
+        }
+        if send_embed(hook, embed, username=f"{label} drill"):
+            digest.append((key, qa["q"], label))
+            print(f"{key}: posted {qa['q'][:60]}")
 
 
 CONTEST_QUERY = """
@@ -369,10 +419,10 @@ def fmt_ist(ts):
 def human_duration(seconds):
     h, rem = divmod(int(seconds), 3600)
     m = rem // 60
-    return (f"{h}h {m:02d}m" if h else f"{m}m")
+    return f"{h}h {m:02d}m" if h else f"{m}m"
 
 
-def post_contests(hooks):
+def post_contests(hooks, digest):
     lines = []
     try:
         data = lc_graphql(CONTEST_QUERY)["data"]["topTwoContests"]
@@ -385,18 +435,21 @@ def post_contests(hooks):
                 f"**LeetCode** — [{c['title']}](https://leetcode.com/contest/{c['titleSlug']}/)\n"
                 f"{status} · {human_duration(c['duration'])}"
             )
+            digest.append(("#contests", f"LC {c['title']}", fmt_ist(start)))
     except Exception as exc:
         print(f"lc contests failed: {exc}")
     try:
-        contests = cf_contests()
+        contests = http_json("https://codeforces.com/api/contest.list")["result"]
         upcoming = sorted(
-            (c for c in contests if c.get("phase") == "BEFORE"), key=lambda c: c["startTimeSeconds"]
+            (c for c in contests if c.get("phase") == "BEFORE"),
+            key=lambda c: c["startTimeSeconds"],
         )[:4]
         for c in upcoming:
             lines.append(
-                f"**Codeforces** — [Round #{c.get('id')}: {c['name']}](https://codeforces.com/contests/{c['id']})\n"
+                f"**Codeforces** — [{c['name']}](https://codeforces.com/contests/{c['id']})\n"
                 f"{fmt_ist(c['startTimeSeconds'])} · {human_duration(c.get('durationSeconds', 7200))}"
             )
+            digest.append(("#contests", f"CF {c['name']}", fmt_ist(c["startTimeSeconds"])))
     except Exception as exc:
         print(f"cf contests failed: {exc}")
     if not lines:
@@ -406,7 +459,7 @@ def post_contests(hooks):
         "author": {"name": "Upcoming Contests"},
         "title": "Put them on your calendar",
         "color": 0xF39C12,
-        "description": "\n\n".join(lines)[: DESCRIPTION_LIMIT],
+        "description": "\n\n".join(lines)[:DESCRIPTION_LIMIT],
         "footer": {"text": "#contests · refreshed every morning"},
     }
     hook = hooks.get("contests")
@@ -414,8 +467,42 @@ def post_contests(hooks):
         print("contests: posted")
 
 
-def cf_contests():
-    return http_json("https://codeforces.com/api/contest.list")["result"]
+def post_digest(digest):
+    """Single morning overview in #general so nobody drowns in channels."""
+    if not digest:
+        return
+    groups = {}
+    for channel, title, extra in digest:
+        group = channel.split("/")[0]
+        label = channel.split("/", 1)[1] if "/" in channel else channel
+        groups.setdefault(group, []).append((label, title, extra))
+    lines = ["**Today's menu** — everything fresh, pick your battles:\n"]
+    for group, items in groups.items():
+        shown = [f"`#{ch}` {truncate(t, 42, '…')}" for ch, t, e in items[:6]]
+        more = f"\n*+{len(items) - 6} more*" if len(items) > 6 else ""
+        lines.append(f"**{group}**\n" + "\n".join(shown) + more)
+    body = "\n\n".join(lines)
+    payload = json.dumps({
+        "content": truncate(body, 1900, "\n*full menus live in their channels*"),
+        "allowed_mentions": {"parse": []},
+    }).encode()
+    import urllib.request
+
+    req = urllib.request.Request(
+        f"https://discord.com/api/v10/channels/{GENERAL_CHANNEL_ID}/messages",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bot {os.environ.get('DISCORD_BOT_TOKEN', '')}",
+            "User-Agent": "MFGrindBot/1.0 (+https://github.com/aryanbatras/leetcode-daily-discord)",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            print("digest posted:", resp.status == 200 or resp.status == 204)
+    except Exception as exc:
+        print("digest failed:", exc)
 
 
 def main():
@@ -424,14 +511,16 @@ def main():
         print("FEED_WEBHOOKS is not set")
         sys.exit(1)
     hooks = json.loads(hooks_env)
-
-    post_topics(hooks)
-    post_codeforces(hooks)
-    post_cp31(hooks)
-    post_cses(hooks)
-    post_tracks(hooks)
-    post_core_subjects(hooks)
-    post_contests(hooks)
+    digest = []
+    post_topics(hooks, digest)
+    post_codeforces(hooks, digest)
+    post_cp31(hooks, digest)
+    post_cses(hooks, digest)
+    post_tracks(hooks, digest)
+    post_subjects(hooks, digest)
+    post_system_design(hooks, digest)
+    post_contests(hooks, digest)
+    post_digest(digest)
     print("all feeds done")
 
 

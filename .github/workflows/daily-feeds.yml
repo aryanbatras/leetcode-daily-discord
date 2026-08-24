@@ -23,6 +23,7 @@ jobs:
       - name: Post all daily feeds
         env:
           FEED_WEBHOOKS: ${{ secrets.FEED_WEBHOOKS }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: python3 post_feeds.py
       - name: Commit feed state
         run: |
