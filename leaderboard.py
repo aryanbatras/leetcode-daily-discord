@@ -123,13 +123,13 @@ def take_snapshot(members, snapshots):
     """Fetch current totals for every member and store them under today's date."""
     day = today_ist()
     stale_cutoff = (datetime.now(IST) - timedelta(days=21)).strftime("%Y-%m-%d")
-    for member in members.values():
+    for key, member in members.items():
         matched = lc_profile(member["lc_username"])
         if not matched:
             continue
         totals = lc_totals(matched)
         member["avatar"] = matched.get("profile", {}).get("userAvatar")
-        snapshots.setdefault(member["discord_id"], {})[day] = totals
+        snapshots.setdefault(member.get("discord_id", key), {})[day] = totals
     for uid in list(snapshots):
         snapshots[uid] = {
             d: t for d, t in snapshots[uid].items() if d >= stale_cutoff or d == day
@@ -176,8 +176,8 @@ def cmd_board():
         day = today_ist()
         start = week_start_ist(day)
         rows = []
-        for member in members.values():
-            uid = member["discord_id"]
+        for key, member in members.items():
+            uid = member.get("discord_id", key)
             snaps = snapshots.get(uid, {})
             current = snaps.get(day)
             if not current:
@@ -273,6 +273,7 @@ def cmd_poll():
             matched = lc_profile(username)
             if matched:
                 members[uid] = {
+                    "discord_id": uid,
                     "display_name": display,
                     "lc_username": matched["username"],
                     "avatar": matched.get("profile", {}).get("userAvatar"),
