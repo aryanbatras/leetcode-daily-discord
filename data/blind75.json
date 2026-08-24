@@ -1,0 +1,602 @@
+[
+ {
+  "name": "Two Sum",
+  "difficulty": "Easy",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/two-sum/",
+  "youtube": "https://youtu.be/UXDSeD9mN-k",
+  "article": "https://takeuforward.org/data-structure/two-sum-check-if-a-pair-with-given-sum-exists-in-array/"
+ },
+ {
+  "name": "Best time to buy and sell stock",
+  "difficulty": "Medium",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+  "youtube": "https://youtu.be/excAOvwF_Wk",
+  "article": "https://takeuforward.org/data-structure/stock-buy-and-sell/"
+ },
+ {
+  "name": "Contains Duplicate",
+  "difficulty": "Easy",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/contains-duplicate/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/contains-duplicate-check-if-a-value-appears-atleast-twice/"
+ },
+ {
+  "name": "Product of Array Except Self",
+  "difficulty": "Easy",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/product-of-array-except-self/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Kadane's Algorithm, maximum subarray sum",
+  "difficulty": "medium",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/maximum-subarray/",
+  "youtube": "https://youtu.be/AHZpyENo7k4?si=QJpof4R1hHokm1hw",
+  "article": "https://takeuforward.org/data-structure/kadanes-algorithm-maximum-subarray-sum-in-an-array/"
+ },
+ {
+  "name": "Maximum Product Subarray in an Array",
+  "difficulty": "Hard",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/maximum-product-subarray/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/maximum-product-subarray-in-an-array/"
+ },
+ {
+  "name": "Find minimum in Rotated Sorted Array",
+  "difficulty": "Easy",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+  "youtube": "https://youtu.be/nhEMDKMB44g",
+  "article": "https://takeuforward.org/data-structure/minimum-in-rotated-sorted-array/"
+ },
+ {
+  "name": "Search in rotated sorted array-I",
+  "difficulty": "Medium",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+  "youtube": "https://www.youtube.com/watch?v=r3pMQ8-Ad5s&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=64",
+  "article": "https://takeuforward.org/data-structure/search-element-in-a-rotated-sorted-array/"
+ },
+ {
+  "name": "3 Sum",
+  "difficulty": "Medium",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/3sum/",
+  "youtube": "https://youtu.be/DhFh8Kw7ymk",
+  "article": "https://takeuforward.org/data-structure/3-sum-find-triplets-that-add-up-to-a-zero/"
+ },
+ {
+  "name": "Container with most water",
+  "difficulty": "Easy",
+  "category": "Array",
+  "leetcode": "https://leetcode.com/problems/container-with-most-water/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Sum of Two Integers",
+  "difficulty": "Easy",
+  "category": "Binary",
+  "leetcode": "https://leetcode.com/problems/sum-of-two-integers/description/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Number of 1 Bits",
+  "difficulty": "Easy",
+  "category": "Binary",
+  "leetcode": "https://leetcode.com/problems/number-of-1-bits/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Counting Bits",
+  "difficulty": "Easy",
+  "category": "Binary",
+  "leetcode": "https://leetcode.com/problems/counting-bits/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Find missing number",
+  "difficulty": "Easy",
+  "category": "Binary",
+  "leetcode": "",
+  "youtube": "",
+  "article": "https://www.geeksforgeeks.org/find-the-missing-number/"
+ },
+ {
+  "name": "Reverse Bits",
+  "difficulty": "Easy",
+  "category": "Binary",
+  "leetcode": "https://leetcode.com/problems/reverse-bits/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Climbing stairs",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/climbing-stairs/",
+  "youtube": "https://youtu.be/mLfjzJsN8us",
+  "article": "https://takeuforward.org/data-structure/dynamic-programming-climbing-stairs/"
+ },
+ {
+  "name": "Coin change II",
+  "difficulty": "Hard",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/coin-change-2/",
+  "youtube": "https://www.youtube.com/watch?v=HgyouUi11zk",
+  "article": "https://takeuforward.org/data-structure/coin-change-2-dp-22/"
+ },
+ {
+  "name": "Longest Increasing Subsequence",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "leetcode": "",
+  "youtube": "https://youtu.be/on2hvxBXJH4",
+  "article": "https://takeuforward.org/data-structure/longest-increasing-subsequence-binary-search-dp-43/"
+ },
+ {
+  "name": "Longest common subsequence",
+  "difficulty": "Hard",
+  "category": "Dynamic Programming",
+  "leetcode": "",
+  "youtube": "https://youtu.be/-zI4mrF2Pb4",
+  "article": "https://takeuforward.org/data-structure/print-longest-common-subsequence-dp-26/"
+ },
+ {
+  "name": "Word Break",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "leetcode": "",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Combination Sum",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/combination-sum/",
+  "youtube": "https://www.youtube.com/watch?v=OyZFFqQtu98&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=49",
+  "article": "https://takeuforward.org/data-structure/combination-sum-1/"
+ },
+ {
+  "name": "Maximum sum of non adjacent elements",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/house-robber/",
+  "youtube": "https://www.youtube.com/watch?v=GrMBfJNk_NY",
+  "article": "https://takeuforward.org/data-structure/maximum-sum-of-non-adjacent-elements-dp-5/"
+ },
+ {
+  "name": "House robber",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/house-robber-ii/",
+  "youtube": "https://www.youtube.com/watch?v=3WaxQMELSkw",
+  "article": "https://takeuforward.org/data-structure/dynamic-programming-house-robber-dp-6/"
+ },
+ {
+  "name": "Decode Ways",
+  "difficulty": "Easy",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/decode-ways/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Grid unique paths",
+  "difficulty": "Medium",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/unique-paths/",
+  "youtube": "https://www.youtube.com/watch?v=sdE0A2Oxofw",
+  "article": "https://takeuforward.org/data-structure/grid-unique-paths-dp-on-grids-dp8/"
+ },
+ {
+  "name": "Jump Game - I",
+  "difficulty": "Easy",
+  "category": "Dynamic Programming",
+  "leetcode": "https://leetcode.com/problems/jump-game/",
+  "youtube": "https://youtu.be/tZAa_jJ3SwQ?si=voKd7n9VTLDRRNzJ",
+  "article": "https://takeuforward.org/Greedy/jump-game-i"
+ },
+ {
+  "name": "Clone Graph",
+  "difficulty": "Medium",
+  "category": "Graph",
+  "leetcode": "https://leetcode.com/problems/clone-graph/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Course Schedule I",
+  "difficulty": "Hard",
+  "category": "Graph",
+  "leetcode": "https://leetcode.com/problems/course-schedule/",
+  "youtube": "https://youtu.be/WAOfKpxYHR8",
+  "article": "https://takeuforward.org/data-structure/course-schedule-i-and-ii-pre-requisite-tasks-topological-sort-g-24/"
+ },
+ {
+  "name": "Pacific Atlantic Water Flow",
+  "difficulty": "Easy",
+  "category": "Graph",
+  "leetcode": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Number of islands(Do in Grid and Graph Both)",
+  "difficulty": "Medium",
+  "category": "Graph",
+  "leetcode": "https://leetcode.com/problems/number-of-islands/",
+  "youtube": "https://www.youtube.com/watch?v=muncqlKJrH0&list=PLgUwDviBIf0oE3gA41TKO2H5bHpPd7fzn&index=8",
+  "article": "https://takeuforward.org/data-structure/number-of-distinct-islands/"
+ },
+ {
+  "name": "Longest Consecutive Sequence in an Array",
+  "difficulty": "Medium",
+  "category": "Graph",
+  "leetcode": "https://leetcode.com/problems/longest-consecutive-sequence/solution/",
+  "youtube": "https://youtu.be/oO5uLE7EUlM",
+  "article": "https://takeuforward.org/data-structure/longest-consecutive-sequence-in-an-array/"
+ },
+ {
+  "name": "Alien Dictionary",
+  "difficulty": "Hard",
+  "category": "Graph",
+  "leetcode": "https://leetcode.com/problems/alien-dictionary/solution/",
+  "youtube": "https://youtu.be/U3N_je7tWAs",
+  "article": "https://takeuforward.org/data-structure/alien-dictionary-topological-sort-g-26/"
+ },
+ {
+  "name": "Graph Valid Tree",
+  "difficulty": "Medium",
+  "category": "Graph",
+  "leetcode": "https://leetcode.com/problems/graph-valid-tree/solutions/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Connected Components",
+  "difficulty": "Medium",
+  "category": "Graph",
+  "leetcode": "",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/connected-components"
+ },
+ {
+  "name": "Insert Interval",
+  "difficulty": "Medium",
+  "category": "Interval",
+  "leetcode": "https://leetcode.com/problems/insert-interval/",
+  "youtube": "https://youtu.be/xxRE-46OCC8?si=a7aPuIw16zDx2lAa",
+  "article": "https://takeuforward.org/?s=Insert+Interval"
+ },
+ {
+  "name": "Merge Intervals",
+  "difficulty": "Medium",
+  "category": "Interval",
+  "leetcode": "https://leetcode.com/problems/merge-intervals/",
+  "youtube": "https://www.youtube.com/watch?v=2JzRBPFYbKE&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2&index=6",
+  "article": "https://takeuforward.org/data-structure/merge-overlapping-sub-intervals/"
+ },
+ {
+  "name": "Non-overlapping Intervals",
+  "difficulty": "Medium",
+  "category": "Interval",
+  "leetcode": "https://leetcode.com/problems/non-overlapping-intervals/",
+  "youtube": "https://youtu.be/HDHQ8lAWakY?si=JVtLqboGdpUTOVjf",
+  "article": "https://takeuforward.org/data-structure/non-overlapping-intervals"
+ },
+ {
+  "name": "Find the repeating and missing number",
+  "difficulty": "Hard",
+  "category": "Interval",
+  "leetcode": "",
+  "youtube": "https://youtu.be/2D0D8HE6uak",
+  "article": "https://takeuforward.org/data-structure/find-the-repeating-and-missing-numbers/"
+ },
+ {
+  "name": "Meeting Rooms",
+  "difficulty": "Easy",
+  "category": "Interval",
+  "leetcode": "https://leetcode.com/problems/meeting-rooms/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Meeting Rooms II",
+  "difficulty": "Medium",
+  "category": "Interval",
+  "leetcode": "https://leetcode.com/problems/meeting-rooms-ii/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Reverse a LL",
+  "difficulty": "Medium",
+  "category": "Linked List",
+  "leetcode": "https://leetcode.com/problems/reverse-linked-list/",
+  "youtube": "https://youtu.be/D2vI2DNJGd8?si=RCaLSx01qR21IBdh",
+  "article": "https://takeuforward.org/data-structure/reverse-a-linked-list/"
+ },
+ {
+  "name": "Detect a loop in LL",
+  "difficulty": "Medium",
+  "category": "Linked List",
+  "leetcode": "https://leetcode.com/problems/linked-list-cycle/",
+  "youtube": "https://youtu.be/wiOo4DC5GGA?si=zagt6O6tFXc4_3cx",
+  "article": "https://takeuforward.org/data-structure/detect-a-cycle-in-a-linked-list/"
+ },
+ {
+  "name": "Merge two Sorted Lists ",
+  "difficulty": "Hard",
+  "category": "Linked List",
+  "leetcode": "https://leetcode.com/problems/merge-two-sorted-lists/",
+  "youtube": "https://www.youtube.com/watch?v=Xb4slcp1U38&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=29",
+  "article": "https://takeuforward.org/data-structure/merge-two-sorted-linked-lists/"
+ },
+ {
+  "name": "Merge K Sorted Arrays",
+  "difficulty": "Medium",
+  "category": "Linked List",
+  "leetcode": "",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Remove Nth node from the back of the LL",
+  "difficulty": "Medium",
+  "category": "Linked List",
+  "leetcode": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+  "youtube": "https://youtu.be/3kMKYQ2wNIU?si=DtFDnPU7z9HMz_GM",
+  "article": "https://takeuforward.org/data-structure/remove-n-th-node-from-the-end-of-a-linked-list/"
+ },
+ {
+  "name": "Reorder List",
+  "difficulty": "Easy",
+  "category": "Linked List",
+  "leetcode": "https://leetcode.com/problems/reorder-list/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/reorder-list/"
+ },
+ {
+  "name": "Set Matrix Zeroes",
+  "difficulty": "Medium",
+  "category": "Matrix",
+  "leetcode": "https://leetcode.com/problems/set-matrix-zeroes/",
+  "youtube": "https://youtu.be/N0MgLvceX7M",
+  "article": "https://takeuforward.org/data-structure/set-matrix-zero/"
+ },
+ {
+  "name": "Print the matrix in spiral manner",
+  "difficulty": "Medium",
+  "category": "Matrix",
+  "leetcode": "https://leetcode.com/problems/spiral-matrix/",
+  "youtube": "https://youtu.be/3Zv-s9UUrFM",
+  "article": "https://takeuforward.org/data-structure/spiral-traversal-of-matrix/"
+ },
+ {
+  "name": "Rotate matrix by 90 degrees",
+  "difficulty": "Medium",
+  "category": "Matrix",
+  "leetcode": "https://leetcode.com/problems/rotate-image/",
+  "youtube": "https://youtu.be/Z0R2u6gd3GU",
+  "article": "https://takeuforward.org/data-structure/rotate-image-by-90-degree/"
+ },
+ {
+  "name": "Word Search",
+  "difficulty": "Hard",
+  "category": "Matrix",
+  "leetcode": "https://leetcode.com/problems/word-search/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/word-search-leetcode/"
+ },
+ {
+  "name": "Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+  "youtube": "https://youtu.be/-zSxTJkcdAo?si=I2zfR-vlDMg0zU9z",
+  "article": "https://takeuforward.org/data-structure/length-of-longest-substring-without-any-repeating-character/"
+ },
+ {
+  "name": "Longest Repeating Character Replacement",
+  "difficulty": "Hard",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+  "youtube": "https://youtu.be/_eNhaDCr6P0?si=pBWcEjozF5poom0p",
+  "article": "https://takeuforward.org/data-structure/longest-repeating-character-replacement"
+ },
+ {
+  "name": "Minimum Window Substring ",
+  "difficulty": "Hard",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/minimum-window-substring/",
+  "youtube": "https://youtu.be/WJaij9ffOIY?si=-xnsWIH84zWU0ICd",
+  "article": ""
+ },
+ {
+  "name": "Valid Anagram",
+  "difficulty": "Easy",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/valid-anagram/#:~:text=Given%20two%20strings%20s%20and,the%20original%20letters%20exactly%20once.&text=Constraints%3A,.length%20%3C%3D%205%20*%2010",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/check-if-two-strings-are-anagrams-of-each-other/"
+ },
+ {
+  "name": " Group Words by Anagrams",
+  "difficulty": "Medium",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/group-anagrams/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Balanced Paranthesis",
+  "difficulty": "Easy",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/valid-parentheses/",
+  "youtube": "https://youtu.be/xwjS0iZhw4I?si=UoyKpFn4Q3nf5h2R",
+  "article": "https://takeuforward.org/data-structure/check-for-balanced-parentheses/"
+ },
+ {
+  "name": "Palindrome Number",
+  "difficulty": "Easy",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/palindrome-number/",
+  "youtube": "https://youtu.be/1xNbjMdbjug?t=1230",
+  "article": "https://takeuforward.org/data-structure/check-if-a-number-is-palindrome-or-not/"
+ },
+ {
+  "name": "Longest Palindromic Substring",
+  "difficulty": "Medium",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/longest-palindromic-substring/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Palindromic Substrings",
+  "difficulty": "Medium",
+  "category": "String",
+  "leetcode": "https://leetcode.com/problems/palindromic-substrings/",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Encode and Decode Strings",
+  "difficulty": "Medium",
+  "category": "String",
+  "leetcode": "",
+  "youtube": "",
+  "article": ""
+ },
+ {
+  "name": "Maximum Depth in BT",
+  "difficulty": "Medium",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+  "youtube": "https://youtu.be/eD3tmO66aBA",
+  "article": "https://takeuforward.org/data-structure/maximum-depth-of-a-binary-tree/"
+ },
+ {
+  "name": "Check if two trees are identical or not",
+  "difficulty": "Medium",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/same-tree/",
+  "youtube": "https://youtu.be/BhuvF_-PWS0",
+  "article": "https://takeuforward.org/data-structure/check-if-two-trees-are-identical/"
+ },
+ {
+  "name": "Invert/Flip Binary Tree (Create)",
+  "difficulty": "Medium",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/invert-binary-tree/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/check-for-symmetrical-binary-tree/"
+ },
+ {
+  "name": "Maximum path sum ",
+  "difficulty": "Medium",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+  "youtube": "https://youtu.be/WszrfSwMz58",
+  "article": "https://takeuforward.org/data-structure/maximum-sum-path-in-binary-tree/"
+ },
+ {
+  "name": "Level Order Traversal",
+  "difficulty": "Easy",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+  "youtube": "https://youtu.be/EoAsWbO7sqg",
+  "article": "https://takeuforward.org/data-structure/level-order-traversal-of-a-binary-tree/"
+ },
+ {
+  "name": "Serialize and De-serialize BT",
+  "difficulty": "Hard",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+  "youtube": "https://youtu.be/-YbXySKJsX8",
+  "article": "https://takeuforward.org/data-structure/serialize-and-deserialize-a-binary-tree/"
+ },
+ {
+  "name": "Subtree of Another Tree",
+  "difficulty": "Easy",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/subtree-of-another-tree/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/subtree-of-another-tree/"
+ },
+ {
+  "name": "Construct the Binary Tree from Postorder and Inorder Traversal",
+  "difficulty": "Hard",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/",
+  "youtube": "https://youtu.be/LgLRTaEMRVc",
+  "article": "https://takeuforward.org/data-structure/construct-binary-tree-from-inorder-and-postorder-traversal/"
+ },
+ {
+  "name": "Check if a tree is a BST or not",
+  "difficulty": "Medium",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/validate-binary-search-tree/",
+  "youtube": "https://youtu.be/f-sj7I5oXEI",
+  "article": ""
+ },
+ {
+  "name": "Find K-th smallest element in BST",
+  "difficulty": "Medium",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
+  "youtube": "https://youtu.be/9TJYWh0adfk",
+  "article": "https://takeuforward.org/data-structure/kth-largest-smallest-element-in-binary-search-tree/"
+ },
+ {
+  "name": "LCA in BST",
+  "difficulty": "Medium",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+  "youtube": "https://youtu.be/cX_kPV_foZc",
+  "article": ""
+ },
+ {
+  "name": "Trie Implementation and Operations",
+  "difficulty": "Hard",
+  "category": "Tree",
+  "leetcode": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+  "youtube": "https://www.youtube.com/watch?v=dBGUmUQhjaM&list=PLgUwDviBIf0pcIDCZnxhv0LkHf5KzG9zp",
+  "article": "https://takeuforward.org/data-structure/implement-trie-1/"
+ },
+ {
+  "name": "Trie Implementation and Advanced Operations",
+  "difficulty": "Hard",
+  "category": "Tree",
+  "leetcode": "",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/implement-trie-ii/"
+ },
+ {
+  "name": "Top K Frequent Elements",
+  "difficulty": "Medium",
+  "category": "Heap",
+  "leetcode": "https://leetcode.com/problems/top-k-frequent-elements/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/top-k-frequent-elements"
+ },
+ {
+  "name": "Find Median from Data Stream",
+  "difficulty": "Hard",
+  "category": "Heap",
+  "leetcode": "https://leetcode.com/problems/find-median-from-data-stream/",
+  "youtube": "",
+  "article": "https://takeuforward.org/data-structure/find-median-from-data-stream"
+ }
+]

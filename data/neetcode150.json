@@ -1,0 +1,1202 @@
+[
+ {
+  "name": "Contains Duplicate",
+  "slug": "contains-duplicate",
+  "difficulty": "Easy",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=3OamzN90kPg",
+  "order": 2
+ },
+ {
+  "name": "Valid Anagram",
+  "slug": "valid-anagram",
+  "difficulty": "Easy",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=9UtInBqnCgA",
+  "order": 3
+ },
+ {
+  "name": "Two Sum",
+  "slug": "two-sum",
+  "difficulty": "Easy",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=KLlXCFG5TnA",
+  "order": 36
+ },
+ {
+  "name": "Group Anagrams",
+  "slug": "group-anagrams",
+  "difficulty": "Medium",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=vzdNOK2oB2E",
+  "order": 40
+ },
+ {
+  "name": "Top K Frequent Elements",
+  "slug": "top-k-frequent-elements",
+  "difficulty": "Medium",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=YPTqKIgVk-k",
+  "order": 98
+ },
+ {
+  "name": "Encode and Decode Strings",
+  "slug": "encode-and-decode-strings",
+  "difficulty": "Medium",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=B1k_sxOSgv8",
+  "order": 99
+ },
+ {
+  "name": "Product of Array Except Self",
+  "slug": "product-of-array-except-self",
+  "difficulty": "Medium",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=bNvIQI2wAjk",
+  "order": 102
+ },
+ {
+  "name": "Valid Sudoku",
+  "slug": "valid-sudoku",
+  "difficulty": "Medium",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=TjFXEUCMqI8",
+  "order": 104
+ },
+ {
+  "name": "Longest Consecutive Sequence",
+  "slug": "longest-consecutive-sequence",
+  "difficulty": "Medium",
+  "pattern": "Arrays & Hashing",
+  "youtube": "https://www.youtube.com/watch?v=P6RZZMu_maU",
+  "order": 105
+ },
+ {
+  "name": "Valid Palindrome",
+  "slug": "valid-palindrome",
+  "difficulty": "Easy",
+  "pattern": "Two Pointers",
+  "youtube": "https://www.youtube.com/watch?v=jJXJ16kPFWg",
+  "order": 177
+ },
+ {
+  "name": "Two Sum II Input Array Is Sorted",
+  "slug": "two-sum-ii-input-array-is-sorted",
+  "difficulty": "Medium",
+  "pattern": "Two Pointers",
+  "youtube": "https://www.youtube.com/watch?v=cQ1Oz4ckceM",
+  "order": 199
+ },
+ {
+  "name": "3Sum",
+  "slug": "3sum",
+  "difficulty": "Medium",
+  "pattern": "Two Pointers",
+  "youtube": "https://www.youtube.com/watch?v=jzZsG8n2R9A",
+  "order": 200
+ },
+ {
+  "name": "Container With Most Water",
+  "slug": "container-with-most-water",
+  "difficulty": "Medium",
+  "pattern": "Two Pointers",
+  "youtube": "https://www.youtube.com/watch?v=UuiTKBwPgAo",
+  "order": 203
+ },
+ {
+  "name": "Trapping Rain Water",
+  "slug": "trapping-rain-water",
+  "difficulty": "Hard",
+  "pattern": "Two Pointers",
+  "youtube": "https://www.youtube.com/watch?v=ZI2z5pq0TqA",
+  "order": 218
+ },
+ {
+  "name": "Best Time to Buy And Sell Stock",
+  "slug": "best-time-to-buy-and-sell-stock",
+  "difficulty": "Easy",
+  "pattern": "Sliding Window",
+  "youtube": "https://www.youtube.com/watch?v=1pkOgXD63yU",
+  "order": 220
+ },
+ {
+  "name": "Longest Substring Without Repeating Characters",
+  "slug": "longest-substring-without-repeating-characters",
+  "difficulty": "Medium",
+  "pattern": "Sliding Window",
+  "youtube": "https://www.youtube.com/watch?v=wiGpQwVHdE0",
+  "order": 230
+ },
+ {
+  "name": "Longest Repeating Character Replacement",
+  "slug": "longest-repeating-character-replacement",
+  "difficulty": "Medium",
+  "pattern": "Sliding Window",
+  "youtube": "https://www.youtube.com/watch?v=gqXU1UyA8pk",
+  "order": 231
+ },
+ {
+  "name": "Permutation In String",
+  "slug": "permutation-in-string",
+  "difficulty": "Medium",
+  "pattern": "Sliding Window",
+  "youtube": "https://www.youtube.com/watch?v=UbyhOgBN834",
+  "order": 232
+ },
+ {
+  "name": "Minimum Window Substring",
+  "slug": "minimum-window-substring",
+  "difficulty": "Hard",
+  "pattern": "Sliding Window",
+  "youtube": "https://www.youtube.com/watch?v=jSto0O4AJbM",
+  "order": 254
+ },
+ {
+  "name": "Sliding Window Maximum",
+  "slug": "sliding-window-maximum",
+  "difficulty": "Hard",
+  "pattern": "Sliding Window",
+  "youtube": "https://www.youtube.com/watch?v=DfljaUwZsOk",
+  "order": 255
+ },
+ {
+  "name": "Valid Parentheses",
+  "slug": "valid-parentheses",
+  "difficulty": "Easy",
+  "pattern": "Stack",
+  "youtube": "https://www.youtube.com/watch?v=WTzjTskDFMg",
+  "order": 262
+ },
+ {
+  "name": "Min Stack",
+  "slug": "min-stack",
+  "difficulty": "Medium",
+  "pattern": "Stack",
+  "youtube": "https://www.youtube.com/watch?v=qkLl7nAwDPo",
+  "order": 267
+ },
+ {
+  "name": "Evaluate Reverse Polish Notation",
+  "slug": "evaluate-reverse-polish-notation",
+  "difficulty": "Medium",
+  "pattern": "Stack",
+  "youtube": "https://www.youtube.com/watch?v=iu0082c4HDE",
+  "order": 268
+ },
+ {
+  "name": "Daily Temperatures",
+  "slug": "daily-temperatures",
+  "difficulty": "Medium",
+  "pattern": "Stack",
+  "youtube": "https://www.youtube.com/watch?v=cTBiBSnjO3c",
+  "order": 272
+ },
+ {
+  "name": "Car Fleet",
+  "slug": "car-fleet",
+  "difficulty": "Medium",
+  "pattern": "Stack",
+  "youtube": "https://www.youtube.com/watch?v=Pr6T-3yB9RM",
+  "order": 274
+ },
+ {
+  "name": "Largest Rectangle In Histogram",
+  "slug": "largest-rectangle-in-histogram",
+  "difficulty": "Hard",
+  "pattern": "Stack",
+  "youtube": "https://www.youtube.com/watch?v=zx5Sw9130L0",
+  "order": 295
+ },
+ {
+  "name": "Binary Search",
+  "slug": "binary-search",
+  "difficulty": "Easy",
+  "pattern": "Binary Search",
+  "youtube": "https://www.youtube.com/watch?v=s4DPM8ct1pI",
+  "order": 299
+ },
+ {
+  "name": "Search a 2D Matrix",
+  "slug": "search-a-2d-matrix",
+  "difficulty": "Medium",
+  "pattern": "Binary Search",
+  "youtube": "https://www.youtube.com/watch?v=Ber2pi2C0j0",
+  "order": 314
+ },
+ {
+  "name": "Koko Eating Bananas",
+  "slug": "koko-eating-bananas",
+  "difficulty": "Medium",
+  "pattern": "Binary Search",
+  "youtube": "https://www.youtube.com/watch?v=U2SozAs9RzA",
+  "order": 315
+ },
+ {
+  "name": "Find Minimum In Rotated Sorted Array",
+  "slug": "find-minimum-in-rotated-sorted-array",
+  "difficulty": "Medium",
+  "pattern": "Binary Search",
+  "youtube": "https://www.youtube.com/watch?v=nIVW4P8b1VA",
+  "order": 323
+ },
+ {
+  "name": "Search In Rotated Sorted Array",
+  "slug": "search-in-rotated-sorted-array",
+  "difficulty": "Medium",
+  "pattern": "Binary Search",
+  "youtube": "https://www.youtube.com/watch?v=U8XENwh8Oy8",
+  "order": 324
+ },
+ {
+  "name": "Time Based Key Value Store",
+  "slug": "time-based-key-value-store",
+  "difficulty": "Medium",
+  "pattern": "Binary Search",
+  "youtube": "https://www.youtube.com/watch?v=fu2cD_6E8Hw",
+  "order": 326
+ },
+ {
+  "name": "Median of Two Sorted Arrays",
+  "slug": "median-of-two-sorted-arrays",
+  "difficulty": "Hard",
+  "pattern": "Binary Search",
+  "youtube": "https://www.youtube.com/watch?v=q6IEA26hvXc",
+  "order": 338
+ },
+ {
+  "name": "Reverse Linked List",
+  "slug": "reverse-linked-list",
+  "difficulty": "Easy",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=G0_I-ZF0S38",
+  "order": 342
+ },
+ {
+  "name": "Merge Two Sorted Lists",
+  "slug": "merge-two-sorted-lists",
+  "difficulty": "Easy",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=XIdigk956u0",
+  "order": 343
+ },
+ {
+  "name": "Linked List Cycle",
+  "slug": "linked-list-cycle",
+  "difficulty": "Easy",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=gBTe7lFR3vc",
+  "order": 344
+ },
+ {
+  "name": "Reorder List",
+  "slug": "reorder-list",
+  "difficulty": "Medium",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=S5bfdUTrKLM",
+  "order": 358
+ },
+ {
+  "name": "Remove Nth Node From End of List",
+  "slug": "remove-nth-node-from-end-of-list",
+  "difficulty": "Medium",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=XVuQxVej6y8",
+  "order": 360
+ },
+ {
+  "name": "Copy List With Random Pointer",
+  "slug": "copy-list-with-random-pointer",
+  "difficulty": "Medium",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=5Y2EiZST97Y",
+  "order": 363
+ },
+ {
+  "name": "Add Two Numbers",
+  "slug": "add-two-numbers",
+  "difficulty": "Medium",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=wgFPrzTjm7s",
+  "order": 366
+ },
+ {
+  "name": "Find The Duplicate Number",
+  "slug": "find-the-duplicate-number",
+  "difficulty": "Medium",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=wjYnzkAhcNk",
+  "order": 368
+ },
+ {
+  "name": "LRU Cache",
+  "slug": "lru-cache",
+  "difficulty": "Medium",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=7ABFKPK2hD4",
+  "order": 377
+ },
+ {
+  "name": "Merge K Sorted Lists",
+  "slug": "merge-k-sorted-lists",
+  "difficulty": "Hard",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=q5a5OiGbT6Q",
+  "order": 380
+ },
+ {
+  "name": "Reverse Nodes In K Group",
+  "slug": "reverse-nodes-in-k-group",
+  "difficulty": "Hard",
+  "pattern": "Linked List",
+  "youtube": "https://www.youtube.com/watch?v=1UOPsfP85V4",
+  "order": 381
+ },
+ {
+  "name": "Invert Binary Tree",
+  "slug": "invert-binary-tree",
+  "difficulty": "Easy",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=OnSn2XEQ4MY",
+  "order": 386
+ },
+ {
+  "name": "Maximum Depth of Binary Tree",
+  "slug": "maximum-depth-of-binary-tree",
+  "difficulty": "Easy",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=hTM3phVI6YQ",
+  "order": 387
+ },
+ {
+  "name": "Diameter of Binary Tree",
+  "slug": "diameter-of-binary-tree",
+  "difficulty": "Easy",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=K81C31ytOZE",
+  "order": 388
+ },
+ {
+  "name": "Balanced Binary Tree",
+  "slug": "balanced-binary-tree",
+  "difficulty": "Easy",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=QfJsau0ItOY",
+  "order": 389
+ },
+ {
+  "name": "Same Tree",
+  "slug": "same-tree",
+  "difficulty": "Easy",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=vRbbcKXCxOw",
+  "order": 390
+ },
+ {
+  "name": "Subtree of Another Tree",
+  "slug": "subtree-of-another-tree",
+  "difficulty": "Easy",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=E36O5SWp-LE",
+  "order": 391
+ },
+ {
+  "name": "Lowest Common Ancestor of a Binary Search Tree",
+  "slug": "lowest-common-ancestor-of-a-binary-search-tree",
+  "difficulty": "Medium",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=gs2LMfuOR9k",
+  "order": 421
+ },
+ {
+  "name": "Binary Tree Level Order Traversal",
+  "slug": "binary-tree-level-order-traversal",
+  "difficulty": "Medium",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=6ZnyEApgFYg",
+  "order": 424
+ },
+ {
+  "name": "Binary Tree Right Side View",
+  "slug": "binary-tree-right-side-view",
+  "difficulty": "Medium",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=d4zLyf32e3I",
+  "order": 425
+ },
+ {
+  "name": "Count Good Nodes In Binary Tree",
+  "slug": "count-good-nodes-in-binary-tree",
+  "difficulty": "Medium",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=7cp5imvDzl4",
+  "order": 441
+ },
+ {
+  "name": "Validate Binary Search Tree",
+  "slug": "validate-binary-search-tree",
+  "difficulty": "Medium",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=s6ATEkipzow",
+  "order": 442
+ },
+ {
+  "name": "Kth Smallest Element In a Bst",
+  "slug": "kth-smallest-element-in-a-bst",
+  "difficulty": "Medium",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=5LUXSvjmGCw",
+  "order": 443
+ },
+ {
+  "name": "Construct Binary Tree From Preorder And Inorder Traversal",
+  "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+  "difficulty": "Medium",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=ihj4IQGZ2zc",
+  "order": 445
+ },
+ {
+  "name": "Binary Tree Maximum Path Sum",
+  "slug": "binary-tree-maximum-path-sum",
+  "difficulty": "Hard",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=Hr5cWUld4vU",
+  "order": 473
+ },
+ {
+  "name": "Serialize And Deserialize Binary Tree",
+  "slug": "serialize-and-deserialize-binary-tree",
+  "difficulty": "Hard",
+  "pattern": "Trees",
+  "youtube": "https://www.youtube.com/watch?v=u4JAi2JJhI8",
+  "order": 474
+ },
+ {
+  "name": "Kth Largest Element In a Stream",
+  "slug": "kth-largest-element-in-a-stream",
+  "difficulty": "Easy",
+  "pattern": "Heap / Priority Queue",
+  "youtube": "https://www.youtube.com/watch?v=hOjcdrqMoQ8",
+  "order": 475
+ },
+ {
+  "name": "Last Stone Weight",
+  "slug": "last-stone-weight",
+  "difficulty": "Easy",
+  "pattern": "Heap / Priority Queue",
+  "youtube": "https://www.youtube.com/watch?v=B-QCq79-Vfw",
+  "order": 476
+ },
+ {
+  "name": "K Closest Points to Origin",
+  "slug": "k-closest-points-to-origin",
+  "difficulty": "Medium",
+  "pattern": "Heap / Priority Queue",
+  "youtube": "https://www.youtube.com/watch?v=rI2EBUEMfTk",
+  "order": 483
+ },
+ {
+  "name": "Kth Largest Element In An Array",
+  "slug": "kth-largest-element-in-an-array",
+  "difficulty": "Medium",
+  "pattern": "Heap / Priority Queue",
+  "youtube": "https://www.youtube.com/watch?v=XEmy13g1Qxc",
+  "order": 484
+ },
+ {
+  "name": "Task Scheduler",
+  "slug": "task-scheduler",
+  "difficulty": "Medium",
+  "pattern": "Heap / Priority Queue",
+  "youtube": "https://www.youtube.com/watch?v=s8p8ukTyA2I",
+  "order": 485
+ },
+ {
+  "name": "Design Twitter",
+  "slug": "design-twitter",
+  "difficulty": "Medium",
+  "pattern": "Heap / Priority Queue",
+  "youtube": "https://www.youtube.com/watch?v=pNichitDD2E",
+  "order": 486
+ },
+ {
+  "name": "Find Median From Data Stream",
+  "slug": "find-median-from-data-stream",
+  "difficulty": "Hard",
+  "pattern": "Heap / Priority Queue",
+  "youtube": "https://www.youtube.com/watch?v=itmhHWaHupI",
+  "order": 501
+ },
+ {
+  "name": "Subsets",
+  "slug": "subsets",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=REOH22Xwdkk",
+  "order": 509
+ },
+ {
+  "name": "Combination Sum",
+  "slug": "combination-sum",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=GBKI9VSKdGg",
+  "order": 510
+ },
+ {
+  "name": "Combination Sum II",
+  "slug": "combination-sum-ii",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=FOyRpNUSFeA",
+  "order": 511
+ },
+ {
+  "name": "Permutations",
+  "slug": "permutations",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=FZe0UqISmUw",
+  "order": 513
+ },
+ {
+  "name": "Subsets II",
+  "slug": "subsets-ii",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=Vn2v6ajA7U0",
+  "order": 514
+ },
+ {
+  "name": "Generate Parentheses",
+  "slug": "generate-parentheses",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=s9fokUqJ76A",
+  "order": 516
+ },
+ {
+  "name": "Word Search",
+  "slug": "word-search",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=pfiQ_PS1g8E",
+  "order": 518
+ },
+ {
+  "name": "Palindrome Partitioning",
+  "slug": "palindrome-partitioning",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=3jvWodd7ht0",
+  "order": 519
+ },
+ {
+  "name": "Letter Combinations of a Phone Number",
+  "slug": "letter-combinations-of-a-phone-number",
+  "difficulty": "Medium",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=0snEunUacZY",
+  "order": 521
+ },
+ {
+  "name": "N Queens",
+  "slug": "n-queens",
+  "difficulty": "Hard",
+  "pattern": "Backtracking",
+  "youtube": "https://www.youtube.com/watch?v=Ph95IHmRp5M",
+  "order": 539
+ },
+ {
+  "name": "Implement Trie Prefix Tree",
+  "slug": "implement-trie-prefix-tree",
+  "difficulty": "Medium",
+  "pattern": "Tries",
+  "youtube": "https://www.youtube.com/watch?v=oobqoCJlHA0",
+  "order": 545
+ },
+ {
+  "name": "Design Add And Search Words Data Structure",
+  "slug": "design-add-and-search-words-data-structure",
+  "difficulty": "Medium",
+  "pattern": "Tries",
+  "youtube": "https://www.youtube.com/watch?v=BTf05gs_8iU",
+  "order": 546
+ },
+ {
+  "name": "Word Search II",
+  "slug": "word-search-ii",
+  "difficulty": "Hard",
+  "pattern": "Tries",
+  "youtube": "https://www.youtube.com/watch?v=asbcE9mZz_U",
+  "order": 551
+ },
+ {
+  "name": "Number of Islands",
+  "slug": "number-of-islands",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=pV2kpPD66nE",
+  "order": 562
+ },
+ {
+  "name": "Max Area of Island",
+  "slug": "max-area-of-island",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=iJGr1OtmH0c",
+  "order": 563
+ },
+ {
+  "name": "Clone Graph",
+  "slug": "clone-graph",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=mQeF6bN8hMk",
+  "order": 565
+ },
+ {
+  "name": "Walls And Gates",
+  "slug": "walls-and-gates",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=e69C6xhiSQE",
+  "order": 566
+ },
+ {
+  "name": "Rotting Oranges",
+  "slug": "rotting-oranges",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=y704fEOx0s0",
+  "order": 567
+ },
+ {
+  "name": "Pacific Atlantic Water Flow",
+  "slug": "pacific-atlantic-water-flow",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=s-VkcjHqkGI",
+  "order": 569
+ },
+ {
+  "name": "Surrounded Regions",
+  "slug": "surrounded-regions",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=9z2BunfoZ5Y",
+  "order": 570
+ },
+ {
+  "name": "Course Schedule",
+  "slug": "course-schedule",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=EgI5nU9etnU",
+  "order": 575
+ },
+ {
+  "name": "Course Schedule II",
+  "slug": "course-schedule-ii",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=Akt3glAwyfY",
+  "order": 576
+ },
+ {
+  "name": "Graph Valid Tree",
+  "slug": "graph-valid-tree",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=bXsUuownnoQ",
+  "order": 577
+ },
+ {
+  "name": "Number of Connected Components In An Undirected Graph",
+  "slug": "number-of-connected-components-in-an-undirected-graph",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=8f1XPm4WOUc",
+  "order": 582
+ },
+ {
+  "name": "Redundant Connection",
+  "slug": "redundant-connection",
+  "difficulty": "Medium",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=1lNK80tOTfc",
+  "order": 583
+ },
+ {
+  "name": "Word Ladder",
+  "slug": "word-ladder",
+  "difficulty": "Hard",
+  "pattern": "Graphs",
+  "youtube": "https://www.youtube.com/watch?v=h9iTnkgv05E",
+  "order": 623
+ },
+ {
+  "name": "Network Delay Time",
+  "slug": "network-delay-time",
+  "difficulty": "Medium",
+  "pattern": "Advanced Graphs",
+  "youtube": "https://www.youtube.com/watch?v=EaphyqKU4PQ",
+  "order": 628
+ },
+ {
+  "name": "Reconstruct Itinerary",
+  "slug": "reconstruct-itinerary",
+  "difficulty": "Hard",
+  "pattern": "Advanced Graphs",
+  "youtube": "https://www.youtube.com/watch?v=ZyB_gQ8vqGA",
+  "order": 629
+ },
+ {
+  "name": "Min Cost to Connect All Points",
+  "slug": "min-cost-to-connect-all-points",
+  "difficulty": "Medium",
+  "pattern": "Advanced Graphs",
+  "youtube": "https://www.youtube.com/watch?v=f7JOBJIC-NA",
+  "order": 630
+ },
+ {
+  "name": "Swim In Rising Water",
+  "slug": "swim-in-rising-water",
+  "difficulty": "Hard",
+  "pattern": "Advanced Graphs",
+  "youtube": "https://www.youtube.com/watch?v=amvrKlMLuGY",
+  "order": 633
+ },
+ {
+  "name": "Alien Dictionary",
+  "slug": "alien-dictionary",
+  "difficulty": "Hard",
+  "pattern": "Advanced Graphs",
+  "youtube": "https://www.youtube.com/watch?v=6kTZYvNNyps",
+  "order": 634
+ },
+ {
+  "name": "Cheapest Flights Within K Stops",
+  "slug": "cheapest-flights-within-k-stops",
+  "difficulty": "Medium",
+  "pattern": "Advanced Graphs",
+  "youtube": "https://www.youtube.com/watch?v=5eIK3zUdYmE",
+  "order": 639
+ },
+ {
+  "name": "Climbing Stairs",
+  "slug": "climbing-stairs",
+  "difficulty": "Easy",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=Y0lT9Fck7qI",
+  "order": 657
+ },
+ {
+  "name": "Min Cost Climbing Stairs",
+  "slug": "min-cost-climbing-stairs",
+  "difficulty": "Easy",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=ktmzAZWkEZ0",
+  "order": 658
+ },
+ {
+  "name": "House Robber",
+  "slug": "house-robber",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=73r3KWiEvyk",
+  "order": 660
+ },
+ {
+  "name": "House Robber II",
+  "slug": "house-robber-ii",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=rWAJCfYYOvM",
+  "order": 661
+ },
+ {
+  "name": "Longest Palindromic Substring",
+  "slug": "longest-palindromic-substring",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=XYQecbcd6_c",
+  "order": 666
+ },
+ {
+  "name": "Palindromic Substrings",
+  "slug": "palindromic-substrings",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=4RACzI5-du8",
+  "order": 667
+ },
+ {
+  "name": "Decode Ways",
+  "slug": "decode-ways",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=6aEyTjOwlJU",
+  "order": 668
+ },
+ {
+  "name": "Coin Change",
+  "slug": "coin-change",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=H9bfqozjoqs",
+  "order": 669
+ },
+ {
+  "name": "Maximum Product Subarray",
+  "slug": "maximum-product-subarray",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=lXVy6YWFcRM",
+  "order": 670
+ },
+ {
+  "name": "Word Break",
+  "slug": "word-break",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=Sx9NNgInc3A",
+  "order": 671
+ },
+ {
+  "name": "Longest Increasing Subsequence",
+  "slug": "longest-increasing-subsequence",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=cjWnW0hdF1Y",
+  "order": 672
+ },
+ {
+  "name": "Partition Equal Subset Sum",
+  "slug": "partition-equal-subset-sum",
+  "difficulty": "Medium",
+  "pattern": "1-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=IsvocB5BJhw",
+  "order": 673
+ },
+ {
+  "name": "Unique Paths",
+  "slug": "unique-paths",
+  "difficulty": "Medium",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=IlEsdxuD4lY",
+  "order": 712
+ },
+ {
+  "name": "Longest Common Subsequence",
+  "slug": "longest-common-subsequence",
+  "difficulty": "Medium",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=Ua0GhsJSlWM",
+  "order": 716
+ },
+ {
+  "name": "Best Time to Buy And Sell Stock With Cooldown",
+  "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+  "difficulty": "Medium",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=I7j0F7AHpb8",
+  "order": 720
+ },
+ {
+  "name": "Coin Change II",
+  "slug": "coin-change-ii",
+  "difficulty": "Medium",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=Mjy4hd2xgrs",
+  "order": 721
+ },
+ {
+  "name": "Target Sum",
+  "slug": "target-sum",
+  "difficulty": "Medium",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=dwMOrl85Xes",
+  "order": 722
+ },
+ {
+  "name": "Interleaving String",
+  "slug": "interleaving-string",
+  "difficulty": "Medium",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=3Rw3p9LrgvE",
+  "order": 723
+ },
+ {
+  "name": "Longest Increasing Path In a Matrix",
+  "slug": "longest-increasing-path-in-a-matrix",
+  "difficulty": "Hard",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=wCc_nd-GiEc",
+  "order": 726
+ },
+ {
+  "name": "Distinct Subsequences",
+  "slug": "distinct-subsequences",
+  "difficulty": "Hard",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=-RDzMJ33nx8",
+  "order": 732
+ },
+ {
+  "name": "Edit Distance",
+  "slug": "edit-distance",
+  "difficulty": "Medium",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=XYi2-LPrwm4",
+  "order": 733
+ },
+ {
+  "name": "Burst Balloons",
+  "slug": "burst-balloons",
+  "difficulty": "Hard",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=VFskby7lUbw",
+  "order": 741
+ },
+ {
+  "name": "Regular Expression Matching",
+  "slug": "regular-expression-matching",
+  "difficulty": "Hard",
+  "pattern": "2-D Dynamic Programming",
+  "youtube": "https://www.youtube.com/watch?v=HAA8mgxlov8",
+  "order": 743
+ },
+ {
+  "name": "Maximum Subarray",
+  "slug": "maximum-subarray",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=5WZl3MMT0Eg",
+  "order": 775
+ },
+ {
+  "name": "Jump Game",
+  "slug": "jump-game",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=Yan0cv2cLy8",
+  "order": 780
+ },
+ {
+  "name": "Jump Game II",
+  "slug": "jump-game-ii",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=dJ7sWiOoK7g",
+  "order": 781
+ },
+ {
+  "name": "Gas Station",
+  "slug": "gas-station",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=lJwbPZGo05A",
+  "order": 783
+ },
+ {
+  "name": "Hand of Straights",
+  "slug": "hand-of-straights",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=amnrMCVd2YI",
+  "order": 784
+ },
+ {
+  "name": "Merge Triplets to Form Target Triplet",
+  "slug": "merge-triplets-to-form-target-triplet",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=kShkQLQZ9K4",
+  "order": 793
+ },
+ {
+  "name": "Partition Labels",
+  "slug": "partition-labels",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=B7m8UmZE-vw",
+  "order": 794
+ },
+ {
+  "name": "Valid Parenthesis String",
+  "slug": "valid-parenthesis-string",
+  "difficulty": "Medium",
+  "pattern": "Greedy",
+  "youtube": "https://www.youtube.com/watch?v=QhPdNS143Qg",
+  "order": 795
+ },
+ {
+  "name": "Insert Interval",
+  "slug": "insert-interval",
+  "difficulty": "Medium",
+  "pattern": "Intervals",
+  "youtube": "https://www.youtube.com/watch?v=A8NUOmlwOlM",
+  "order": 832
+ },
+ {
+  "name": "Merge Intervals",
+  "slug": "merge-intervals",
+  "difficulty": "Medium",
+  "pattern": "Intervals",
+  "youtube": "https://www.youtube.com/watch?v=44H3cEC2fFM",
+  "order": 833
+ },
+ {
+  "name": "Non Overlapping Intervals",
+  "slug": "non-overlapping-intervals",
+  "difficulty": "Medium",
+  "pattern": "Intervals",
+  "youtube": "https://www.youtube.com/watch?v=nONCGxWoUfM",
+  "order": 834
+ },
+ {
+  "name": "Meeting Rooms",
+  "slug": "meeting-rooms",
+  "difficulty": "Easy",
+  "pattern": "Intervals",
+  "youtube": "https://www.youtube.com/watch?v=PaJxqZVPhbg",
+  "order": 836
+ },
+ {
+  "name": "Meeting Rooms II",
+  "slug": "meeting-rooms-ii",
+  "difficulty": "Medium",
+  "pattern": "Intervals",
+  "youtube": "https://www.youtube.com/watch?v=FdzJmTCVyJU",
+  "order": 837
+ },
+ {
+  "name": "Minimum Interval to Include Each Query",
+  "slug": "minimum-interval-to-include-each-query",
+  "difficulty": "Hard",
+  "pattern": "Intervals",
+  "youtube": "https://www.youtube.com/watch?v=5hQ5WWW5awQ",
+  "order": 847
+ },
+ {
+  "name": "Rotate Image",
+  "slug": "rotate-image",
+  "difficulty": "Medium",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=fMSJSS7eO1w",
+  "order": 870
+ },
+ {
+  "name": "Spiral Matrix",
+  "slug": "spiral-matrix",
+  "difficulty": "Medium",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=BJnMZNwUk1M",
+  "order": 871
+ },
+ {
+  "name": "Set Matrix Zeroes",
+  "slug": "set-matrix-zeroes",
+  "difficulty": "Medium",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=T41rL0L3Pnw",
+  "order": 875
+ },
+ {
+  "name": "Happy Number",
+  "slug": "happy-number",
+  "difficulty": "Easy",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=ljz85bxOYJ0",
+  "order": 876
+ },
+ {
+  "name": "Plus One",
+  "slug": "plus-one",
+  "difficulty": "Easy",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=jIaA8boiG1s",
+  "order": 877
+ },
+ {
+  "name": "Pow(x, n)",
+  "slug": "powx-n",
+  "difficulty": "Medium",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=g9YQyYi4IQQ",
+  "order": 884
+ },
+ {
+  "name": "Multiply Strings",
+  "slug": "multiply-strings",
+  "difficulty": "Medium",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=1vZswirL8Y8",
+  "order": 887
+ },
+ {
+  "name": "Detect Squares",
+  "slug": "detect-squares",
+  "difficulty": "Medium",
+  "pattern": "Math & Geometry",
+  "youtube": "https://www.youtube.com/watch?v=bahebearrDc",
+  "order": 888
+ },
+ {
+  "name": "Single Number",
+  "slug": "single-number",
+  "difficulty": "Easy",
+  "pattern": "Bit Manipulation",
+  "youtube": "https://www.youtube.com/watch?v=qMPX1AOa83k",
+  "order": 913
+ },
+ {
+  "name": "Number of 1 Bits",
+  "slug": "number-of-1-bits",
+  "difficulty": "Easy",
+  "pattern": "Bit Manipulation",
+  "youtube": "https://www.youtube.com/watch?v=5Km3utixwZs",
+  "order": 916
+ },
+ {
+  "name": "Counting Bits",
+  "slug": "counting-bits",
+  "difficulty": "Easy",
+  "pattern": "Bit Manipulation",
+  "youtube": "https://www.youtube.com/watch?v=RyBM56RIWrM",
+  "order": 917
+ },
+ {
+  "name": "Reverse Bits",
+  "slug": "reverse-bits",
+  "difficulty": "Easy",
+  "pattern": "Bit Manipulation",
+  "youtube": "https://www.youtube.com/watch?v=UcoN6UjAI64",
+  "order": 920
+ },
+ {
+  "name": "Missing Number",
+  "slug": "missing-number",
+  "difficulty": "Easy",
+  "pattern": "Bit Manipulation",
+  "youtube": "https://www.youtube.com/watch?v=WnPLSRLSANE",
+  "order": 921
+ },
+ {
+  "name": "Sum of Two Integers",
+  "slug": "sum-of-two-integers",
+  "difficulty": "Medium",
+  "pattern": "Bit Manipulation",
+  "youtube": "https://www.youtube.com/watch?v=gVUrDV4tZfY",
+  "order": 926
+ },
+ {
+  "name": "Reverse Integer",
+  "slug": "reverse-integer",
+  "difficulty": "Medium",
+  "pattern": "Bit Manipulation",
+  "youtube": "https://www.youtube.com/watch?v=HAgLH58IgJQ",
+  "order": 927
+ }
+]

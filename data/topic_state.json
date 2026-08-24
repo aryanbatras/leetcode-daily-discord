@@ -1,0 +1,26 @@
+{
+ "arrays": [
+  "find-the-number-of-ways-to-place-people-ii"
+ ],
+ "strings": [
+  "number-of-pairs-of-strings-with-concatenation-equal-to-target"
+ ],
+ "binary-search": [
+  "count-substrings-that-satisfy-k-constraint-ii"
+ ],
+ "linked-list": [
+  "linked-list-cycle"
+ ],
+ "stacks-and-queues": [
+  "beautiful-towers-ii"
+ ],
+ "trees": [
+  "root-equals-sum-of-children"
+ ],
+ "graphs": [
+  "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance"
+ ],
+ "dynamic-programming": [
+  "maximize-sum-of-weights-after-edge-removals"
+ ]
+}

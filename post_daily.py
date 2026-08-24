@@ -1,12 +1,15 @@
 import json
 import os
-import re
 import sys
-import urllib.request
-from html import unescape
 
-GRAPHQL_ENDPOINT = "https://leetcode.com/graphql"
-ZEROTRAC_ENDPOINT = "https://zerotrac.github.io/leetcode_problem_rating/data.json"
+from mfcommon import (
+    DESCRIPTION_LIMIT,
+    lc_graphql,
+    load_json,
+    send_embed,
+    html_to_discord,
+    truncate,
+)
 
 QUERY = """query questionOfToday {
     activeDailyCodingChallengeQuestion {
@@ -26,90 +29,26 @@ QUERY = """query questionOfToday {
     }
 }"""
 
-DIFFICULTY_COLORS = {
-    "Easy": 0x2ECC71,
-    "Medium": 0xFFA116,
-    "Hard": 0xE74C3C,
-}
 
-DESCRIPTION_LIMIT = 4000
-FIELD_VALUE_LIMIT = 1024
-
-
-def http_json(url, payload=None):
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
-        ),
-    }
-    if payload is not None:
-        headers["Content-Type"] = "application/json"
-        headers["Referer"] = "https://leetcode.com"
-        req = urllib.request.Request(
-            url, data=json.dumps(payload).encode("utf-8"), headers=headers
-        )
-    else:
-        req = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+def learn_lines(slug, frontend_id):
+    lines = []
+    shot = load_json("data/screenshots.json").get(str(frontend_id))
+    if shot:
+        lines.append(f"[Editorial screenshot]({shot})")
+    lines.append(f"[LeetCode editorials](https://leetcode.com/problems/{slug}/solutions/)")
+    vid = load_json("data/neetcode_map.json").get(slug)
+    if vid:
+        lines.append(f"[NeetCode video]({vid['youtube']})")
+    lines.append(
+        "Reference code (spoilers): "
+        f"[C++](https://raw.githubusercontent.com/kamyu104/LeetCode-Solutions/master/C++/{slug}.cpp)"
+        " · "
+        f"[Python](https://raw.githubusercontent.com/kamyu104/LeetCode-Solutions/master/Python/{slug}.py)"
+    )
+    return "\n".join(lines)
 
 
-def html_to_discord(html):
-    """Convert LeetCode's HTML statement into Discord-flavoured markdown."""
-    text = html
-
-    # <pre><strong>Example N:</strong> ... </pre> -> fenced code block
-    def pre_repl(m):
-        inner = m.group(1)
-        inner = re.sub(r"<[^>]+>", "", inner)
-        return "```\n" + unescape(inner.strip()) + "\n```"
-
-    text = re.sub(r"<pre>(.*?)</pre>", pre_repl, text, flags=re.S)
-
-    text = re.sub(r"<(?:strong|b)(?:\s[^>]*)?>", "**", text)
-    text = re.sub(r"</(?:strong|b)>", "**", text)
-    text = re.sub(r"<(?:em|i)(?:\s[^>]*)?>", "*", text)
-    text = re.sub(r"</(?:em|i)>", "*", text)
-    text = re.sub(r"<li>", "\n- ", text)
-    text = re.sub(r"</?(ul|ol)(?:\s[^>]*)?>", "\n", text)
-    text = re.sub(r"<br\s*/?>", "\n", text)
-    text = re.sub(r"<p(?:\s[^>]*)?>", "", text)
-    text = re.sub(r"</p>", "\n", text)
-    text = re.sub(r"<sup>", "^", text)
-    text = re.sub(r"<sub>", "_", text)
-    text = re.sub(r"<[^>]+>", "", text)
-    text = unescape(text)
-
-    # drop whitespace-only lines (incl. &nbsp; residue), collapse excess newlines
-    text = re.sub(r"(?m)^[\s\xa0]+$", "", text)
-    text = re.sub(r"[ \t]+\n", "\n", text)
-    text = re.sub(r"\n{3,}", "\n\n", text)
-    return text.strip()
-
-
-def truncate(text, limit, suffix):
-    if len(text) <= limit:
-        return text
-    cut = text[: limit - len(suffix)]
-    boundary = max(cut.rfind("\n"), cut.rfind(" "))
-    if boundary > limit // 2:
-        cut = cut[:boundary]
-    return cut.rstrip() + suffix
-
-
-def fetch_zerotrac_rating(title_slug):
-    try:
-        rows = http_json(ZEROTRAC_ENDPOINT)
-        for row in rows:
-            if row.get("TitleSlug") == title_slug:
-                return row.get("Rating")
-    except Exception as exc:
-        print(f"Zerotrac lookup failed ({exc}); continuing without rating")
-    return None
-
-
-def build_embed(daily, rating):
+def build_embed(daily):
     question = daily["question"]
     difficulty = question["difficulty"]
     url = f"https://leetcode.com{daily['link']}"
@@ -121,7 +60,9 @@ def build_embed(daily, rating):
         },
         "title": f"{question['questionFrontendId']}. {question['title']}",
         "url": url,
-        "color": DIFFICULTY_COLORS.get(difficulty, 0x95A5A6),
+        "color": {"Easy": 0x2ECC71, "Medium": 0xFFA116, "Hard": 0xE74C3C}.get(
+            difficulty, 0x95A5A6
+        ),
     }
 
     if question.get("content"):
@@ -131,44 +72,23 @@ def build_embed(daily, rating):
         )
 
     topics = ", ".join(t["name"] for t in question.get("topicTags", []))
+    rating = load_json("data/ratings.json").get(question["titleSlug"])
     fields = [
         {"name": "Difficulty", "value": difficulty, "inline": True},
         {"name": "Acceptance", "value": f"{question['acRate']:.1f}%", "inline": True},
-        {"name": "Rating", "value": str(round(rating)) if rating else "unrated", "inline": True},
+        {"name": "Rating", "value": str(rating) if rating else "unrated", "inline": True},
     ]
     if topics:
-        fields.append({"name": "Topics", "value": topics[:FIELD_VALUE_LIMIT]})
+        fields.append({"name": "Topics", "value": topics[:1024]})
+    fields.append(
+        {"name": "Learn", "value": truncate(learn_lines(question["titleSlug"], question["questionFrontendId"]), 1024, "…")}
+    )
     embed["fields"] = fields
 
     embed["footer"] = {
-        "text": "Progress counts automatically once you've run /add in #leaderboard",
+        "text": "Progress counts automatically once you've run !register in #leaderboard",
     }
     return embed
-
-
-def post_to_discord(webhook_url, embed):
-    payload = json.dumps(
-        {
-            "username": "Daily Problem",
-            "content": "@everyone Today's problem is up — first solve takes the crown.",
-            "allowed_mentions": {"parse": ["everyone"]},
-            "embeds": [embed],
-        }
-    ).encode("utf-8")
-    req = urllib.request.Request(
-        webhook_url,
-        data=payload,
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": (
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
-            ),
-        },
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.status
 
 
 def main():
@@ -177,23 +97,27 @@ def main():
         print("DISCORD_WEBHOOK_URL is not set")
         sys.exit(1)
 
-    data = http_json(GRAPHQL_ENDPOINT, {"query": QUERY})
+    data = lc_graphql(QUERY)
     daily = data.get("data", {}).get("activeDailyCodingChallengeQuestion")
     if not daily:
         print("Unexpected LeetCode response:", json.dumps(data)[:500])
         sys.exit(1)
 
     question = daily["question"]
-    rating = fetch_zerotrac_rating(question["titleSlug"])
-    embed = build_embed(daily, rating)
+    embed = build_embed(daily)
 
-    status = post_to_discord(webhook_url, embed)
-    if status not in (200, 204):
-        print(f"Discord webhook returned {status}")
+    ok = send_embed(
+        webhook_url,
+        embed,
+        username="Daily Problem",
+        content="@everyone Today's problem is up — first solve takes the crown.",
+        ping_everyone=True,
+    )
+    if not ok:
+        print("Discord webhook failed")
         sys.exit(1)
     print(
-        f"Posted daily problem: {question['questionFrontendId']}. {question['title']} "
-        f"({question['difficulty']}, rating={rating})"
+        f"Posted daily problem: {question['questionFrontendId']}. {question['title']}"
     )
 
 

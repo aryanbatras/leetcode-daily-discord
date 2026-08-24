@@ -1,0 +1,32 @@
+name: Refresh vendored datasets
+
+on:
+  schedule:
+    # Mondays 00:00 UTC = 05:30 IST
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vendor
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Pull public datasets into data/
+        run: python3 vendor.py
+      - name: Commit refreshed data
+        run: |
+          git config user.name "mfgrind-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git pull --rebase --autostash
+          git add data/
+          git diff --cached --quiet || git commit -m "vendored datasets refresh $(date -u +%F)"
+          git push
