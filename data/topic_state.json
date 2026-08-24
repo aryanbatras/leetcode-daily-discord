@@ -8,12 +8,14 @@
  "binary-search": [
   "count-substrings-that-satisfy-k-constraint-ii",
   "smallest-substring-with-identical-characters-ii",
-  "shortest-matching-substring"
+  "shortest-matching-substring",
+  "minimize-maximum-component-cost"
  ],
  "linked-list": [
   "linked-list-cycle",
   "steps-to-make-array-non-decreasing",
-  "add-two-numbers"
+  "add-two-numbers",
+  "remove-duplicates-from-sorted-list-ii"
  ],
  "stacks-and-queues": [
   "beautiful-towers-ii"
@@ -27,15 +29,18 @@
  "dynamic-programming": [
   "maximize-sum-of-weights-after-edge-removals",
   "twisted-mirror-path-count",
-  "count-no-zero-pairs-that-sum-to-n"
+  "count-no-zero-pairs-that-sum-to-n",
+  "total-waviness-of-numbers-in-range-i"
  ],
  "array": [
   "make-two-arrays-equal-by-reversing-subarrays",
-  "design-browser-history"
+  "design-browser-history",
+  "least-number-of-unique-integers-after-k-removals"
  ],
  "string": [
   "majority-frequency-characters",
-  "longest-balanced-substring-ii"
+  "longest-balanced-substring-ii",
+  "minimum-number-of-flips-to-reverse-binary-string"
  ],
  "hash-table": [
   "find-the-difference",
@@ -43,74 +48,92 @@
  ],
  "two-pointers": [
   "path-existence-queries-in-a-graph-ii",
-  "number-of-perfect-pairs"
+  "number-of-perfect-pairs",
+  "lexicographically-smallest-negated-permutation-that-sums-to-target"
  ],
  "sliding-window": [
   "minimum-positive-sum-subarray",
-  "minimum-operations-to-make-elements-within-k-subarrays-equal"
+  "minimum-operations-to-make-elements-within-k-subarrays-equal",
+  "minimum-discards-to-balance-inventory"
  ],
  "prefix-sum": [
   "jump-game-vii",
-  "minimum-absolute-difference-queries"
+  "minimum-absolute-difference-queries",
+  "find-the-middle-index-in-array"
  ],
  "stack": [
   "minimum-deletions-to-make-string-balanced",
-  "maximum-subarray-min-product"
+  "maximum-subarray-min-product",
+  "the-number-of-weak-characters-in-the-game"
  ],
  "monotonic-stack": [
   "final-prices-with-a-special-discount-in-a-shop",
-  "maximum-score-of-a-good-subarray"
+  "maximum-score-of-a-good-subarray",
+  "sum-of-subarray-ranges"
  ],
  "queue": [
   "minimum-operations-to-make-binary-array-elements-equal-to-one-i",
-  "design-ride-sharing-system"
+  "design-ride-sharing-system",
+  "implement-queue-using-stacks"
  ],
  "heap-priority-queue": [
   "choose-k-elements-with-maximum-sum",
-  "minimum-time-to-reach-destination-in-directed-graph"
+  "minimum-time-to-reach-destination-in-directed-graph",
+  "kth-largest-element-in-an-array"
  ],
  "tree": [
   "number-of-ways-to-assign-edge-weights-ii",
-  "maximum-subgraph-score-in-a-tree"
+  "maximum-subgraph-score-in-a-tree",
+  "count-dominant-nodes-in-a-binary-tree"
  ],
  "trie": [
   "concatenated-words",
-  "map-sum-pairs"
+  "map-sum-pairs",
+  "camelcase-matching"
  ],
  "graph": [
   "maximal-network-rank",
-  "count-pairs-of-nodes"
+  "count-pairs-of-nodes",
+  "minimum-cost-to-reach-destination-in-time"
  ],
  "union-find": [
   "validate-binary-tree-nodes",
-  "graph-connectivity-with-threshold"
+  "graph-connectivity-with-threshold",
+  "last-day-where-you-can-still-cross"
  ],
  "backtracking": [
   "generate-binary-strings-without-adjacent-zeros",
-  "valid-binary-strings-with-cost-limit"
+  "valid-binary-strings-with-cost-limit",
+  "permutations-ii"
  ],
  "greedy": [
   "minimum-cost-to-move-between-indices",
-  "maximum-subarray-sum-after-at-most-k-swaps"
+  "maximum-subarray-sum-after-at-most-k-swaps",
+  "largest-integer-with-given-digit-sum"
  ],
  "bit-manipulation": [
   "maximum-points-after-collecting-coins-from-all-nodes",
-  "minimum-number-of-operations-to-make-array-xor-equal-to-k"
+  "minimum-number-of-operations-to-make-array-xor-equal-to-k",
+  "maximum-total-reward-using-operations-i"
  ],
  "math": [
   "reaching-points",
-  "split-array-with-same-average"
+  "split-array-with-same-average",
+  "magic-squares-in-grid"
  ],
  "matrix": [
   "sort-matrix-by-diagonals",
-  "equal-sum-grid-partition-ii"
+  "equal-sum-grid-partition-ii",
+  "flip-square-submatrix-vertically"
  ],
  "sorting": [
   "minimum-space-wasted-from-packaging",
-  "minimum-difference-between-highest-and-lowest-of-k-scores"
+  "minimum-difference-between-highest-and-lowest-of-k-scores",
+  "maximum-number-of-tasks-you-can-assign"
  ],
  "design": [
   "maximum-frequency-stack",
-  "stream-of-characters"
+  "stream-of-characters",
+  "find-elements-in-a-contaminated-binary-tree"
  ]
 }
