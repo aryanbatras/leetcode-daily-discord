@@ -272,6 +272,7 @@ def cmd_poll():
             username = reg.group(1)
             matched = lc_profile(username)
             if matched:
+                existing = members.get(uid)
                 members[uid] = {
                     "discord_id": uid,
                     "display_name": display,
@@ -281,6 +282,27 @@ def cmd_poll():
                 }
                 snapshots.setdefault(uid, {})[today_ist()] = lc_totals(matched)
                 changed = True
+                totals = lc_totals(matched)
+                verb = (
+                    f"Updated your registration to **{matched['username']}**"
+                    if existing and existing["lc_username"] != matched["username"]
+                    else f"You're on the board as **{matched['username']}**"
+                )
+                request(
+                    f"{API}/channels/{channel_id}/messages",
+                    method="POST",
+                    token=token,
+                    body={
+                        "content": (
+                            f"<@{uid}> {verb}.\n"
+                            f"Lifetime: **{totals['All']} solved** "
+                            f"({totals['Easy']}E / {totals['Medium']}M / {totals['Hard']}H).\n"
+                            "This week starts today. See you on the board at 08:00."
+                        ),
+                        "message_reference": {"message_id": msg["id"]},
+                        "allowed_mentions": {"users": [uid]},
+                    },
+                )
                 request(
                     f"{API}/channels/{channel_id}/messages/{msg['id']}"
                     f"/reactions/%E2%9C%85/@me",
@@ -295,6 +317,7 @@ def cmd_poll():
                     token=token,
                     body={
                         "content": f"<@{uid}> No LeetCode user called `{username}` — check the spelling and try again.",
+                        "message_reference": {"message_id": msg["id"]},
                         "allowed_mentions": {"users": [uid]},
                     },
                 )
