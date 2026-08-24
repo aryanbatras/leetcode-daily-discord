@@ -109,8 +109,10 @@ def send_text(hook, content):
     time.sleep(SEND_PACE)
 
 
-def pin_message(token, channel_id, message_id):
-    call(f"{BASE}/channels/{channel_id}/pins/{message_id}", method="PUT", token=token)
+def send_embed(hook, embed):
+    payload = {"embeds": [embed], "allowed_mentions": {"parse": []}}
+    call(hook, method="POST", body=payload)
+    time.sleep(SEND_PACE)
 
 
 def latest_message_id(token, channel_id):
@@ -166,28 +168,30 @@ def scrape_cses_task(task_id):
     return {"tl": tl, "ml": ml, "body": statement}
 
 
-def fmt_task(idx, task, detail):
-    lines = [f"**{idx}. {task['name']}**",
-             f"https://cses.fi/problemset/task/{task['id']}"]
+def fmt_task_embed(idx, total, task, detail):
     meta = []
     if detail["tl"]:
         meta.append(f"time {detail['tl']}")
     if detail["ml"]:
         meta.append(f"mem {detail['ml']}")
-    if meta:
-        lines[1] += f" · " + " · ".join(meta)
     body = detail["body"]
-    room = 2000 - sum(len(x) + 1 for x in lines[:-1]) - 1
-    if len(body) > room:
-        cut = body[:room]
-        if "```" in cut:
-            opens = cut.count("```")
-            if opens % 2 == 1:
-                cut += "\n```"
-        cut = cut.rstrip() + "\n\n*(full statement at the link)*"
-        body = cut
-    lines.append(body)
-    return "\n".join(lines)
+    if len(body) > 3900:
+        cut = body[:3900]
+        if "```" in cut and cut.count("```") % 2 == 1:
+            cut += "\n```"
+        body = cut.rstrip() + "\n\n*(full statement at the link)*"
+    return {
+        "author": {"name": "CSES — Introductory Problems"},
+        "title": f"{idx}. {task['name']}",
+        "url": f"https://cses.fi/problemset/task/{task['id']}",
+        "color": 0x3498DB,
+        "description": body or "*(statement at the link)*",
+        "fields": [
+            {"name": "Limits", "value": " · ".join(meta) or "—", "inline": True},
+            {"name": "Position", "value": f"{idx}/{total}", "inline": True},
+        ],
+        "footer": {"text": "cses problem set · solve before peeking at anything"},
+    }
 
 
 def mode_cses_intro():
@@ -205,8 +209,17 @@ def mode_cses_intro():
 
     clear_channel(token, channel_id)
 
-    send_text(hook, "**Introductory Problems**\nThe opening act of the CSES problem set — every task in order. "
-                    "Work top to bottom; skip nothing. Each message carries the full statement.")
+    send_embed(hook, {
+        "author": {"name": "CSES Problem Set"},
+        "title": "Introductory Problems",
+        "url": "https://cses.fi/problemset/list/",
+        "color": 0x2C3E50,
+        "description": ("The opening act of the CSES problem set — every task below in "
+                        "order, full statement on each card. Work top to bottom; skip "
+                        "nothing. The catalog message at the end lists them all."),
+        "footer": {"text": f"{len(tasks)} cards · one per task"},
+    })
+
     catalog = ["**Catalog — Introductory Problems**", ""]
     for i, task in enumerate(tasks, 1):
         try:
@@ -214,16 +227,15 @@ def mode_cses_intro():
         except Exception as exc:
             print(f"scrape failed {task['id']}: {exc}")
             detail = {"tl": "", "ml": "", "body": "*(scrape failed — solve at the link)*"}
-        send_text(hook, fmt_task(i, task, detail))
-        catalog.append(f"**{i}.** {task['name']}")
+        send_embed(hook, fmt_task_embed(i, len(tasks), task, detail))
+        catalog.append(f"**{i}.** {task['name']} — https://cses.fi/problemset/task/{task['id']}")
         print(f"posted {i}/{len(tasks)} {task['name']}")
         time.sleep(FETCH_PACE)
 
-    send_text(hook, "\n".join(catalog))
-    mid = latest_message_id(token, channel_id)
-    if mid:
-        pin_message(token, channel_id, mid)
-    print("catalog pinned — done")
+    payload = {"content": "\n".join(catalog)[:2000], "allowed_mentions": {"parse": []}}
+    call(hook, method="POST", body=payload)
+    time.sleep(SEND_PACE)
+    print("catalog posted (unpinned) — done")
 
 
 MODES = {
