@@ -26,11 +26,11 @@ SEND_PACE = 2.5
 FETCH_PACE = 1.5
 
 MATH_REPL = [
-    ("\\rightarrow", "→"), ("\\leftarrow", "←"), ("\\le", "<="), ("\\leq", "<="),
-    ("\\ge", ">="), ("\\geq", ">="), ("\\times", "*"), ("\\cdot", "*"),
+    ("\\rightarrow", "→"), ("\\leftarrow", "←"), ("\\le", "≤"), ("\\leq", "≤"),
+    ("\\ge", "≥"), ("\\geq", "≥"), ("\\times", "*"), ("\\cdot", "*"),
     ("\\ldots", "..."), ("\\dots", "..."), ("\\infty", "∞"), ("\\sum", "Σ"),
     ("\\bmod", "mod"), ("\\mod", "mod"), ("\\oplus", "^"), ("\\cup", "∪"),
-    ("\\cap", "∩"), ("\\ne", "!="), ("\\neq", "!="), ("\\pm", "+/-"),
+    ("\\cap", "∩"), ("\\ne", "≠"), ("\\neq", "≠"), ("\\pm", "±"),
 ]
 
 
@@ -138,7 +138,7 @@ def cses_html_to_md(html_frag):
                       else f"\n```\n{math_text(m.group(0))}\n```\n", s)
     s = re.sub(r"<h1[^>]*>(.*?)</h1>", lambda m: f"\n**{m.group(1).strip()}**\n", s, flags=re.S)
     s = re.sub(r"<pre>(.*?)</pre>", lambda m: "\n```\n" + htmllib.unescape(m.group(1)).rstrip("\n") + "\n```\n", s, flags=re.S)
-    s = re.sub(r"<li>(.*?)</li>", lambda m: "• " + m.group(1).strip() + "\n", s, flags=re.S)
+    s = re.sub(r"<li>(.*?)</li>", lambda m: "• " + m.group(1).strip(), s, flags=re.S)
     s = re.sub(r"</?(ul|ol)[^>]*>", "\n", s)
     s = re.sub(r"</p>", "\n", s)
     s = re.sub(r"<br\s*/?>", "\n", s)
@@ -228,7 +228,7 @@ def mode_cses_intro():
             print(f"scrape failed {task['id']}: {exc}")
             detail = {"tl": "", "ml": "", "body": "*(scrape failed — solve at the link)*"}
         send_embed(hook, fmt_task_embed(i, len(tasks), task, detail))
-        catalog.append(f"**{i}.** {task['name']} — https://cses.fi/problemset/task/{task['id']}")
+        catalog.append(f"**{i}.** {task['name']}")
         print(f"posted {i}/{len(tasks)} {task['name']}")
         time.sleep(FETCH_PACE)
 
