@@ -190,7 +190,6 @@ def fmt_task_embed(idx, total, task, detail):
             {"name": "Limits", "value": " · ".join(meta) or "—", "inline": True},
             {"name": "Position", "value": f"{idx}/{total}", "inline": True},
         ],
-        "footer": {"text": "cses problem set · solve before peeking at anything"},
     }
 
 
@@ -214,10 +213,9 @@ def mode_cses_intro():
         "title": "Introductory Problems",
         "url": "https://cses.fi/problemset/list/",
         "color": 0x2C3E50,
-        "description": ("The opening act of the CSES problem set — every task below in "
-                        "order, full statement on each card. Work top to bottom; skip "
-                        "nothing. The catalog message at the end lists them all."),
-        "footer": {"text": f"{len(tasks)} cards · one per task"},
+        "description": ("All tasks in order, full statement on each card. "
+                        "Catalog at the end."),
+        "footer": {"text": f"{len(tasks)} tasks"},
     })
 
     catalog = ["**Catalog — Introductory Problems**", ""]
