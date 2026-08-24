@@ -22,6 +22,8 @@ from datetime import datetime, timedelta, timezone
 API = "https://discord.com/api/v10"
 LC_GRAPHQL = "https://leetcode.com/graphql"
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+GUILD_ID = 1541028379598397452
+FOCUS_ROOM_ID = 1541028380655231119
 
 IST = timezone(timedelta(hours=5, minutes=30))
 LC_UA = (
@@ -290,7 +292,10 @@ def cmd_daily():
         save_json("members.json", members)
 
     if mode == "seed":
+        create_focus_event()
         return
+
+    contest_radar()
 
     rows.sort(key=lambda r: (-r["delta"], -r["total"]))
     medals = ["🥇", "🥈", "🥉"]
@@ -324,6 +329,92 @@ def cmd_daily():
         print(f"Webhook returned {status}")
         sys.exit(1)
     print(f"Daily board posted ({len(rows)} rows, mode={mode})")
+
+
+def create_focus_event():
+    """Keep exactly one upcoming 'night grind' event: tomorrow 21:00 IST in focus-room."""
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    if not token:
+        return
+    start = (datetime.now(IST) + timedelta(days=1)).replace(
+        hour=21, minute=0, second=0, microsecond=0)
+    end = start + timedelta(hours=1)
+    start_iso = start.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    end_iso = end.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    existing = request(f"{API}/guilds/{GUILD_ID}/scheduled-events", token=token)[1] or []
+    if any(e.get("scheduled_start_time", "").startswith(start_iso[:10]) for e in existing):
+        print("focus event already covered for", start_iso[:10])
+        return
+    status, created = request(
+        f"{API}/guilds/{GUILD_ID}/scheduled-events",
+        method="POST",
+        token=token,
+        body={
+            "name": "night grind - silent focus",
+            "description": ("one hour, cameras off, phones down. show up, pick a "
+                            "problem from the catalogs, disappear into it."),
+            "scheduled_start_time": start_iso,
+            "scheduled_end_time": end_iso,
+            "entity_type": 2,
+            "channel_id": FOCUS_ROOM_ID,
+            "privacy_level": 2,
+        },
+    )
+    print("focus event:", created.get("id") if isinstance(created, dict) else f"status {status}")
+
+
+def contest_radar():
+    """Upcoming LeetCode + Codeforces contests, posted to #leaderboard via webhook."""
+    token_webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
+    if not token_webhook:
+        return
+    lines = []
+    lc_query = '{"query":"query { topTwoContests { title titleSlug startTime duration } }"}'
+    req = urllib.request.Request(
+        LC_GRAPHQL, data=lc_query.encode(),
+        headers={"Content-Type": "application/json",
+                 "User-Agent": LC_UA, "Referer": "https://leetcode.com"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())["data"]["topTwoContests"]
+        for c in data:
+            lines.append(
+                f"**LeetCode** — [{c['title']}](https://leetcode.com/contest/{c['titleSlug']}/)\n"
+                f"{datetime.fromtimestamp(int(c['startTime']), tz=IST).strftime('%a %d %b, %I:%M %p IST')}"
+                f" · {(int(c['duration']) // 3600)}h {(int(c['duration']) % 3600) // 60:02d}m"
+            )
+    except Exception as exc:
+        print("lc contests failed:", exc)
+    try:
+        cf = json.load(urllib.request.urlopen(urllib.request.Request(
+            "https://codeforces.com/api/contest.list",
+            headers={"User-Agent": DISCORD_UA}), timeout=30))["result"]
+        upcoming = sorted((c for c in cf if c.get("phase") == "BEFORE"),
+                          key=lambda c: c["startTimeSeconds"])[:4]
+        for c in upcoming:
+            d = int(c.get("durationSeconds", 7200))
+            lines.append(
+                f"**Codeforces** — [{c['name']}](https://codeforces.com/contests/{c['id']})\n"
+                f"{datetime.fromtimestamp(c['startTimeSeconds'], tz=IST).strftime('%a %d %b, %I:%M %p IST')}"
+                f" · {d // 3600}h {(d % 3600) // 60:02d}m"
+            )
+    except Exception as exc:
+        print("cf contests failed:", exc)
+    if not lines:
+        return
+    body = {
+        "username": "Contest Radar",
+        "allowed_mentions": {"parse": []},
+        "embeds": [{
+            "author": {"name": "Upcoming Contests"},
+            "title": "Put them on your calendar",
+            "description": "\n\n".join(lines)[:4000],
+            "color": 0xF39C12,
+            "footer": {"text": "refreshed nightly · all times IST"},
+        }],
+    }
+    status, _ = request(token_webhook, method="POST", body=body)
+    print("contest radar posted:", status in (200, 204))
 
 
 def cmd_poll():
