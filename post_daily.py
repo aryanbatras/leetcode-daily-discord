@@ -93,7 +93,7 @@ def main():
     }
 
     status = post_to_discord(webhook_url, embed)
-    if status != 200:
+    if status not in (200, 204):
         print(f"Discord webhook returned {status}")
         sys.exit(1)
     print(f"Posted daily problem: {question['questionFrontendId']}. {question['title']} ({difficulty})")
