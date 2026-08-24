@@ -3,6 +3,7 @@
 Modes:
     python3 leaderboard.py poll   -> process new "!register"/"!remove" messages in #leaderboard
     python3 leaderboard.py board  -> snapshot totals and post the weekly board
+    python3 leaderboard.py daily  -> seed morning baseline / post evening daily board
 
 State lives in data/ and is committed back to the repo by GitHub Actions,
 so there is no server and nothing to host.
@@ -12,6 +13,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -119,17 +121,26 @@ def week_start_ist(today=None):
     return monday.strftime("%Y-%m-%d")
 
 
-def take_snapshot(members, snapshots):
-    """Fetch current totals for every member and store them under today's date."""
+def take_snapshot(members, snapshots, overwrite=True, sleep_s=0.0):
+    """Fetch current totals for every member and store them under today's date.
+
+    overwrite=False keeps the earliest value already stored for today — used by
+    the morning seed so the daily board measures the whole day's grind.
+    sleep_s paces LeetCode calls (one member every ~2s) to stay under rate limits.
+    """
     day = today_ist()
     stale_cutoff = (datetime.now(IST) - timedelta(days=21)).strftime("%Y-%m-%d")
     for key, member in members.items():
         matched = lc_profile(member["lc_username"])
         if not matched:
             continue
+        if sleep_s:
+            time.sleep(sleep_s)
         totals = lc_totals(matched)
         member["avatar"] = matched.get("profile", {}).get("userAvatar")
-        snapshots.setdefault(member.get("discord_id", key), {})[day] = totals
+        store = snapshots.setdefault(member.get("discord_id", key), {})
+        if overwrite or day not in store:
+            store[day] = totals
     for uid in list(snapshots):
         snapshots[uid] = {
             d: t for d, t in snapshots[uid].items() if d >= stale_cutoff or d == day
@@ -222,6 +233,97 @@ def cmd_board():
         print(f"Webhook returned {status}")
         sys.exit(1)
     print(f"Weekly board posted ({len(members)} members)")
+
+
+def cmd_daily():
+    """Morning: seed today's baseline (first write wins). Evening: post the daily board."""
+    token_webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
+    if not token_webhook:
+        print("LEADERBOARD_WEBHOOK_URL is not set")
+        sys.exit(1)
+
+    now = datetime.now(IST)
+    mode = os.environ.get("MF_DAILY_MODE") or ("seed" if now.hour < 12 else "post")
+    day = today_ist()
+    members = load_json("members.json", {})
+    snapshots = load_json("snapshots.json", {})
+
+    zero = {
+        "title": f"Daily Grind — {day}",
+        "description": (
+            "No one has registered yet.\n"
+            "Type `!register <your-leetcode-username>` in this channel "
+            "and show up on tomorrow's board."
+        ),
+        "color": 0x95A5A6,
+    }
+
+    rows = []
+    if members:
+        if mode == "seed":
+            take_snapshot(members, snapshots, overwrite=False, sleep_s=2.0)
+            print(f"seeded baseline for {len(members)} members (2s pacing)")
+        else:
+            baselines = {}
+            for key, member in members.items():
+                uid = member.get("discord_id", key)
+                baselines[uid] = dict(snapshots.get(uid, {}).get(day) or {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0})
+            take_snapshot(members, snapshots, overwrite=True, sleep_s=2.0)
+            for key, member in members.items():
+                uid = member.get("discord_id", key)
+                current = snapshots.get(uid, {}).get(day)
+                if not current:
+                    continue
+                base = baselines[uid]
+                delta = current["All"] - base["All"]
+                if delta < 0:
+                    continue  # re-registered mid-day; don't punish
+                rows.append({
+                    "name": member["display_name"],
+                    "delta": delta,
+                    "easy": current["Easy"] - base["Easy"],
+                    "medium": current["Medium"] - base["Medium"],
+                    "hard": current["Hard"] - base["Hard"],
+                    "total": current["All"],
+                })
+        save_json("snapshots.json", snapshots)
+        save_json("members.json", members)
+
+    if mode == "seed":
+        return
+
+    rows.sort(key=lambda r: (-r["delta"], -r["total"]))
+    medals = ["🥇", "🥈", "🥉"]
+    lines = []
+    crowned = []
+    for i, r in enumerate(rows):
+        medal = medals[i] if i < 3 and r["delta"] > 0 else ""
+        if medal:
+            crowned.append(r["name"])
+        lines.append(
+            f"{medal or '**' + str(i + 1) + '.**'} {r['name']} — **+{r['delta']}** today "
+            f"({r['easy']}E / {r['medium']}M / {r['hard']}H) · {r['total']} total"
+        )
+    if not lines:
+        lines.append("Quiet day. The board resets at midnight — tomorrow is unwritten.")
+    elif crowned:
+        lines.append(f"\n👑 respect to {' · '.join(crowned)} — see the rest of you here tomorrow.")
+    body = {
+        "username": "Daily Board",
+        "allowed_mentions": {"parse": []},
+        "embeds": [{
+            "author": {"name": "LeetCode Daily Grind"},
+            "title": f"Solved today — {day}",
+            "description": "\n".join(lines)[:4000],
+            "color": 0xF1C40F,
+            "footer": {"text": "measured midnight to midnight IST · join with !register <username>"},
+        }],
+    }
+    status, _ = request(token_webhook, method="POST", body=body)
+    if status not in (200, 204):
+        print(f"Webhook returned {status}")
+        sys.exit(1)
+    print(f"Daily board posted ({len(rows)} rows, mode={mode})")
 
 
 def cmd_poll():
@@ -342,7 +444,7 @@ def cmd_poll():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in ("poll", "board"):
-        print("usage: leaderboard.py [poll|board]")
+    if len(sys.argv) != 2 or sys.argv[1] not in ("poll", "board", "daily"):
+        print("usage: leaderboard.py [poll|board|daily]")
         sys.exit(2)
-    {"poll": cmd_poll, "board": cmd_board}[sys.argv[1]]()
+    {"poll": cmd_poll, "board": cmd_board, "daily": cmd_daily}[sys.argv[1]]()
