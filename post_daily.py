@@ -147,7 +147,14 @@ def build_embed(daily, rating):
 
 
 def post_to_discord(webhook_url, embed):
-    payload = json.dumps({"username": "Daily Problem", "embeds": [embed]}).encode("utf-8")
+    payload = json.dumps(
+        {
+            "username": "Daily Problem",
+            "content": "@everyone Today's problem is up — first solve takes the crown.",
+            "allowed_mentions": {"parse": ["everyone"]},
+            "embeds": [embed],
+        }
+    ).encode("utf-8")
     req = urllib.request.Request(
         webhook_url,
         data=payload,
