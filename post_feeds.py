@@ -162,6 +162,7 @@ def post_topics(hooks, digest):
         hook = hooks.get(slug)
         if not hook:
             continue
+        time.sleep(0.6)
         try:
             variables = {"f": {"tags": [slug]}}
             total = lc_graphql(TOPIC_QUERY_TOTAL, variables)["data"]["problemsetQuestionList"]["totalNum"]

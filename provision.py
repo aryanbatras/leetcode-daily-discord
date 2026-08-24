@@ -21,11 +21,7 @@ TOPIC_SLUGS = [
     "bit-manipulation", "math", "matrix", "sorting", "design",
 ]
 BANDS = [800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
-SUBJECTS = [
-    ("operating-systems", "Operating Systems"),
-    ("computer-networks", "Computer Networks"),
-    ("dbms", "DBMS"),
-]
+SUBJECTS = ["operating-systems", "computer-networks", "dbms"]
 CSES_SECTIONS = [
     "Introductory Problems", "Sorting and Searching", "Dynamic Programming",
     "Graph Algorithms", "Range Queries", "Tree Algorithms", "Mathematics",
@@ -80,7 +76,8 @@ def main():
     text_by_name = {c["name"]: c for c in chans if c["type"] == 0}
 
     # prune legacy single-feed channels (only real text channels, only if present)
-    for doomed in ["codeforces", "cp31", "cses", "core-subjects", "rest-perm-test"]:
+    for doomed in ["codeforces", "cp31", "cses", "core-subjects-channel", "rest-perm-test",
+                   "Operating Systems", "Computer Networks", "DBMS"]:
         ch = text_by_name.pop(doomed, None)
         if ch:
             api("DELETE", f"/channels/{ch['id']}")
@@ -89,8 +86,8 @@ def main():
     # desired: category -> [(channel, webhook_name, key)]
     plan = {
         "leetcode": [("lc-" + s, "Topic Feed", s) for s in TOPIC_SLUGS],
-        "tracks": [(n, "Subject Drill", k) for k, n in SUBJECTS]
-        + [
+        "core-subjects": [(n, "Subject Drill", n) for n in SUBJECTS],
+        "tracks": [
             ("blind-75", "Track Feed", "blind-75"),
             ("neetcode-150", "Track Feed", "neetcode-150"),
             ("striver-a2z", "Track Feed", "striver-a2z"),

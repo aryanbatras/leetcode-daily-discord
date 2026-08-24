@@ -72,7 +72,8 @@ def lc_graphql(query, variables=None):
 
 
 def post_webhook(url, payload, retries=4):
-    """Post a webhook payload. Discord answers 204 No Content on success."""
+    """Post a webhook payload. Discord answers 204 No Content on success.
+    Sleeps after every send so we never trip Discord's rate limits."""
     data = json.dumps(payload).encode("utf-8")
     last_err = None
     for attempt in range(retries):
@@ -85,6 +86,7 @@ def post_webhook(url, payload, retries=4):
             )
             with urllib.request.urlopen(req, timeout=30) as resp:
                 if resp.status in (200, 204):
+                    time.sleep(2.5)
                     return True
                 raise RuntimeError(f"status {resp.status}")
         except urllib.error.HTTPError as exc:
