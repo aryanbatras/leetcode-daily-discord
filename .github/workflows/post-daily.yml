@@ -2,7 +2,7 @@ name: Post LeetCode Daily
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # TESTING interval (GitHub Actions minimum is 5 min). Production: "30 2 * * *" = 08:00 IST daily
+    - cron: "30 2 * * *" # 02:30 UTC = 08:00 IST daily
   workflow_dispatch:
 
 permissions:
