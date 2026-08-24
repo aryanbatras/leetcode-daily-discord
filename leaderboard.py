@@ -311,7 +311,7 @@ def cmd_daily():
         )
     if not lines:
         lines.append("Quiet day. The board resets at midnight — tomorrow is unwritten.")
-    el    if crowned:
+    if crowned:
         lines.append(f"\n👑 {' · '.join(crowned)}")
     body = {
         "username": "Daily Board",
