@@ -236,11 +236,20 @@ def cmd_poll():
         sys.exit(1)
 
     after = state.get("last_message_id", "0")
-    url = f"{API}/channels/{channel_id}/messages?after={after}&limit=100"
-    status, messages = request(url, token=token)
-    if status != 200:
-        print("Failed to read channel messages")
-        sys.exit(1)
+    messages = None
+    for attempt in range(3):
+        url = f"{API}/channels/{channel_id}/messages?after={after}&limit=100"
+        status, messages = request(url, token=token)
+        if status == 200:
+            break
+        print(f"Read failed (attempt {attempt + 1}/3, status {status}); backing off")
+        import time
+
+        time.sleep(3 * (attempt + 1))
+        messages = None
+    if messages is None:
+        print("Giving up this cycle; will retry next run")
+        return
 
     messages.reverse()  # oldest first so last_message_id advances correctly
     members = load_json("members.json", {})
