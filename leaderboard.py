@@ -22,10 +22,11 @@ LC_GRAPHQL = "https://leetcode.com/graphql"
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 
 IST = timezone(timedelta(hours=5, minutes=30))
-UA = (
+LC_UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 )
+DISCORD_UA = "MFGrindBot/1.0 (github.com/aryanbatras/leetcode-daily-discord)"
 
 REGISTER_RE = re.compile(r"^\s*!register\s+([A-Za-z0-9_\-]{1,40})\s*$", re.I)
 REMOVE_RE = re.compile(r"^\s*!remove\s*$", re.I)
@@ -67,7 +68,7 @@ def save_json(name, obj):
 
 
 def request(url, method="GET", token=None, body=None):
-    headers = {"User-Agent": UA}
+    headers = {"User-Agent": DISCORD_UA}
     if token:
         headers["Authorization"] = f"Bot {token}"
     data = None
@@ -91,7 +92,7 @@ def lc_profile(username):
     req = urllib.request.Request(
         LC_GRAPHQL,
         data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json", "Referer": "https://leetcode.com", "User-Agent": UA},
+        headers={"Content-Type": "application/json", "Referer": "https://leetcode.com", "User-Agent": LC_UA},
     )
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
