@@ -1,15 +1,26 @@
 # leetcode-daily-discord
 
-Posts the official LeetCode daily challenge to a Discord channel automatically via GitHub Actions.
+Mission Faang's automation: daily LeetCode problem + local weekly leaderboard, zero servers.
 
-## How it works
-1. `post_daily.py` fetches the daily problem from LeetCode's public GraphQL API.
-2. It posts an embed to Discord through a channel webhook.
-3. GitHub Actions runs it on cron (`30 2 * * *` UTC = 08:00 IST) or on demand.
+## What runs here
+| Workflow | Schedule (IST) | What it does |
+|---|---|---|
+| Post LeetCode Daily | 06:00 daily | Fetches today's problem from LeetCode's API, posts full statement + examples + rating into #daily-problem, pings everyone |
+| Process registrations | every 10 min | Reads `!register <username>` / `!remove` in #leaderboard via the bot token, validates against LeetCode, reacts |
+| Post weekly board | 08:00 daily | Snapshots each member's solved totals, computes week-to-date deltas (Mon reset), posts the board |
 
-## Setup (already done for Mission Faang)
-- Repo secret: `DISCORD_WEBHOOK_URL` — webhook of the target Discord channel.
-- Trigger manually anytime: `gh workflow run post-daily.yml`
+State (`data/*.json`) is committed back by Actions — that IS the database.
 
-## Testing
-GitHub Actions' minimum schedule granularity is 5 minutes; use `workflow_dispatch` for instant runs.
+## Secrets
+- `DISCORD_WEBHOOK_URL` — #daily-problem webhook
+- `LEADERBOARD_WEBHOOK_URL` — #leaderboard webhook
+- `DISCORD_BOT_TOKEN` — bot application token; needs MESSAGE CONTENT intent enabled in the dev portal
+
+## Manual runs
+```
+gh workflow run post-daily.yml
+gh workflow run register.yml
+gh workflow run weekly-board.yml
+```
+
+Note: GitHub pauses cron workflows on repos with no commits for 60 days — any commit re-enables.
