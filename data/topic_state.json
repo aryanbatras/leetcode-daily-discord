@@ -7,11 +7,13 @@
  ],
  "binary-search": [
   "count-substrings-that-satisfy-k-constraint-ii",
-  "smallest-substring-with-identical-characters-ii"
+  "smallest-substring-with-identical-characters-ii",
+  "shortest-matching-substring"
  ],
  "linked-list": [
   "linked-list-cycle",
-  "steps-to-make-array-non-decreasing"
+  "steps-to-make-array-non-decreasing",
+  "add-two-numbers"
  ],
  "stacks-and-queues": [
   "beautiful-towers-ii"
@@ -24,69 +26,91 @@
  ],
  "dynamic-programming": [
   "maximize-sum-of-weights-after-edge-removals",
-  "twisted-mirror-path-count"
+  "twisted-mirror-path-count",
+  "count-no-zero-pairs-that-sum-to-n"
  ],
  "array": [
-  "make-two-arrays-equal-by-reversing-subarrays"
+  "make-two-arrays-equal-by-reversing-subarrays",
+  "design-browser-history"
  ],
  "string": [
-  "majority-frequency-characters"
+  "majority-frequency-characters",
+  "longest-balanced-substring-ii"
  ],
  "hash-table": [
-  "find-the-difference"
+  "find-the-difference",
+  "longest-repeating-character-replacement"
  ],
  "two-pointers": [
-  "path-existence-queries-in-a-graph-ii"
+  "path-existence-queries-in-a-graph-ii",
+  "number-of-perfect-pairs"
  ],
  "sliding-window": [
-  "minimum-positive-sum-subarray"
+  "minimum-positive-sum-subarray",
+  "minimum-operations-to-make-elements-within-k-subarrays-equal"
  ],
  "prefix-sum": [
-  "jump-game-vii"
+  "jump-game-vii",
+  "minimum-absolute-difference-queries"
  ],
  "stack": [
-  "minimum-deletions-to-make-string-balanced"
+  "minimum-deletions-to-make-string-balanced",
+  "maximum-subarray-min-product"
  ],
  "monotonic-stack": [
-  "final-prices-with-a-special-discount-in-a-shop"
+  "final-prices-with-a-special-discount-in-a-shop",
+  "maximum-score-of-a-good-subarray"
  ],
  "queue": [
-  "minimum-operations-to-make-binary-array-elements-equal-to-one-i"
+  "minimum-operations-to-make-binary-array-elements-equal-to-one-i",
+  "design-ride-sharing-system"
  ],
  "heap-priority-queue": [
-  "choose-k-elements-with-maximum-sum"
+  "choose-k-elements-with-maximum-sum",
+  "minimum-time-to-reach-destination-in-directed-graph"
  ],
  "tree": [
-  "number-of-ways-to-assign-edge-weights-ii"
+  "number-of-ways-to-assign-edge-weights-ii",
+  "maximum-subgraph-score-in-a-tree"
  ],
  "trie": [
-  "concatenated-words"
+  "concatenated-words",
+  "map-sum-pairs"
  ],
  "graph": [
-  "maximal-network-rank"
+  "maximal-network-rank",
+  "count-pairs-of-nodes"
  ],
  "union-find": [
-  "validate-binary-tree-nodes"
+  "validate-binary-tree-nodes",
+  "graph-connectivity-with-threshold"
  ],
  "backtracking": [
-  "generate-binary-strings-without-adjacent-zeros"
+  "generate-binary-strings-without-adjacent-zeros",
+  "valid-binary-strings-with-cost-limit"
  ],
  "greedy": [
-  "minimum-cost-to-move-between-indices"
+  "minimum-cost-to-move-between-indices",
+  "maximum-subarray-sum-after-at-most-k-swaps"
  ],
  "bit-manipulation": [
-  "maximum-points-after-collecting-coins-from-all-nodes"
+  "maximum-points-after-collecting-coins-from-all-nodes",
+  "minimum-number-of-operations-to-make-array-xor-equal-to-k"
  ],
  "math": [
-  "reaching-points"
+  "reaching-points",
+  "split-array-with-same-average"
  ],
  "matrix": [
-  "sort-matrix-by-diagonals"
+  "sort-matrix-by-diagonals",
+  "equal-sum-grid-partition-ii"
  ],
  "sorting": [
-  "minimum-space-wasted-from-packaging"
+  "minimum-space-wasted-from-packaging",
+  "minimum-difference-between-highest-and-lowest-of-k-scores"
  ],
  "design": [
-  "maximum-frequency-stack"
+  "maximum-frequency-stack",
+  "stream-of-characters"
  ]
 }
