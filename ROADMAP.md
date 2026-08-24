@@ -1,60 +1,61 @@
-# MF Grind Roadmap — Discord as a full DSA learning machine
+# MF Grind Roadmap v2 — Discord as a full DSA learning machine
 
 Principles locked by owner:
-- **GitHub Actions only.** No Workers, no servers, no always-on anything.
-- **Gentle to upstream APIs**: every design below costs <40 upstream calls/day combined.
-- **Stateless-first**: schedules derive "what to post today" deterministically (date-seeded),
-  so no database is needed beyond small JSON state we already commit back.
-- Repo is public → unlimited Actions minutes; current burn is ~1–2 runner-minutes/day.
+- GitHub Actions only. No Workers/servers. Public repo → unlimited minutes (~1–3/day used).
+- Gentle upstream: <40 external calls/day total across everything below.
+- Stateless-first: date-seeded schedules; small committed JSON state only where unavoidable.
+- Editorials ≠ solutions: posts lead with explanations/screenshots; code links are clearly
+  labeled reference-only.
 
-## Data sources (all verified live)
+## Verified data sources
 
-| Source | What it gives | Cost |
+| Feed | Source | Refresh |
 |---|---|---|
-| LeetCode GraphQL `activeDailyCodingChallengeQuestion` | official daily | 1 call |
-| LeetCode GraphQL `question(titleSlug)` | statement, difficulty, tags, acceptance | 1 call/problem |
-| LeetCode GraphQL `problemsetQuestionList` with `filters:{tags:[...]}`, `skip=random`, `limit=1` | random problem for ANY topic tag (+`total` for range) | 1–2 calls/channel/day |
-| zerotrac ratings JSON | difficulty rating for any LC problem | 1 cached file |
-| kamyu104/LeetCode-Solutions | solution file for nearly every problem at deterministic path `C++/{slug}.cpp`, `Python/{slug}.py` | 0 calls (URL construction) |
-| doocs/leetcode | alt multi-language solutions, same slug convention | 0 calls |
-| NeetCode JSON (khush2808/dsa-sheets `data/neetcode-problems.json`) | Blind75/150/250 lists + video links | vendored weekly, 0 runtime calls |
-| Striver sheets JSON (same repo: A2Z, SDE, 79, Blind-75-TUF) | curated curricula in order | vendored weekly, 0 runtime calls |
-| Codeforces `api/problemset.problems` | ALL problems with `rating` 800–3500, `tags`, `solvedCount`; no auth | 1 call, cached weekly in-repo |
-| Codeforces `api/contest.list` | upcoming contests | 1 call/day |
+| LC daily | GraphQL activeDailyCodingChallengeQuestion | live |
+| LC random-by-tag | GraphQL problemsetQuestionList(filters.tags, skip=rand(total)) | live |
+| LC statement/details | GraphQL question(titleSlug) | live |
+| **Editorial screenshots** | akhil/leetcode-screenshotter `editorial-screenshots/{1-999,1000-1999,2000+}/{id}. {Title}.png` (~1077 PNGs, gaps exist) | index JSON vendored weekly via git-trees API (1 call/wk); lookup by frontendId at post time |
+| LC editorials | leetcode.com/problems/{slug}/solutions/ | link only |
+| NeetCode video | neetcode-problems.json (vendored) | 1 fetch/wk |
+| Codeforces problems | api/problemset.problems (rating, tags, solvedCount) | 1 call/wk cached in-repo |
+| Codeforces contests | api/contest.list | 1 call/day |
+| **CP-31 (TLE)** | its-asif/TLE-CP-31 filenames `{contestId}{index}-{Name}.cpp` per rating folder 800–1900 (31/band) | parsed weekly into cp31.json (1 trees call) |
+| CSES (~300 tasks) | scrape cses.fi/problemset/ → task ids + names | 1 scrape/mo |
+| Curated DSA sheets | GFGSC-RTU/All-DSA-Sheets xlsx (Babbar450, Apna375, Arsh280, Fraz250…) + khush2808 JSONs (A2Z, SDE, Blind75, NeetCode150/250) | vendored weekly |
+| TUF core subjects (OS/CN/DBMS) | takeuforward.org extraction (adapt khush2808 scripts) | vendored weekly |
 
-## Phases
+## Channel architecture
 
-### Phase 0 — shipped
-- Daily problem card 06:00 IST with @everyone ping (#daily-problem)
-- Weekly board 08:00 IST, Monday reset (#leaderboard)
-- `!register` / `!remove` with reply confirmations + lifetime stats
+```
+leetcode/        arrays · strings · binary-search · linked-list
+                 stacks-and-queues · trees · graphs · dynamic-programming
+cp/              codeforces · cp31 · cses
+tracks/          blind-75 · neetcode-150 · striver-a2z · core-subjects
+existing         chat/general · focus-sessions/* · bots/daily-problem·leaderboard·bot-guide·contests
+```
 
-### Phase 1 — editorial links on the daily (next up, ~zero risk)
-Daily embed gains a "Learn" section:
-- Solution (C++) and Solution (Python) → kamyu104 blob URLs (constructed, verified with HEAD request; omitted if missing)
-- Community editorials → `leetcode.com/problems/{slug}/solutions/`
-- NeetCode video if the slug appears in the vendored NeetCode JSON
+## Post formats
 
-### Phase 2 — topic channels
-Channels like `arrays`, `strings`, `dynamic-programming`, `trees`, `graphs`, `binary-search`.
-Each posts one random non-premium tagged problem daily (difficulty rotation Easy→Hard through the week).
-Implementation: one workflow, loops a committed `topics.json` map {channel: webhook}; 1–2 LC calls per topic.
+- **LC anywhere** (daily + topic): full rich card (statement/examples/difficulty/rating/tags)
+  + "Learn" section: screenshot link (if indexed) → LC solutions page → NeetCode video →
+  labeled "Reference code (spoilers)": kamyu104 C++/Python links.
+- **codeforces**: name, rating color-coded by band, tags, solvedCount, contest link.
+  Band rotates Mon→Sun: 800/900/1000/1100/1200/1400/1600+ (tunable).
+- **cp31**: today's slot = day-number mod 372, ordered band asc → steady 372-day curriculum;
+  card shows band, CF link, and "idea of the day" framing.
+- **cses**: sequential task card (id order ≈ difficulty order) with technique hint from its set name.
+- **tracks**: strictly next-in-order; progress = days since launch mod length (stateless).
+- **core-subjects**: one interview Q&A per day, rotating OS→CN→DBMS.
+- **#contests** (+ morning line in #general): upcoming LC + CF contests sorted by start time.
 
-### Phase 3 — codeforces channel(s)
-- Daily random CF problem, rating band rotates through the week (800 → 3500), tag filter optional.
-- Problemset JSON fetched once weekly and committed; daily picks are date-seeded → reruns never duplicate.
-- Bonus: `contest.list` powers an "upcoming contests" line in #general every morning.
+## Call budget (everything ON)
+LC: daily(1) + topics(8×2) + zerotrac(cached) ≈ 17 · CF: problems(0, cached wkly) + contests(1)
+Screenshots/trees/cp31/sheets: ~6 calls/WEEK · CSES: 1 scrape/MONTH → well under budget.
 
-### Phase 4 — curated tracks ("sheets")
-Channels `blind-75`, `neetcode-150`, `striver-a2z`, `sde-79`: post the NEXT item in order daily
-(index = days-since-launch mod length → inherently stateless). Vendored JSON refreshed weekly by CI.
-Each entry links the LC/GfG problem + Striver/NeetCode article/video.
-
-### Phase 5 — optional, only if asked
-- CF rating-band ladders (newbie/pupil/specialist channels)
-- Company-tagged interview channel (LC company tags need premium — would use community datasets instead)
-- Per-track completion tracking (stateful; extends members.json)
-
-## Runner-minute budget
-Single consolidated daily workflow: fetch → compose → post everything ≈ 60–90s.
-Poller: ~15s × 288 runs/day ≈ 70 min/day worst case, still far under limits; can drop to */10 anytime.
+## Build order (each phase shipped + tested before next)
+1. P1 Editorial upgrade on existing daily (+ vendored screenshot index + NeetCode map)
+2. P2 `leetcode/` topic channels (8) with tagged random dailies
+3. P3 `cp/`: codeforces + cp31 + cses channels
+4. P4 `tracks/`: blind-75, neetcode-150, striver-a2z, core-subjects
+5. P5 #contests feed + morning line
+All consolidated into ONE daily workflow (~90s runner time) + existing poller/board jobs.
