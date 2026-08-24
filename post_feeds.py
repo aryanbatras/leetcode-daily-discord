@@ -26,6 +26,7 @@ DATA = "data"
 LAUNCH_DAY = (2026, 8, 24)
 IST = timezone(timedelta(hours=5, minutes=30))
 GENERAL_CHANNEL_ID = 1541028380655231118
+FOCUS_ROOM_ID = 1541028380655231119
 
 TOPICS = [
     "array", "string", "hash-table", "two-pointers", "sliding-window",
@@ -236,39 +237,58 @@ def post_codeforces(hooks, digest):
     save_json(path, state)
 
 
-def post_cp31(hooks, digest):
-    rows = load_json(f"{DATA}/cp31.json")
-    by_band = {}
-    for row in sorted(rows, key=lambda r: r["slot"]):
-        by_band.setdefault(row["band"], []).append(row)
-    day = days_since(*LAUNCH_DAY)
-    for band in BANDS:
-        hook = hooks.get(f"cp31-{band}")
-        if not hook:
-            continue
-        entries = by_band.get(band, [])
-        if not entries:
-            continue
-        entry = entries[day % len(entries)]
-        embed = {
-            "author": {"name": "TLE Eliminators CP-31"},
-            "title": f"Slot {entry['slot']}/31 — {entry['name']}",
-            "url": entry["url"],
-            "color": cf_color(band),
-            "description": (
-                "One handpicked problem per rating level, curated by TLE Eliminators for "
-                "reusable ideas. This channel always serves today's slot of its band."
-            ),
-            "fields": [
-                {"name": "Band", "value": str(band), "inline": True},
-                {"name": "Slot", "value": f"{entry['slot']}/31", "inline": True},
-                {"name": "Solved by", "value": f"{entry.get('solvedCount', 0):,}", "inline": True},
-            ],
-            "footer": {"text": "cp31 · sheet restarts every 31 days"},
-        }
-        if send_embed(hook, embed, username=f"cp-31 {band}"):
-            digest.append((f"cp31/{band}", entry["name"], str(band)))
-            print(f"cp31-{band}: posted slot {entry['slot']} {entry['name']}")
+def create_focus_event():
+    """Keep exactly one upcoming 'night grind' event scheduled: tomorrow 21:00 IST."""
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    if not token:
+        return
+    import urllib.request
+    import urllib.error
+
+    tomorrow = datetime.now(IST) + timedelta(days=1)
+    start = tomorrow.replace(hour=21, minute=0, second=0, microsecond=0)
+    end = start + timedelta(hours=1)
+    start_iso = start.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    end_iso = end.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    def call(method, path, payload=None):
+        data = json.dumps(payload).encode() if payload is not None else None
+        req = urllib.request.Request(
+            f"https://discord.com/api/v10{path}", method=method, data=data,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bot {token}",
+                "User-Agent": "MFGrindBot/1.0 (+https://github.com/aryanbatras/leetcode-daily-discord)",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                raw = resp.read().decode()
+                return json.loads(raw) if raw else {}
+        except Exception as exc:
+            print("focus event api failed:", exc)
+            return None
+
+    existing = call("GET", f"/guilds/1541028379598397452/scheduled-events") or []
+    if isinstance(existing, list) and any(
+        e.get("scheduled_start_time", "").startswith(start_iso[:10]) for e in existing
+    ):
+        print("focus event: already covered for", start_iso[:10])
+        return
+    created = call("POST", "/guilds/1541028379598397452/scheduled-events", {
+        "name": "night grind - silent focus",
+        "description": (
+            "one hour, cameras off, phones down. show up, pick your daily problem, "
+            "disappear into it."
+        ),
+        "scheduled_start_time": start_iso,
+        "scheduled_end_time": end_iso,
+        "entity_type": 2,
+        "channel_id": FOCUS_ROOM_ID,
+        "privacy_level": 2,
+    })
+    if isinstance(created, dict) and created.get("id"):
+        print("focus event created:", created["id"])
 
 
 def post_cses(hooks, digest):
@@ -482,6 +502,9 @@ def post_digest(digest):
         shown = [f"`#{ch}` {truncate(t, 42, '…')}" for ch, t, e in items[:6]]
         more = f"\n*+{len(items) - 6} more*" if len(items) > 6 else ""
         lines.append(f"**{group}**\n" + "\n".join(shown) + more)
+    lines.append(
+        "*Want to discuss a card? Open a thread right under it — top-level stays a clean archive.*"
+    )
     body = "\n\n".join(lines)
     payload = json.dumps({
         "content": truncate(body, 1900, "\n*full menus live in their channels*"),
@@ -515,13 +538,13 @@ def main():
     digest = []
     post_topics(hooks, digest)
     post_codeforces(hooks, digest)
-    post_cp31(hooks, digest)
     post_cses(hooks, digest)
     post_tracks(hooks, digest)
     post_subjects(hooks, digest)
     post_system_design(hooks, digest)
     post_contests(hooks, digest)
     post_digest(digest)
+    create_focus_event()
     print("all feeds done")
 
 

@@ -83,6 +83,25 @@ def main():
             api("DELETE", f"/channels/{ch['id']}")
             print("deleted channel", doomed)
 
+    # mechanism-named categories are misguided: dissolve any that survive
+    for dead_cat in ("discord-server-bots", "bots", "chat", "focus-sessions"):
+        cat_id = cats_by_name.get(dead_cat)
+        if not cat_id:
+            continue
+        kids = [c for c in chans if c.get("parent_id") == cat_id]
+        homes = {"daily-problem": "leetcode", "contests": "codeforces",
+                 "leaderboard": None, "bot-guide": None, "general": None}
+        for kid in kids:
+            target = homes.get(kid["name"], "__unset__")
+            if target == "__unset__":
+                continue
+            parent = cats_by_name.get(target) if target else None
+            api("PATCH", f"/channels/{kid['id']}", {"parent_id": parent})
+        if not [c for c in api("GET", f"/guilds/{GUILD}/channels") or []
+                if c.get("parent_id") == cat_id]:
+            api("DELETE", f"/channels/{cat_id}")
+            print("dissolved category", dead_cat)
+
     # desired: category -> [(channel, webhook_name, key)]
     plan = {
         "leetcode": [("lc-" + s, "Topic Feed", s) for s in TOPIC_SLUGS],
@@ -96,7 +115,6 @@ def main():
             ("low-level-design", "LLD Drill", "low-level-design"),
             ("high-level-design", "HLD Drill", "high-level-design"),
         ],
-        "cp31": [(str(b), "CP-31 Feed", f"cp31-{b}") for b in BANDS],
         "codeforces": [(str(b), "CF Feed", f"cf-{b}") for b in BANDS],
         "cses": [(slugify(s), "CSES Feed", f"cses-{slugify(s)}") for s in CSES_SECTIONS],
     }
@@ -125,8 +143,9 @@ def main():
                 hook = api("POST", f"/channels/{ch['id']}/webhooks", {"name": hook_name})
                 print("created webhook", hook_name, "->", chan_name)
             hooks_map[key] = f"https://discord.com/api/v10/webhooks/{hook['id']}/{hook['token']}"
+            # archive channel: read-only top-level, but threads open for discussion
             api("PUT", f"/channels/{ch['id']}/permissions/{GUILD}",
-                {"allow": 66560, "deny": 2048, "type": 0})
+                {"allow": 1024 + 65536 + 262144 + 2097152, "deny": 2048, "type": 0})
 
     for keep in ("blind-75", "neetcode-150", "striver-a2z"):
         pass  # handled inside plan above
@@ -135,7 +154,7 @@ def main():
     for k, v in old.items():
         hooks_map.setdefault(k, v)
     # drop keys whose channels were pruned
-    for dead in ("codeforces", "cp31", "cses", "core-subjects"):
+    for dead in ("codeforces", "cp31", "cses", "core-subjects", *(f"cp31-{b}" for b in BANDS)):
         hooks_map.pop(dead, None)
 
     with open(OUT, "w") as fh:
