@@ -8,7 +8,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 14794
+  "solvedCount": 14800
  },
  {
   "contestId": 2256,
@@ -19,7 +19,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 22047
+  "solvedCount": 22053
  },
  {
   "contestId": 2255,
@@ -66,7 +66,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 1287
+  "solvedCount": 1290
  },
  {
   "contestId": 2255,
@@ -93,7 +93,7 @@
    "combinatorics",
    "math"
   ],
-  "solvedCount": 6134
+  "solvedCount": 6135
  },
  {
   "contestId": 2255,
@@ -105,7 +105,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 11957
+  "solvedCount": 11964
  },
  {
   "contestId": 2254,
@@ -145,7 +145,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 6616
+  "solvedCount": 6617
  },
  {
   "contestId": 2254,
@@ -157,7 +157,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 9158
+  "solvedCount": 9161
  },
  {
   "contestId": 2254,
@@ -168,7 +168,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 12636
+  "solvedCount": 12640
  },
  {
   "contestId": 2254,
@@ -178,7 +178,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 17779
+  "solvedCount": 17782
  },
  {
   "contestId": 2254,
@@ -190,7 +190,7 @@
    "strings",
    "two pointers"
   ],
-  "solvedCount": 22616
+  "solvedCount": 22625
  },
  {
   "contestId": 2254,
@@ -201,7 +201,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 32120
+  "solvedCount": 32130
  },
  {
   "contestId": 2253,
@@ -230,7 +230,7 @@
    "implementation",
    "trees"
   ],
-  "solvedCount": 1127
+  "solvedCount": 1128
  },
  {
   "contestId": 2253,
@@ -245,7 +245,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 2950
+  "solvedCount": 2951
  },
  {
   "contestId": 2253,
@@ -257,7 +257,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 6931
+  "solvedCount": 6933
  },
  {
   "contestId": 2253,
@@ -269,7 +269,7 @@
    "data structures",
    "two pointers"
   ],
-  "solvedCount": 11133
+  "solvedCount": 11136
  },
  {
   "contestId": 2253,
@@ -281,7 +281,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 18815
+  "solvedCount": 18820
  },
  {
   "contestId": 2252,
@@ -333,7 +333,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 8716
+  "solvedCount": 8718
  },
  {
   "contestId": 2252,
@@ -346,7 +346,7 @@
    "math",
    "strings"
   ],
-  "solvedCount": 11776
+  "solvedCount": 11777
  },
  {
   "contestId": 2252,
@@ -367,7 +367,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 14253
+  "solvedCount": 14254
  },
  {
   "contestId": 2250,
@@ -379,7 +379,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 18050
+  "solvedCount": 18052
  },
  {
   "contestId": 2249,
@@ -516,7 +516,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 6637
+  "solvedCount": 6639
  },
  {
   "contestId": 2248,
@@ -538,7 +538,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 13885
+  "solvedCount": 13887
  },
  {
   "contestId": 2248,
@@ -548,7 +548,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 19307
+  "solvedCount": 19310
  },
  {
   "contestId": 2247,
@@ -606,7 +606,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 12614
+  "solvedCount": 12616
  },
  {
   "contestId": 2247,
@@ -628,7 +628,7 @@
    "dp",
    "number theory"
   ],
-  "solvedCount": 20987
+  "solvedCount": 20991
  },
  {
   "contestId": 2246,
@@ -782,7 +782,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 6714
+  "solvedCount": 6717
  },
  {
   "contestId": 2245,
@@ -856,7 +856,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 12835
+  "solvedCount": 12836
  },
  {
   "contestId": 2244,
@@ -872,7 +872,7 @@
    "number theory",
    "sortings"
   ],
-  "solvedCount": 17099
+  "solvedCount": 17101
  },
  {
   "contestId": 2244,
@@ -884,7 +884,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 23829
+  "solvedCount": 23834
  },
  {
   "contestId": 2244,
@@ -897,7 +897,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 29164
+  "solvedCount": 29167
  },
  {
   "contestId": 2242,
@@ -926,7 +926,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 1517
+  "solvedCount": 1518
  },
  {
   "contestId": 2242,
@@ -975,7 +975,7 @@
    "sortings",
    "strings"
   ],
-  "solvedCount": 24522
+  "solvedCount": 24523
  },
  {
   "contestId": 2241,
@@ -1030,7 +1030,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 16404
+  "solvedCount": 16405
  },
  {
   "contestId": 2241,
@@ -1040,7 +1040,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 21450
+  "solvedCount": 21452
  },
  {
   "contestId": 2241,
@@ -1064,7 +1064,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 34203
+  "solvedCount": 34204
  },
  {
   "contestId": 2240,
@@ -1075,7 +1075,7 @@
    "combinatorics",
    "math"
   ],
-  "solvedCount": 11026
+  "solvedCount": 11027
  },
  {
   "contestId": 2240,
@@ -1085,7 +1085,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 16882
+  "solvedCount": 16884
  },
  {
   "contestId": 2239,
@@ -1200,7 +1200,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 7739
+  "solvedCount": 7740
  },
  {
   "contestId": 2238,
@@ -1444,7 +1444,7 @@
    "math",
    "strings"
   ],
-  "solvedCount": 28758
+  "solvedCount": 28759
  },
  {
   "contestId": 2236,
@@ -1455,7 +1455,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 35040
+  "solvedCount": 35044
  },
  {
   "contestId": 2234,
@@ -1536,7 +1536,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 22455
+  "solvedCount": 22456
  },
  {
   "contestId": 2234,
@@ -1611,7 +1611,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 9655
+  "solvedCount": 9656
  },
  {
   "contestId": 2233,
@@ -1621,7 +1621,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 18209
+  "solvedCount": 18210
  },
  {
   "contestId": 2233,
@@ -1778,7 +1778,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 18348
+  "solvedCount": 18350
  },
  {
   "contestId": 2231,
@@ -1788,7 +1788,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 25695
+  "solvedCount": 25696
  },
  {
   "contestId": 2230,
@@ -1866,7 +1866,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 23650
+  "solvedCount": 23651
  },
  {
   "contestId": 2229,
@@ -1964,7 +1964,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 16047
+  "solvedCount": 16049
  },
  {
   "contestId": 2229,
@@ -2076,7 +2076,7 @@
    "games",
    "implementation"
   ],
-  "solvedCount": 17287
+  "solvedCount": 17288
  },
  {
   "contestId": 2228,
@@ -2087,7 +2087,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 22068
+  "solvedCount": 22069
  },
  {
   "contestId": 2227,
@@ -2111,7 +2111,7 @@
    "data structures",
    "math"
   ],
-  "solvedCount": 2278
+  "solvedCount": 2279
  },
  {
   "contestId": 2227,
@@ -2125,7 +2125,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 4558
+  "solvedCount": 4559
  },
  {
   "contestId": 2227,
@@ -2138,7 +2138,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 10027
+  "solvedCount": 10028
  },
  {
   "contestId": 2227,
@@ -2154,7 +2154,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 14478
+  "solvedCount": 14479
  },
  {
   "contestId": 2227,
@@ -2165,7 +2165,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 23321
+  "solvedCount": 23322
  },
  {
   "contestId": 2227,
@@ -2335,7 +2335,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 14384
+  "solvedCount": 14385
  },
  {
   "contestId": 2225,
@@ -2381,7 +2381,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 12130
+  "solvedCount": 12132
  },
  {
   "contestId": 2223,
@@ -2727,7 +2727,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 41098
+  "solvedCount": 41099
  },
  {
   "contestId": 2218,
@@ -2740,7 +2740,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 43304
+  "solvedCount": 43305
  },
  {
   "contestId": 2217,
@@ -2809,7 +2809,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 3850
+  "solvedCount": 3851
  },
  {
   "contestId": 2217,
@@ -2842,7 +2842,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 25324
+  "solvedCount": 25325
  },
  {
   "contestId": 2216,
@@ -2862,7 +2862,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 6356
+  "solvedCount": 6357
  },
  {
   "contestId": 2215,
@@ -2940,7 +2940,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 1325
+  "solvedCount": 1326
  },
  {
   "contestId": 2215,
@@ -3137,7 +3137,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 19840
+  "solvedCount": 19841
  },
  {
   "contestId": 2210,
@@ -3150,7 +3150,7 @@
    "greedy",
    "number theory"
   ],
-  "solvedCount": 24916
+  "solvedCount": 24917
  },
  {
   "contestId": 2209,
@@ -3199,7 +3199,7 @@
    "constructive algorithms",
    "interactive"
   ],
-  "solvedCount": 12029
+  "solvedCount": 12030
  },
  {
   "contestId": 2209,
@@ -3261,7 +3261,7 @@
    "matrices",
    "trees"
   ],
-  "solvedCount": 4859
+  "solvedCount": 4860
  },
  {
   "contestId": 2208,
@@ -3299,7 +3299,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 22197
+  "solvedCount": 22198
  },
  {
   "contestId": 2207,
@@ -3378,7 +3378,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 6507
+  "solvedCount": 6509
  },
  {
   "contestId": 2207,
@@ -3783,7 +3783,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 16560
+  "solvedCount": 16561
  },
  {
   "contestId": 2203,
@@ -3793,7 +3793,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 20026
+  "solvedCount": 20027
  },
  {
   "contestId": 2202,
@@ -3927,7 +3927,7 @@
   "tags": [
    "data structures"
   ],
-  "solvedCount": 12405
+  "solvedCount": 12406
  },
  {
   "contestId": 2200,
@@ -4004,7 +4004,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 24607
+  "solvedCount": 24608
  },
  {
   "contestId": 2200,
@@ -4158,7 +4158,7 @@
    "math",
    "schedules"
   ],
-  "solvedCount": 24175
+  "solvedCount": 24176
  },
  {
   "contestId": 2196,
@@ -4363,7 +4363,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 38169
+  "solvedCount": 38170
  },
  {
   "contestId": 2194,
@@ -4442,7 +4442,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 20171
+  "solvedCount": 20172
  },
  {
   "contestId": 2194,
@@ -4505,7 +4505,7 @@
    "number theory",
    "shortest paths"
   ],
-  "solvedCount": 16399
+  "solvedCount": 16400
  },
  {
   "contestId": 2193,
@@ -4528,7 +4528,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 30661
+  "solvedCount": 30662
  },
  {
   "contestId": 2193,
@@ -4622,7 +4622,7 @@
    "brute force",
    "strings"
   ],
-  "solvedCount": 19083
+  "solvedCount": 19084
  },
  {
   "contestId": 2191,
@@ -4633,7 +4633,7 @@
    "constructive algorithms",
    "sortings"
   ],
-  "solvedCount": 21117
+  "solvedCount": 21118
  },
  {
   "contestId": 2191,
@@ -4643,7 +4643,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 28944
+  "solvedCount": 28945
  },
  {
   "contestId": 2190,
@@ -4785,7 +4785,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 2091
+  "solvedCount": 2092
  },
  {
   "contestId": 2189,
@@ -4799,7 +4799,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 4280
+  "solvedCount": 4281
  },
  {
   "contestId": 2189,
@@ -5017,7 +5017,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 11147
+  "solvedCount": 11148
  },
  {
   "contestId": 2185,
@@ -5051,7 +5051,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 43688
+  "solvedCount": 43689
  },
  {
   "contestId": 2185,
@@ -5111,7 +5111,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 10280
+  "solvedCount": 10281
  },
  {
   "contestId": 2184,
@@ -5125,7 +5125,7 @@
    "graphs",
    "math"
   ],
-  "solvedCount": 23349
+  "solvedCount": 23351
  },
  {
   "contestId": 2184,
@@ -5135,7 +5135,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 25582
+  "solvedCount": 25583
  },
  {
   "contestId": 2184,
@@ -5145,7 +5145,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 40194
+  "solvedCount": 40195
  },
  {
   "contestId": 2183,
@@ -5714,7 +5714,7 @@
    "geometry",
    "math"
   ],
-  "solvedCount": 6099
+  "solvedCount": 6100
  },
  {
   "contestId": 2179,
@@ -5740,7 +5740,7 @@
    "number theory",
    "sortings"
   ],
-  "solvedCount": 23370
+  "solvedCount": 23371
  },
  {
   "contestId": 2179,
@@ -5930,7 +5930,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 16591
+  "solvedCount": 16592
  },
  {
   "contestId": 2176,
@@ -6130,7 +6130,7 @@
    "greedy",
    "number theory"
   ],
-  "solvedCount": 13351
+  "solvedCount": 13352
  },
  {
   "contestId": 2173,
@@ -6153,7 +6153,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 24633
+  "solvedCount": 24634
  },
  {
   "contestId": 2172,
@@ -6410,7 +6410,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 28424
+  "solvedCount": 28425
  },
  {
   "contestId": 2171,
@@ -6506,7 +6506,7 @@
    "fft",
    "math"
   ],
-  "solvedCount": 357
+  "solvedCount": 358
  },
  {
   "contestId": 2169,
@@ -6569,7 +6569,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 16993
+  "solvedCount": 16994
  },
  {
   "contestId": 2169,
@@ -6644,7 +6644,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 37477
+  "solvedCount": 37478
  },
  {
   "contestId": 2167,
@@ -7153,7 +7153,7 @@
   "tags": [
    "bitmasks"
   ],
-  "solvedCount": 15879
+  "solvedCount": 15880
  },
  {
   "contestId": 2160,
@@ -7265,7 +7265,7 @@
    "implementation",
    "interactive"
   ],
-  "solvedCount": 9537
+  "solvedCount": 9538
  },
  {
   "contestId": 2158,
@@ -7357,7 +7357,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 24269
+  "solvedCount": 24270
  },
  {
   "contestId": 2157,
@@ -7432,7 +7432,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 5371
+  "solvedCount": 5372
  },
  {
   "contestId": 2157,
@@ -7447,7 +7447,7 @@
    "ternary search",
    "two pointers"
   ],
-  "solvedCount": 8197
+  "solvedCount": 8198
  },
  {
   "contestId": 2157,
@@ -7563,7 +7563,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 21728
+  "solvedCount": 21729
  },
  {
   "contestId": 2156,
@@ -7849,7 +7849,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 2554
+  "solvedCount": 2555
  },
  {
   "contestId": 2152,
@@ -7900,7 +7900,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 8869
+  "solvedCount": 8870
  },
  {
   "contestId": 2152,
@@ -8216,7 +8216,7 @@
    "hashing",
    "math"
   ],
-  "solvedCount": 50197
+  "solvedCount": 50198
  },
  {
   "contestId": 2147,
@@ -8262,7 +8262,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 1221
+  "solvedCount": 1222
  },
  {
   "contestId": 2147,
@@ -8387,7 +8387,7 @@
    "greedy",
    "trees"
   ],
-  "solvedCount": 11283
+  "solvedCount": 11284
  },
  {
   "contestId": 2146,
@@ -8510,7 +8510,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 32332
+  "solvedCount": 32333
  },
  {
   "contestId": 2144,
@@ -8835,7 +8835,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 5235
+  "solvedCount": 5236
  },
  {
   "contestId": 2140,
@@ -9070,7 +9070,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 27611
+  "solvedCount": 27612
  },
  {
   "contestId": 2137,
@@ -9352,7 +9352,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 32020
+  "solvedCount": 32021
  },
  {
   "contestId": 2132,
@@ -9436,7 +9436,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 34684
+  "solvedCount": 34686
  },
  {
   "contestId": 2132,
@@ -9528,7 +9528,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 22450
+  "solvedCount": 22451
  },
  {
   "contestId": 2131,
@@ -9686,7 +9686,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 19130
+  "solvedCount": 19131
  },
  {
   "contestId": 2128,
@@ -9889,7 +9889,7 @@
    "games",
    "greedy"
   ],
-  "solvedCount": 15034
+  "solvedCount": 15035
  },
  {
   "contestId": 2127,
@@ -10064,7 +10064,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 28620
+  "solvedCount": 28621
  },
  {
   "contestId": 2125,
@@ -10192,7 +10192,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 21440
+  "solvedCount": 21442
  },
  {
   "contestId": 2123,
@@ -10275,7 +10275,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 42533
+  "solvedCount": 42534
  },
  {
   "contestId": 2122,
@@ -10608,7 +10608,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 18921
+  "solvedCount": 18922
  },
  {
   "contestId": 2119,
@@ -11147,7 +11147,7 @@
    "brute force",
    "greedy"
   ],
-  "solvedCount": 21656
+  "solvedCount": 21657
  },
  {
   "contestId": 2112,
@@ -11158,7 +11158,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 29773
+  "solvedCount": 29774
  },
  {
   "contestId": 2111,
@@ -11388,7 +11388,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 8967
+  "solvedCount": 8968
  },
  {
   "contestId": 2109,
@@ -11402,7 +11402,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 11876
+  "solvedCount": 11877
  },
  {
   "contestId": 2109,
@@ -11534,7 +11534,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 1891
+  "solvedCount": 1892
  },
  {
   "contestId": 2107,
@@ -11655,7 +11655,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 6140
+  "solvedCount": 6141
  },
  {
   "contestId": 2106,
@@ -11772,7 +11772,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 17836
+  "solvedCount": 17837
  },
  {
   "contestId": 2104,
@@ -12227,7 +12227,7 @@
    "strings",
    "two pointers"
   ],
-  "solvedCount": 24676
+  "solvedCount": 24678
  },
  {
   "contestId": 2094,
@@ -12332,7 +12332,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 31683
+  "solvedCount": 31684
  },
  {
   "contestId": 2093,
@@ -12790,7 +12790,7 @@
    "constructive algorithms",
    "implementation"
   ],
-  "solvedCount": 24011
+  "solvedCount": 24013
  },
  {
   "contestId": 2084,
@@ -13598,7 +13598,7 @@
    "constructive algorithms",
    "strings"
   ],
-  "solvedCount": 31607
+  "solvedCount": 31608
  },
  {
   "contestId": 2072,
@@ -13854,7 +13854,7 @@
    "graph matchings",
    "greedy"
   ],
-  "solvedCount": 26801
+  "solvedCount": 26802
  },
  {
   "contestId": 2068,
@@ -13996,7 +13996,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 13089
+  "solvedCount": 13090
  },
  {
   "contestId": 2067,
@@ -14292,7 +14292,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 20496
+  "solvedCount": 20497
  },
  {
   "contestId": 2064,
@@ -14695,7 +14695,7 @@
    "graphs",
    "greedy"
   ],
-  "solvedCount": 12968
+  "solvedCount": 12969
  },
  {
   "contestId": 2060,
@@ -14718,7 +14718,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 33032
+  "solvedCount": 33033
  },
  {
   "contestId": 2060,
@@ -14917,7 +14917,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 14184
+  "solvedCount": 14185
  },
  {
   "contestId": 2057,
@@ -14928,7 +14928,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 23732
+  "solvedCount": 23733
  },
  {
   "contestId": 2057,
@@ -15008,7 +15008,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 19868
+  "solvedCount": 19869
  },
  {
   "contestId": 2056,
@@ -15238,7 +15238,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 17316
+  "solvedCount": 17317
  },
  {
   "contestId": 2053,
@@ -15452,7 +15452,7 @@
    "constructive algorithms",
    "implementation"
   ],
-  "solvedCount": 28629
+  "solvedCount": 28630
  },
  {
   "contestId": 2051,
@@ -15463,7 +15463,7 @@
    "binary search",
    "math"
   ],
-  "solvedCount": 40833
+  "solvedCount": 40835
  },
  {
   "contestId": 2051,
@@ -15510,7 +15510,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 15127
+  "solvedCount": 15129
  },
  {
   "contestId": 2050,
@@ -15597,7 +15597,7 @@
    "brute force",
    "dp"
   ],
-  "solvedCount": 6179
+  "solvedCount": 6180
  },
  {
   "contestId": 2049,
@@ -15775,7 +15775,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 19726
+  "solvedCount": 19727
  },
  {
   "contestId": 2047,
@@ -16502,7 +16502,7 @@
    "probabilities",
    "trees"
   ],
-  "solvedCount": 2805
+  "solvedCount": 2806
  },
  {
   "contestId": 2040,
@@ -16641,7 +16641,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 7187
+  "solvedCount": 7188
  },
  {
   "contestId": 2039,
@@ -17513,7 +17513,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 16135
+  "solvedCount": 16136
  },
  {
   "contestId": 2031,
@@ -17615,7 +17615,7 @@
    "games",
    "greedy"
   ],
-  "solvedCount": 20269
+  "solvedCount": 20270
  },
  {
   "contestId": 2030,
@@ -18500,7 +18500,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 26369
+  "solvedCount": 26371
  },
  {
   "contestId": 2019,
@@ -18702,7 +18702,7 @@
    "graphs",
    "shortest paths"
   ],
-  "solvedCount": 9506
+  "solvedCount": 9507
  },
  {
   "contestId": 2014,
@@ -19069,7 +19069,7 @@
    "brute force",
    "math"
   ],
-  "solvedCount": 37159
+  "solvedCount": 37160
  },
  {
   "contestId": 2008,
@@ -19212,7 +19212,7 @@
    "greedy",
    "trees"
   ],
-  "solvedCount": 9866
+  "solvedCount": 9867
  },
  {
   "contestId": 2005,
@@ -19454,7 +19454,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 4734
+  "solvedCount": 4735
  },
  {
   "contestId": 2003,
@@ -19706,7 +19706,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 33195
+  "solvedCount": 33196
  },
  {
   "contestId": 2000,
@@ -19771,7 +19771,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 29823
+  "solvedCount": 29824
  },
  {
   "contestId": 2000,
@@ -19792,7 +19792,7 @@
   "tags": [
    "two pointers"
   ],
-  "solvedCount": 41513
+  "solvedCount": 41514
  },
  {
   "contestId": 2000,
@@ -19804,7 +19804,7 @@
    "math",
    "strings"
   ],
-  "solvedCount": 44966
+  "solvedCount": 44967
  },
  {
   "contestId": 1999,
@@ -19965,7 +19965,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 28599
+  "solvedCount": 28600
  },
  {
   "contestId": 1998,
@@ -20143,7 +20143,7 @@
    "math",
    "ternary search"
   ],
-  "solvedCount": 59128
+  "solvedCount": 59130
  },
  {
   "contestId": 1995,
@@ -20198,7 +20198,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 10488
+  "solvedCount": 10489
  },
  {
   "contestId": 1995,
@@ -20487,7 +20487,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 24635
+  "solvedCount": 24636
  },
  {
   "contestId": 1992,
@@ -20863,7 +20863,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 20675
+  "solvedCount": 20676
  },
  {
   "contestId": 1988,
@@ -21068,7 +21068,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 18311
+  "solvedCount": 18312
  },
  {
   "contestId": 1986,
@@ -21403,7 +21403,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 18665
+  "solvedCount": 18666
  },
  {
   "contestId": 1983,
@@ -21611,7 +21611,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 4462
+  "solvedCount": 4463
  },
  {
   "contestId": 1980,
@@ -21858,7 +21858,7 @@
    "greedy",
    "hashing"
   ],
-  "solvedCount": 2443
+  "solvedCount": 2444
  },
  {
   "contestId": 1977,
@@ -22458,7 +22458,7 @@
    "dp",
    "matrices"
   ],
-  "solvedCount": 1247
+  "solvedCount": 1248
  },
  {
   "contestId": 1970,
@@ -22469,7 +22469,7 @@
    "dp",
    "matrices"
   ],
-  "solvedCount": 2186
+  "solvedCount": 2187
  },
  {
   "contestId": 1970,
@@ -23451,7 +23451,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 22001
+  "solvedCount": 22002
  },
  {
   "contestId": 1954,
@@ -23726,7 +23726,7 @@
    "graphs",
    "greedy"
   ],
-  "solvedCount": 1070
+  "solvedCount": 1071
  },
  {
   "contestId": 1949,
@@ -24167,7 +24167,7 @@
    "math",
    "strings"
   ],
-  "solvedCount": 4689
+  "solvedCount": 4690
  },
  {
   "contestId": 1943,
@@ -24365,7 +24365,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 35513
+  "solvedCount": 35514
  },
  {
   "contestId": 1941,
@@ -24653,7 +24653,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 21184
+  "solvedCount": 21185
  },
  {
   "contestId": 1935,
@@ -24953,7 +24953,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 27887
+  "solvedCount": 27888
  },
  {
   "contestId": 1931,
@@ -25112,7 +25112,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 17914
+  "solvedCount": 17915
  },
  {
   "contestId": 1930,
@@ -25263,7 +25263,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 10578
+  "solvedCount": 10579
  },
  {
   "contestId": 1928,
@@ -25495,7 +25495,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 23796
+  "solvedCount": 23797
  },
  {
   "contestId": 1925,
@@ -26008,7 +26008,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 30716
+  "solvedCount": 30718
  },
  {
   "contestId": 1919,
@@ -26307,7 +26307,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 32961
+  "solvedCount": 32962
  },
  {
   "contestId": 1916,
@@ -26358,7 +26358,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 37445
+  "solvedCount": 37446
  },
  {
   "contestId": 1915,
@@ -26381,7 +26381,7 @@
    "binary search",
    "implementation"
   ],
-  "solvedCount": 56060
+  "solvedCount": 56061
  },
  {
   "contestId": 1915,
@@ -26500,7 +26500,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 43135
+  "solvedCount": 43136
  },
  {
   "contestId": 1914,
@@ -26583,7 +26583,7 @@
   "tags": [
    "strings"
   ],
-  "solvedCount": 56675
+  "solvedCount": 56676
  },
  {
   "contestId": 1913,
@@ -26948,7 +26948,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 34107
+  "solvedCount": 34109
  },
  {
   "contestId": 1909,
@@ -27021,7 +27021,7 @@
    "math",
    "strings"
   ],
-  "solvedCount": 23617
+  "solvedCount": 23618
  },
  {
   "contestId": 1907,
@@ -27222,7 +27222,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 4779
+  "solvedCount": 4780
  },
  {
   "contestId": 1905,
@@ -27233,7 +27233,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 14481
+  "solvedCount": 14482
  },
  {
   "contestId": 1905,
@@ -27349,7 +27349,7 @@
    "brute force",
    "implementation"
   ],
-  "solvedCount": 45056
+  "solvedCount": 45057
  },
  {
   "contestId": 1903,
@@ -27437,7 +27437,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 89705
+  "solvedCount": 89709
  },
  {
   "contestId": 1902,
@@ -27555,7 +27555,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 8825
+  "solvedCount": 8826
  },
  {
   "contestId": 1901,
@@ -27589,7 +27589,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 84502
+  "solvedCount": 84506
  },
  {
   "contestId": 1900,
@@ -27665,7 +27665,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 72312
+  "solvedCount": 72313
  },
  {
   "contestId": 1899,
@@ -27755,7 +27755,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 102811
+  "solvedCount": 102814
  },
  {
   "contestId": 1898,
@@ -27941,7 +27941,7 @@
   "tags": [
    "sortings"
   ],
-  "solvedCount": 64845
+  "solvedCount": 64846
  },
  {
   "contestId": 1895,
@@ -28175,7 +28175,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 21881
+  "solvedCount": 21882
  },
  {
   "contestId": 1891,
@@ -28187,7 +28187,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 31516
+  "solvedCount": 31517
  },
  {
   "contestId": 1891,
@@ -28219,7 +28219,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 63729
+  "solvedCount": 63731
  },
  {
   "contestId": 1889,
@@ -28580,7 +28580,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 55163
+  "solvedCount": 55167
  },
  {
   "contestId": 1883,
@@ -28590,7 +28590,7 @@
   "tags": [
    "strings"
   ],
-  "solvedCount": 65497
+  "solvedCount": 65500
  },
  {
   "contestId": 1883,
@@ -28696,7 +28696,7 @@
    "shortest paths",
    "trees"
   ],
-  "solvedCount": 10069
+  "solvedCount": 10071
  },
  {
   "contestId": 1881,
@@ -28706,7 +28706,7 @@
   "tags": [
    "dp"
   ],
-  "solvedCount": 25900
+  "solvedCount": 25901
  },
  {
   "contestId": 1881,
@@ -28717,7 +28717,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 30849
+  "solvedCount": 30851
  },
  {
   "contestId": 1881,
@@ -28749,7 +28749,7 @@
    "brute force",
    "strings"
   ],
-  "solvedCount": 65974
+  "solvedCount": 65975
  },
  {
   "contestId": 1879,
@@ -28777,7 +28777,7 @@
    "interactive",
    "trees"
   ],
-  "solvedCount": 1622
+  "solvedCount": 1623
  },
  {
   "contestId": 1879,
@@ -28865,7 +28865,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 22689
+  "solvedCount": 22690
  },
  {
   "contestId": 1878,
@@ -28886,7 +28886,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 63149
+  "solvedCount": 63151
  },
  {
   "contestId": 1878,
@@ -28907,7 +28907,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 86226
+  "solvedCount": 86227
  },
  {
   "contestId": 1877,
@@ -28928,7 +28928,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 58565
+  "solvedCount": 58566
  },
  {
   "contestId": 1876,
@@ -29017,7 +29017,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 38972
+  "solvedCount": 38975
  },
  {
   "contestId": 1875,
@@ -29051,7 +29051,7 @@
    "brute force",
    "greedy"
   ],
-  "solvedCount": 51903
+  "solvedCount": 51904
  },
  {
   "contestId": 1874,
@@ -29187,7 +29187,7 @@
    "binary search",
    "sortings"
   ],
-  "solvedCount": 47483
+  "solvedCount": 47484
  },
  {
   "contestId": 1873,
@@ -29199,7 +29199,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 44430
+  "solvedCount": 44431
  },
  {
   "contestId": 1873,
@@ -29210,7 +29210,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 76481
+  "solvedCount": 76483
  },
  {
   "contestId": 1873,
@@ -29282,7 +29282,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 42099
+  "solvedCount": 42100
  },
  {
   "contestId": 1872,
@@ -29316,7 +29316,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 43749
+  "solvedCount": 43750
  },
  {
   "contestId": 1870,
@@ -29437,7 +29437,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 44090
+  "solvedCount": 44091
  },
  {
   "contestId": 1868,
@@ -29774,7 +29774,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 57553
+  "solvedCount": 57555
  },
  {
   "contestId": 1864,
@@ -29979,7 +29979,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 15709
+  "solvedCount": 15710
  },
  {
   "contestId": 1863,
@@ -30076,7 +30076,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 60476
+  "solvedCount": 60478
  },
  {
   "contestId": 1862,
@@ -30317,7 +30317,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 59746
+  "solvedCount": 59748
  },
  {
   "contestId": 1858,
@@ -30395,7 +30395,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 72522
+  "solvedCount": 72524
  },
  {
   "contestId": 1857,
@@ -30480,7 +30480,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 85613
+  "solvedCount": 85616
  },
  {
   "contestId": 1856,
@@ -30568,7 +30568,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 49279
+  "solvedCount": 49285
  },
  {
   "contestId": 1855,
@@ -30687,7 +30687,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 61332
+  "solvedCount": 61334
  },
  {
   "contestId": 1852,
@@ -30907,7 +30907,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 37800
+  "solvedCount": 37802
  },
  {
   "contestId": 1850,
@@ -30920,7 +30920,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 66033
+  "solvedCount": 66034
  },
  {
   "contestId": 1850,
@@ -31021,7 +31021,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 48512
+  "solvedCount": 48514
  },
  {
   "contestId": 1849,
@@ -31242,7 +31242,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 27101
+  "solvedCount": 27102
  },
  {
   "contestId": 1846,
@@ -31268,7 +31268,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 21846
+  "solvedCount": 21847
  },
  {
   "contestId": 1846,
@@ -31280,7 +31280,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 29135
+  "solvedCount": 29136
  },
  {
   "contestId": 1846,
@@ -31850,7 +31850,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 52098
+  "solvedCount": 52100
  },
  {
   "contestId": 1840,
@@ -32038,7 +32038,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 23550
+  "solvedCount": 23551
  },
  {
   "contestId": 1837,
@@ -32059,7 +32059,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 54752
+  "solvedCount": 54753
  },
  {
   "contestId": 1837,
@@ -32070,7 +32070,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 59730
+  "solvedCount": 59732
  },
  {
   "contestId": 1836,
@@ -32245,7 +32245,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 50546
+  "solvedCount": 50548
  },
  {
   "contestId": 1833,
@@ -32396,7 +32396,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 37348
+  "solvedCount": 37349
  },
  {
   "contestId": 1832,
@@ -32429,7 +32429,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 38492
+  "solvedCount": 38493
  },
  {
   "contestId": 1831,
@@ -32439,7 +32439,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 50680
+  "solvedCount": 50681
  },
  {
   "contestId": 1830,
@@ -32512,7 +32512,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 21657
+  "solvedCount": 21658
  },
  {
   "contestId": 1829,
@@ -32538,7 +32538,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 16164
+  "solvedCount": 16165
  },
  {
   "contestId": 1829,
@@ -32598,7 +32598,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 84679
+  "solvedCount": 84681
  },
  {
   "contestId": 1829,
@@ -32620,7 +32620,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 42973
+  "solvedCount": 42974
  },
  {
   "contestId": 1828,
@@ -32790,7 +32790,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 30517
+  "solvedCount": 30518
  },
  {
   "contestId": 1826,
@@ -33596,7 +33596,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 22603
+  "solvedCount": 22605
  },
  {
   "contestId": 1811,
@@ -33825,7 +33825,7 @@
    "divide and conquer",
    "dp"
   ],
-  "solvedCount": 1652
+  "solvedCount": 1653
  },
  {
   "contestId": 1808,
@@ -33959,7 +33959,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 50400
+  "solvedCount": 50401
  },
  {
   "contestId": 1807,
@@ -34007,7 +34007,7 @@
    "dfs and similar",
    "trees"
   ],
-  "solvedCount": 3536
+  "solvedCount": 3537
  },
  {
   "contestId": 1806,
@@ -34055,7 +34055,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 47837
+  "solvedCount": 47838
  },
  {
   "contestId": 1805,
@@ -34146,7 +34146,7 @@
    "bitmasks",
    "brute force"
   ],
-  "solvedCount": 46335
+  "solvedCount": 46336
  },
  {
   "contestId": 1804,
@@ -34401,7 +34401,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 15659
+  "solvedCount": 15660
  },
  {
   "contestId": 1800,
@@ -34416,7 +34416,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 16004
+  "solvedCount": 16005
  },
  {
   "contestId": 1800,
@@ -34952,7 +34952,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 43928
+  "solvedCount": 43929
  },
  {
   "contestId": 1794,
@@ -35017,7 +35017,7 @@
    "data structures",
    "two pointers"
   ],
-  "solvedCount": 35888
+  "solvedCount": 35889
  },
  {
   "contestId": 1793,
@@ -35153,7 +35153,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 36422
+  "solvedCount": 36423
  },
  {
   "contestId": 1791,
@@ -35177,7 +35177,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 44066
+  "solvedCount": 44067
  },
  {
   "contestId": 1791,
@@ -35200,7 +35200,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 80419
+  "solvedCount": 80420
  },
  {
   "contestId": 1791,
@@ -35275,7 +35275,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 34231
+  "solvedCount": 34232
  },
  {
   "contestId": 1790,
@@ -35287,7 +35287,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 27250
+  "solvedCount": 27251
  },
  {
   "contestId": 1790,
@@ -35459,7 +35459,7 @@
    "math",
    "probabilities"
   ],
-  "solvedCount": 22711
+  "solvedCount": 22712
  },
  {
   "contestId": 1788,
@@ -35764,7 +35764,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 53633
+  "solvedCount": 53636
  },
  {
   "contestId": 1781,
@@ -35940,7 +35940,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 27786
+  "solvedCount": 27787
  },
  {
   "contestId": 1780,
@@ -36050,7 +36050,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 24152
+  "solvedCount": 24153
  },
  {
   "contestId": 1778,
@@ -36205,7 +36205,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 48580
+  "solvedCount": 48581
  },
  {
   "contestId": 1776,
@@ -36784,7 +36784,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 62234
+  "solvedCount": 62236
  },
  {
   "contestId": 1771,
@@ -37706,7 +37706,7 @@
    "number theory",
    "sortings"
   ],
-  "solvedCount": 18786
+  "solvedCount": 18787
  },
  {
   "contestId": 1762,
@@ -37818,7 +37818,7 @@
    "brute force",
    "constructive algorithms"
   ],
-  "solvedCount": 41115
+  "solvedCount": 41118
  },
  {
   "contestId": 1760,
@@ -37842,7 +37842,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 15442
+  "solvedCount": 15443
  },
  {
   "contestId": 1760,
@@ -37963,7 +37963,7 @@
    "math",
    "shortest paths"
   ],
-  "solvedCount": 19648
+  "solvedCount": 19649
  },
  {
   "contestId": 1759,
@@ -38751,7 +38751,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 13799
+  "solvedCount": 13800
  },
  {
   "contestId": 1742,
@@ -38819,7 +38819,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 109661
+  "solvedCount": 109663
  },
  {
   "contestId": 1741,
@@ -39642,7 +39642,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 8005
+  "solvedCount": 8006
  },
  {
   "contestId": 1732,
@@ -39872,7 +39872,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 33079
+  "solvedCount": 33080
  },
  {
   "contestId": 1729,
@@ -40085,7 +40085,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 40093
+  "solvedCount": 40094
  },
  {
   "contestId": 1725,
@@ -40229,7 +40229,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 31625
+  "solvedCount": 31626
  },
  {
   "contestId": 1725,
@@ -40251,7 +40251,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 14746
+  "solvedCount": 14747
  },
  {
   "contestId": 1722,
@@ -40317,7 +40317,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 67926
+  "solvedCount": 67927
  },
  {
   "contestId": 1721,
@@ -40561,7 +40561,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 1891
+  "solvedCount": 1892
  },
  {
   "contestId": 1718,
@@ -40742,7 +40742,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 36376
+  "solvedCount": 36377
  },
  {
   "contestId": 1715,
@@ -40809,7 +40809,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 36387
+  "solvedCount": 36388
  },
  {
   "contestId": 1715,
@@ -41609,7 +41609,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 32712
+  "solvedCount": 32713
  },
  {
   "contestId": 1704,
@@ -41648,7 +41648,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 32500
+  "solvedCount": 32501
  },
  {
   "contestId": 1703,
@@ -41658,7 +41658,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 29702
+  "solvedCount": 29703
  },
  {
   "contestId": 1703,
@@ -41682,7 +41682,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 41688
+  "solvedCount": 41689
  },
  {
   "contestId": 1703,
@@ -41850,7 +41850,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 25429
+  "solvedCount": 25430
  },
  {
   "contestId": 1701,
@@ -42266,7 +42266,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 39941
+  "solvedCount": 39943
  },
  {
   "contestId": 1696,
@@ -42461,7 +42461,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 10077
+  "solvedCount": 10078
  },
  {
   "contestId": 1692,
@@ -42497,7 +42497,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 36115
+  "solvedCount": 36117
  },
  {
   "contestId": 1692,
@@ -42610,7 +42610,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 38277
+  "solvedCount": 38278
  },
  {
   "contestId": 1691,
@@ -43214,7 +43214,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 18944
+  "solvedCount": 18945
  },
  {
   "contestId": 1681,
@@ -43225,7 +43225,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 21165
+  "solvedCount": 21166
  },
  {
   "contestId": 1681,
@@ -43517,7 +43517,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 26267
+  "solvedCount": 26268
  },
  {
   "contestId": 1676,
@@ -43555,7 +43555,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 29994
+  "solvedCount": 29995
  },
  {
   "contestId": 1676,
@@ -43581,7 +43581,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 62470
+  "solvedCount": 62472
  },
  {
   "contestId": 1676,
@@ -43591,7 +43591,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 91096
+  "solvedCount": 91097
  },
  {
   "contestId": 1675,
@@ -43659,7 +43659,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 47174
+  "solvedCount": 47175
  },
  {
   "contestId": 1675,
@@ -43670,7 +43670,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 37238
+  "solvedCount": 37239
  },
  {
   "contestId": 1674,
@@ -43807,7 +43807,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 19213
+  "solvedCount": 19214
  },
  {
   "contestId": 1673,
@@ -43929,7 +43929,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 14109
+  "solvedCount": 14110
  },
  {
   "contestId": 1672,
@@ -44144,7 +44144,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 42983
+  "solvedCount": 42984
  },
  {
   "contestId": 1669,
@@ -44189,7 +44189,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 57521
+  "solvedCount": 57522
  },
  {
   "contestId": 1669,
@@ -44481,7 +44481,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 35934
+  "solvedCount": 35937
  },
  {
   "contestId": 1665,
@@ -44737,7 +44737,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 33857
+  "solvedCount": 33858
  },
  {
   "contestId": 1658,
@@ -44934,7 +44934,7 @@
    "graphs",
    "math"
   ],
-  "solvedCount": 551
+  "solvedCount": 552
  },
  {
   "contestId": 1656,
@@ -45057,7 +45057,7 @@
    "sortings",
    "strings"
   ],
-  "solvedCount": 1530
+  "solvedCount": 1531
  },
  {
   "contestId": 1654,
@@ -45481,7 +45481,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 2829
+  "solvedCount": 2830
  },
  {
   "contestId": 1646,
@@ -45878,7 +45878,7 @@
    "brute force",
    "sortings"
   ],
-  "solvedCount": 24229
+  "solvedCount": 24230
  },
  {
   "contestId": 1635,
@@ -45931,7 +45931,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 26979
+  "solvedCount": 26980
  },
  {
   "contestId": 1635,
@@ -46013,7 +46013,7 @@
    "bitmasks",
    "math"
   ],
-  "solvedCount": 23555
+  "solvedCount": 23556
  },
  {
   "contestId": 1634,
@@ -46701,7 +46701,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 56612
+  "solvedCount": 56614
  },
  {
   "contestId": 1624,
@@ -47031,7 +47031,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 33951
+  "solvedCount": 33952
  },
  {
   "contestId": 1620,
@@ -47121,7 +47121,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 23007
+  "solvedCount": 23008
  },
  {
   "contestId": 1619,
@@ -47143,7 +47143,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 64062
+  "solvedCount": 64063
  },
  {
   "contestId": 1618,
@@ -47360,7 +47360,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 2762
+  "solvedCount": 2763
  },
  {
   "contestId": 1616,
@@ -47711,7 +47711,7 @@
    "binary search",
    "math"
   ],
-  "solvedCount": 27834
+  "solvedCount": 27836
  },
  {
   "contestId": 1612,
@@ -47829,7 +47829,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 33665
+  "solvedCount": 33666
  },
  {
   "contestId": 1610,
@@ -47891,7 +47891,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 2122
+  "solvedCount": 2123
  },
  {
   "contestId": 1610,
@@ -48126,7 +48126,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 20400
+  "solvedCount": 20402
  },
  {
   "contestId": 1607,
@@ -48204,7 +48204,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 42662
+  "solvedCount": 42664
  },
  {
   "contestId": 1607,
@@ -48556,7 +48556,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 22606
+  "solvedCount": 22607
  },
  {
   "contestId": 1600,
@@ -48968,7 +48968,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 43795
+  "solvedCount": 43796
  },
  {
   "contestId": 1593,
@@ -49430,7 +49430,7 @@
    "strings",
    "two pointers"
   ],
-  "solvedCount": 25605
+  "solvedCount": 25606
  },
  {
   "contestId": 1582,
@@ -50368,7 +50368,7 @@
    "bitmasks",
    "greedy"
   ],
-  "solvedCount": 35402
+  "solvedCount": 35403
  },
  {
   "contestId": 1567,
@@ -50436,7 +50436,7 @@
    "greedy",
    "trees"
   ],
-  "solvedCount": 4502
+  "solvedCount": 4503
  },
  {
   "contestId": 1566,
@@ -50611,7 +50611,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 23098
+  "solvedCount": 23099
  },
  {
   "contestId": 1561,
@@ -50789,7 +50789,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 49006
+  "solvedCount": 49009
  },
  {
   "contestId": 1558,
@@ -51154,7 +51154,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 31633
+  "solvedCount": 31634
  },
  {
   "contestId": 1553,
@@ -51379,7 +51379,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 17142
+  "solvedCount": 17143
  },
  {
   "contestId": 1552,
@@ -51703,7 +51703,7 @@
    "number theory",
    "two pointers"
   ],
-  "solvedCount": 7296
+  "solvedCount": 7297
  },
  {
   "contestId": 1547,
@@ -51948,7 +51948,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 44043
+  "solvedCount": 44045
  },
  {
   "contestId": 1542,
@@ -52372,7 +52372,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 45261
+  "solvedCount": 45263
  },
  {
   "contestId": 1537,
@@ -52856,7 +52856,7 @@
    "greedy",
    "trees"
   ],
-  "solvedCount": 20035
+  "solvedCount": 20036
  },
  {
   "contestId": 1527,
@@ -52927,7 +52927,7 @@
   "tags": [
    "bitmasks"
   ],
-  "solvedCount": 42969
+  "solvedCount": 42970
  },
  {
   "contestId": 1526,
@@ -53295,7 +53295,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 30255
+  "solvedCount": 30256
  },
  {
   "contestId": 1520,
@@ -53307,7 +53307,7 @@
    "hashing",
    "math"
   ],
-  "solvedCount": 69082
+  "solvedCount": 69085
  },
  {
   "contestId": 1520,
@@ -53397,7 +53397,7 @@
    "number theory",
    "sortings"
   ],
-  "solvedCount": 23706
+  "solvedCount": 23707
  },
  {
   "contestId": 1519,
@@ -53567,7 +53567,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 26926
+  "solvedCount": 26927
  },
  {
   "contestId": 1516,
@@ -53602,7 +53602,7 @@
    "data structures",
    "sortings"
   ],
-  "solvedCount": 369
+  "solvedCount": 370
  },
  {
   "contestId": 1515,
@@ -53818,7 +53818,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 21229
+  "solvedCount": 21230
  },
  {
   "contestId": 1513,
@@ -53912,7 +53912,7 @@
    "brute force",
    "implementation"
   ],
-  "solvedCount": 83051
+  "solvedCount": 83052
  },
  {
   "contestId": 1511,
@@ -54773,7 +54773,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 24972
+  "solvedCount": 24974
  },
  {
   "contestId": 1498,
@@ -54861,7 +54861,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 29218
+  "solvedCount": 29219
  },
  {
   "contestId": 1497,
@@ -55274,7 +55274,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 8547
+  "solvedCount": 8548
  },
  {
   "contestId": 1491,
@@ -55597,7 +55597,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 30606
+  "solvedCount": 30608
  },
  {
   "contestId": 1487,
@@ -55773,7 +55773,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 35730
+  "solvedCount": 35731
  },
  {
   "contestId": 1482,
@@ -55856,7 +55856,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 9663
+  "solvedCount": 9664
  },
  {
   "contestId": 1482,
@@ -56231,7 +56231,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 21858
+  "solvedCount": 21859
  },
  {
   "contestId": 1476,
@@ -56306,7 +56306,7 @@
    "graphs",
    "math"
   ],
-  "solvedCount": 28600
+  "solvedCount": 28601
  },
  {
   "contestId": 1475,
@@ -56329,7 +56329,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 92141
+  "solvedCount": 92142
  },
  {
   "contestId": 1474,
@@ -56476,7 +56476,7 @@
    "number theory",
    "strings"
   ],
-  "solvedCount": 35641
+  "solvedCount": 35642
  },
  {
   "contestId": 1473,
@@ -56577,7 +56577,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 46185
+  "solvedCount": 46186
  },
  {
   "contestId": 1471,
@@ -56602,7 +56602,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 41100
+  "solvedCount": 41101
  },
  {
   "contestId": 1470,
@@ -56683,7 +56683,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 31087
+  "solvedCount": 31089
  },
  {
   "contestId": 1469,
@@ -57355,7 +57355,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 22276
+  "solvedCount": 22278
  },
  {
   "contestId": 1459,
@@ -57968,7 +57968,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 28875
+  "solvedCount": 28876
  },
  {
   "contestId": 1447,
@@ -58285,7 +58285,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 33028
+  "solvedCount": 33029
  },
  {
   "contestId": 1440,
@@ -58437,7 +58437,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 31367
+  "solvedCount": 31368
  },
  {
   "contestId": 1438,
@@ -58877,7 +58877,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 28946
+  "solvedCount": 28947
  },
  {
   "contestId": 1430,
@@ -59174,7 +59174,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 56041
+  "solvedCount": 56043
  },
  {
   "contestId": 1425,
@@ -59501,7 +59501,7 @@
    "geometry",
    "math"
   ],
-  "solvedCount": 21952
+  "solvedCount": 21953
  },
  {
   "contestId": 1421,
@@ -59611,7 +59611,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 19287
+  "solvedCount": 19288
  },
  {
   "contestId": 1420,
@@ -59789,7 +59789,7 @@
    "greedy",
    "shortest paths"
   ],
-  "solvedCount": 30155
+  "solvedCount": 30158
  },
  {
   "contestId": 1418,
@@ -59916,7 +59916,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 17669
+  "solvedCount": 17670
  },
  {
   "contestId": 1415,
@@ -60208,7 +60208,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 82707
+  "solvedCount": 82708
  },
  {
   "contestId": 1408,
@@ -60365,7 +60365,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 15377
+  "solvedCount": 15379
  },
  {
   "contestId": 1407,
@@ -60885,7 +60885,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 83510
+  "solvedCount": 83514
  },
  {
   "contestId": 1398,
@@ -62039,7 +62039,7 @@
    "brute force",
    "data structures"
   ],
-  "solvedCount": 43367
+  "solvedCount": 43369
  },
  {
   "contestId": 1379,
@@ -62293,7 +62293,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 32730
+  "solvedCount": 32731
  },
  {
   "contestId": 1374,
@@ -62314,7 +62314,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 76319
+  "solvedCount": 76320
  },
  {
   "contestId": 1374,
@@ -62395,7 +62395,7 @@
   "tags": [
    "games"
   ],
-  "solvedCount": 56409
+  "solvedCount": 56410
  },
  {
   "contestId": 1373,
@@ -62467,7 +62467,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 38362
+  "solvedCount": 38363
  },
  {
   "contestId": 1372,
@@ -62645,7 +62645,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 25396
+  "solvedCount": 25397
  },
  {
   "contestId": 1370,
@@ -62698,7 +62698,7 @@
    "math",
    "trees"
   ],
-  "solvedCount": 9290
+  "solvedCount": 9291
  },
  {
   "contestId": 1369,
@@ -62711,7 +62711,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 21134
+  "solvedCount": 21135
  },
  {
   "contestId": 1369,
@@ -62754,7 +62754,7 @@
    "flows",
    "greedy"
   ],
-  "solvedCount": 473
+  "solvedCount": 474
  },
  {
   "contestId": 1368,
@@ -63004,7 +63004,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 29644
+  "solvedCount": 29645
  },
  {
   "contestId": 1366,
@@ -63157,7 +63157,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 27747
+  "solvedCount": 27748
  },
  {
   "contestId": 1364,
@@ -63253,7 +63253,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 25020
+  "solvedCount": 25021
  },
  {
   "contestId": 1362,
@@ -63366,7 +63366,7 @@
    "brute force",
    "constructive algorithms"
   ],
-  "solvedCount": 4935
+  "solvedCount": 4936
  },
  {
   "contestId": 1360,
@@ -63417,7 +63417,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 45372
+  "solvedCount": 45373
  },
  {
   "contestId": 1360,
@@ -63452,7 +63452,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 58012
+  "solvedCount": 58013
  },
  {
   "contestId": 1359,
@@ -63502,7 +63502,7 @@
    "binary search",
    "math"
   ],
-  "solvedCount": 15578
+  "solvedCount": 15579
  },
  {
   "contestId": 1359,
@@ -63885,7 +63885,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 30599
+  "solvedCount": 30601
  },
  {
   "contestId": 1352,
@@ -63896,7 +63896,7 @@
    "binary search",
    "math"
   ],
-  "solvedCount": 73590
+  "solvedCount": 73591
  },
  {
   "contestId": 1352,
@@ -63963,7 +63963,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 31071
+  "solvedCount": 31072
  },
  {
   "contestId": 1350,
@@ -64110,7 +64110,7 @@
    "sortings",
    "strings"
   ],
-  "solvedCount": 15639
+  "solvedCount": 15640
  },
  {
   "contestId": 1348,
@@ -64654,7 +64654,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 31907
+  "solvedCount": 31909
  },
  {
   "contestId": 1337,
@@ -64666,7 +64666,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 37250
+  "solvedCount": 37251
  },
  {
   "contestId": 1337,
@@ -65205,7 +65205,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 12615
+  "solvedCount": 12616
  },
  {
   "contestId": 1328,
@@ -65523,7 +65523,7 @@
    "greedy",
    "number theory"
   ],
-  "solvedCount": 47329
+  "solvedCount": 47330
  },
  {
   "contestId": 1324,
@@ -65547,7 +65547,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 17811
+  "solvedCount": 17812
  },
  {
   "contestId": 1324,
@@ -65788,7 +65788,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 23014
+  "solvedCount": 23015
  },
  {
   "contestId": 1316,
@@ -65813,7 +65813,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 5871
+  "solvedCount": 5872
  },
  {
   "contestId": 1316,
@@ -66041,7 +66041,7 @@
    "constructive algorithms",
    "sortings"
   ],
-  "solvedCount": 41759
+  "solvedCount": 41760
  },
  {
   "contestId": 1312,
@@ -66123,7 +66123,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 46795
+  "solvedCount": 46796
  },
  {
   "contestId": 1310,
@@ -66358,7 +66358,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 19955
+  "solvedCount": 19956
  },
  {
   "contestId": 1305,
@@ -66790,7 +66790,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 49408
+  "solvedCount": 49409
  },
  {
   "contestId": 1295,
@@ -66907,7 +66907,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 49111
+  "solvedCount": 49113
  },
  {
   "contestId": 1294,
@@ -66928,7 +66928,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 54655
+  "solvedCount": 54656
  },
  {
   "contestId": 1293,
@@ -67032,7 +67032,7 @@
    "dsu",
    "implementation"
   ],
-  "solvedCount": 13977
+  "solvedCount": 13994
  },
  {
   "contestId": 1291,
@@ -67389,7 +67389,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 32880
+  "solvedCount": 32881
  },
  {
   "contestId": 1285,
@@ -67625,7 +67625,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 15572
+  "solvedCount": 15573
  },
  {
   "contestId": 1281,
@@ -67857,7 +67857,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 18578
+  "solvedCount": 18579
  },
  {
   "contestId": 1277,
@@ -69875,7 +69875,7 @@
    "graphs",
    "sortings"
   ],
-  "solvedCount": 9721
+  "solvedCount": 9722
  },
  {
   "contestId": 1242,
@@ -70144,7 +70144,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 24507
+  "solvedCount": 24509
  },
  {
   "contestId": 1237,
@@ -70260,7 +70260,7 @@
   "tags": [
    "data structures"
   ],
-  "solvedCount": 19516
+  "solvedCount": 19517
  },
  {
   "contestId": 1234,
@@ -70573,7 +70573,7 @@
    "brute force",
    "math"
   ],
-  "solvedCount": 9907
+  "solvedCount": 9912
  },
  {
   "contestId": 1225,
@@ -71175,7 +71175,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 19655
+  "solvedCount": 19656
  },
  {
   "contestId": 1215,
@@ -71886,7 +71886,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 29882
+  "solvedCount": 29883
  },
  {
   "contestId": 1206,
@@ -72105,7 +72105,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 25341
+  "solvedCount": 25342
  },
  {
   "contestId": 1203,
@@ -72319,7 +72319,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 4434
+  "solvedCount": 4435
  },
  {
   "contestId": 1200,
@@ -72434,7 +72434,7 @@
    "data structures",
    "sortings"
   ],
-  "solvedCount": 10135
+  "solvedCount": 10136
  },
  {
   "contestId": 1198,
@@ -72656,7 +72656,7 @@
   "tags": [
    "dp"
   ],
-  "solvedCount": 37247
+  "solvedCount": 37249
  },
  {
   "contestId": 1195,
@@ -72861,7 +72861,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 11142
+  "solvedCount": 11143
  },
  {
   "contestId": 1189,
@@ -72984,7 +72984,7 @@
    "dp",
    "trees"
   ],
-  "solvedCount": 12070
+  "solvedCount": 12071
  },
  {
   "contestId": 1187,
@@ -73404,7 +73404,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 21919
+  "solvedCount": 21920
  },
  {
   "contestId": 1183,
@@ -73510,7 +73510,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 36268
+  "solvedCount": 36269
  },
  {
   "contestId": 1181,
@@ -73762,7 +73762,7 @@
    "dp",
    "strings"
   ],
-  "solvedCount": 23287
+  "solvedCount": 23288
  },
  {
   "contestId": 1178,
@@ -74265,7 +74265,7 @@
    "dsu",
    "graphs"
   ],
-  "solvedCount": 27921
+  "solvedCount": 27922
  },
  {
   "contestId": 1167,
@@ -74278,7 +74278,7 @@
    "interactive",
    "math"
   ],
-  "solvedCount": 17535
+  "solvedCount": 17537
  },
  {
   "contestId": 1167,
@@ -74803,7 +74803,7 @@
    "dsu",
    "trees"
   ],
-  "solvedCount": 4917
+  "solvedCount": 4919
  },
  {
   "contestId": 1156,
@@ -74914,7 +74914,7 @@
    "sortings",
    "strings"
   ],
-  "solvedCount": 28348
+  "solvedCount": 28349
  },
  {
   "contestId": 1154,
@@ -74992,7 +74992,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 90070
+  "solvedCount": 90071
  },
  {
   "contestId": 1153,
@@ -75576,7 +75576,7 @@
    "dfs and similar",
    "graphs"
   ],
-  "solvedCount": 14926
+  "solvedCount": 14927
  },
  {
   "contestId": 1144,
@@ -75645,7 +75645,7 @@
    "dfs and similar",
    "trees"
   ],
-  "solvedCount": 18860
+  "solvedCount": 18861
  },
  {
   "contestId": 1143,
@@ -75860,7 +75860,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 13298
+  "solvedCount": 13299
  },
  {
   "contestId": 1140,
@@ -75943,7 +75943,7 @@
    "math",
    "trees"
   ],
-  "solvedCount": 17618
+  "solvedCount": 17619
  },
  {
   "contestId": 1139,
@@ -75990,7 +75990,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 22750
+  "solvedCount": 22751
  },
  {
   "contestId": 1137,
@@ -76454,7 +76454,7 @@
    "brute force",
    "greedy"
   ],
-  "solvedCount": 3952
+  "solvedCount": 3953
  },
  {
   "contestId": 1121,
@@ -76644,7 +76644,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 17789
+  "solvedCount": 17790
  },
  {
   "contestId": 1119,
@@ -76800,7 +76800,7 @@
   "tags": [
    "binary search"
   ],
-  "solvedCount": 9630
+  "solvedCount": 9631
  },
  {
   "contestId": 1117,
@@ -76933,7 +76933,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 8054
+  "solvedCount": 8055
  },
  {
   "contestId": 1114,
@@ -77121,7 +77121,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 17779
+  "solvedCount": 17780
  },
  {
   "contestId": 1110,
@@ -78305,7 +78305,7 @@
   "tags": [
    "sortings"
   ],
-  "solvedCount": 29516
+  "solvedCount": 29517
  },
  {
   "contestId": 1092,
@@ -78844,7 +78844,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 12577
+  "solvedCount": 12578
  },
  {
   "contestId": 1084,
@@ -78910,7 +78910,7 @@
    "data structures",
    "trees"
   ],
-  "solvedCount": 1205
+  "solvedCount": 1206
  },
  {
   "contestId": 1083,
@@ -79233,7 +79233,7 @@
   "name": "Good Array",
   "rating": 1300,
   "tags": [],
-  "solvedCount": 27470
+  "solvedCount": 27473
  },
  {
   "contestId": 1077,
@@ -80895,7 +80895,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 7278
+  "solvedCount": 7280
  },
  {
   "contestId": 1043,
@@ -80981,7 +80981,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 19703
+  "solvedCount": 19704
  },
  {
   "contestId": 1042,
@@ -81711,7 +81711,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 10010
+  "solvedCount": 10011
  },
  {
   "contestId": 1030,
@@ -81731,7 +81731,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 178780
+  "solvedCount": 178781
  },
  {
   "contestId": 1029,
@@ -82814,7 +82814,7 @@
    "dp",
    "meet-in-the-middle"
   ],
-  "solvedCount": 7354
+  "solvedCount": 7356
  },
  {
   "contestId": 1006,
@@ -83350,7 +83350,7 @@
    "data structures",
    "divide and conquer"
   ],
-  "solvedCount": 5146
+  "solvedCount": 5148
  },
  {
   "contestId": 1000,
@@ -83576,7 +83576,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 123408
+  "solvedCount": 123409
  },
  {
   "contestId": 995,
@@ -84068,7 +84068,7 @@
    "brute force",
    "implementation"
   ],
-  "solvedCount": 29077
+  "solvedCount": 29078
  },
  {
   "contestId": 987,
@@ -84724,7 +84724,7 @@
    "dsu",
    "graphs"
   ],
-  "solvedCount": 26978
+  "solvedCount": 26979
  },
  {
   "contestId": 977,
@@ -84757,7 +84757,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 51573
+  "solvedCount": 51574
  },
  {
   "contestId": 977,
@@ -84767,7 +84767,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 226916
+  "solvedCount": 226918
  },
  {
   "contestId": 976,
@@ -85711,7 +85711,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 7885
+  "solvedCount": 7886
  },
  {
   "contestId": 954,
@@ -86112,7 +86112,7 @@
   "tags": [
    "graphs"
   ],
-  "solvedCount": 30590
+  "solvedCount": 30592
  },
  {
   "contestId": 938,
@@ -87033,7 +87033,7 @@
    "brute force",
    "number theory"
   ],
-  "solvedCount": 7770
+  "solvedCount": 7771
  },
  {
   "contestId": 922,
@@ -88211,7 +88211,7 @@
    "data structures",
    "math"
   ],
-  "solvedCount": 5090
+  "solvedCount": 5091
  },
  {
   "contestId": 903,
@@ -88500,7 +88500,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 5887
+  "solvedCount": 5888
  },
  {
   "contestId": 898,
@@ -88900,7 +88900,7 @@
    "constructive algorithms",
    "data structures"
   ],
-  "solvedCount": 6179
+  "solvedCount": 6180
  },
  {
   "contestId": 888,
@@ -88923,7 +88923,7 @@
    "divide and conquer",
    "meet-in-the-middle"
   ],
-  "solvedCount": 9859
+  "solvedCount": 9860
  },
  {
   "contestId": 888,
@@ -89099,7 +89099,7 @@
   "tags": [
    "brute force"
   ],
-  "solvedCount": 11325
+  "solvedCount": 11326
  },
  {
   "contestId": 884,
@@ -90132,7 +90132,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 27628
+  "solvedCount": 27630
  },
  {
   "contestId": 862,
@@ -91768,7 +91768,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 15826
+  "solvedCount": 15827
  },
  {
   "contestId": 831,
@@ -92004,7 +92004,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 4937
+  "solvedCount": 4938
  },
  {
   "contestId": 825,
@@ -92512,7 +92512,7 @@
    "strings",
    "two pointers"
   ],
-  "solvedCount": 8057
+  "solvedCount": 8058
  },
  {
   "contestId": 814,
@@ -92558,7 +92558,7 @@
    "binary search",
    "data structures"
   ],
-  "solvedCount": 3334
+  "solvedCount": 3335
  },
  {
   "contestId": 813,
@@ -92869,7 +92869,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 16613
+  "solvedCount": 16614
  },
  {
   "contestId": 808,
@@ -93054,7 +93054,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 5960
+  "solvedCount": 5961
  },
  {
   "contestId": 803,
@@ -93342,7 +93342,7 @@
    "brute force",
    "implementation"
   ],
-  "solvedCount": 21723
+  "solvedCount": 21724
  },
  {
   "contestId": 798,
@@ -93790,7 +93790,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 268516
+  "solvedCount": 268517
  },
  {
   "contestId": 789,
@@ -94015,7 +94015,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 114886
+  "solvedCount": 114888
  },
  {
   "contestId": 784,
@@ -95519,7 +95519,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 77344
+  "solvedCount": 77345
  },
  {
   "contestId": 757,
@@ -95965,7 +95965,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 95565
+  "solvedCount": 95566
  },
  {
   "contestId": 749,
@@ -96683,7 +96683,7 @@
    "dp",
    "trees"
   ],
-  "solvedCount": 5569
+  "solvedCount": 5570
  },
  {
   "contestId": 734,
@@ -96730,7 +96730,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 203437
+  "solvedCount": 203439
  },
  {
   "contestId": 733,
@@ -96872,7 +96872,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 91858
+  "solvedCount": 91859
  },
  {
   "contestId": 731,
@@ -97454,7 +97454,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 104551
+  "solvedCount": 104552
  },
  {
   "contestId": 722,
@@ -97833,7 +97833,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 24250
+  "solvedCount": 24251
  },
  {
   "contestId": 715,
@@ -97882,7 +97882,7 @@
    "graphs",
    "shortest paths"
   ],
-  "solvedCount": 3866
+  "solvedCount": 3867
  },
  {
   "contestId": 715,
@@ -98133,7 +98133,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 5646
+  "solvedCount": 5647
  },
  {
   "contestId": 710,
@@ -98327,7 +98327,7 @@
    "dp",
    "strings"
   ],
-  "solvedCount": 20242
+  "solvedCount": 20243
  },
  {
   "contestId": 706,
@@ -98339,7 +98339,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 89871
+  "solvedCount": 89872
  },
  {
   "contestId": 706,
@@ -98372,7 +98372,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 136697
+  "solvedCount": 136699
  },
  {
   "contestId": 704,
@@ -98453,7 +98453,7 @@
   "tags": [
    "data structures"
   ],
-  "solvedCount": 4245
+  "solvedCount": 4246
  },
  {
   "contestId": 703,
@@ -98506,7 +98506,7 @@
    "data structures",
    "graphs"
   ],
-  "solvedCount": 3289
+  "solvedCount": 3290
  },
  {
   "contestId": 702,
@@ -98565,7 +98565,7 @@
    "strings",
    "two pointers"
   ],
-  "solvedCount": 20918
+  "solvedCount": 20920
  },
  {
   "contestId": 701,
@@ -99441,7 +99441,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 24370
+  "solvedCount": 24371
  },
  {
   "contestId": 681,
@@ -99709,7 +99709,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 187304
+  "solvedCount": 187306
  },
  {
   "contestId": 676,
@@ -100146,7 +100146,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 18838
+  "solvedCount": 18840
  },
  {
   "contestId": 665,
@@ -101472,7 +101472,7 @@
    "string suffix structures",
    "strings"
   ],
-  "solvedCount": 3472
+  "solvedCount": 3473
  },
  {
   "contestId": 633,
@@ -101909,7 +101909,7 @@
   "tags": [
    "dp"
   ],
-  "solvedCount": 9104
+  "solvedCount": 9105
  },
  {
   "contestId": 628,
@@ -102035,7 +102035,7 @@
   "tags": [
    "dp"
   ],
-  "solvedCount": 3797
+  "solvedCount": 3798
  },
  {
   "contestId": 626,
@@ -102434,7 +102434,7 @@
    "matrices",
    "probabilities"
   ],
-  "solvedCount": 275
+  "solvedCount": 276
  },
  {
   "contestId": 618,
@@ -102542,7 +102542,7 @@
   "tags": [
    "combinatorics"
   ],
-  "solvedCount": 20423
+  "solvedCount": 20424
  },
  {
   "contestId": 617,
@@ -102552,7 +102552,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 260933
+  "solvedCount": 260935
  },
  {
   "contestId": 616,
@@ -103007,7 +103007,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 10930
+  "solvedCount": 10931
  },
  {
   "contestId": 609,
@@ -103019,7 +103019,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 3261
+  "solvedCount": 3262
  },
  {
   "contestId": 609,
@@ -103393,7 +103393,7 @@
    "dsu",
    "trees"
   ],
-  "solvedCount": 19566
+  "solvedCount": 19567
  },
  {
   "contestId": 600,
@@ -103557,7 +103557,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 33245
+  "solvedCount": 33246
  },
  {
   "contestId": 597,
@@ -104376,7 +104376,7 @@
   "tags": [
    "bitmasks"
   ],
-  "solvedCount": 82087
+  "solvedCount": 82088
  },
  {
   "contestId": 578,
@@ -105580,7 +105580,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 4082
+  "solvedCount": 4083
  },
  {
   "contestId": 551,
@@ -105629,7 +105629,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 32864
+  "solvedCount": 32865
  },
  {
   "contestId": 550,
@@ -105640,7 +105640,7 @@
    "bitmasks",
    "brute force"
   ],
-  "solvedCount": 28890
+  "solvedCount": 28892
  },
  {
   "contestId": 550,
@@ -105654,7 +105654,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 44656
+  "solvedCount": 44657
  },
  {
   "contestId": 549,
@@ -105896,7 +105896,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 245450
+  "solvedCount": 245453
  },
  {
   "contestId": 545,
@@ -105931,7 +105931,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 34340
+  "solvedCount": 34341
  },
  {
   "contestId": 545,
@@ -106980,7 +106980,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 19426
+  "solvedCount": 19427
  },
  {
   "contestId": 521,
@@ -107063,7 +107063,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 132608
+  "solvedCount": 132609
  },
  {
   "contestId": 519,
@@ -107245,7 +107245,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 3051
+  "solvedCount": 3052
  },
  {
   "contestId": 515,
@@ -107896,7 +107896,7 @@
    "dsu",
    "strings"
   ],
-  "solvedCount": 19828
+  "solvedCount": 19829
  },
  {
   "contestId": 501,
@@ -107993,7 +107993,7 @@
    "graphs",
    "implementation"
   ],
-  "solvedCount": 64919
+  "solvedCount": 64920
  },
  {
   "contestId": 499,
@@ -108333,7 +108333,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 93365
+  "solvedCount": 93367
  },
  {
   "contestId": 492,
@@ -108452,7 +108452,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 73462
+  "solvedCount": 73463
  },
  {
   "contestId": 489,
@@ -108514,7 +108514,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 59209
+  "solvedCount": 59210
  },
  {
   "contestId": 489,
@@ -108670,7 +108670,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 160421
+  "solvedCount": 160425
  },
  {
   "contestId": 485,
@@ -108915,7 +108915,7 @@
    "brute force",
    "math"
   ],
-  "solvedCount": 115618
+  "solvedCount": 115619
  },
  {
   "contestId": 478,
@@ -109154,7 +109154,7 @@
   "tags": [
    "dp"
   ],
-  "solvedCount": 32147
+  "solvedCount": 32155
  },
  {
   "contestId": 474,
@@ -109421,7 +109421,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 125492
+  "solvedCount": 125493
  },
  {
   "contestId": 468,
@@ -109542,7 +109542,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 161947
+  "solvedCount": 161948
  },
  {
   "contestId": 466,
@@ -109878,7 +109878,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 53070
+  "solvedCount": 53071
  },
  {
   "contestId": 459,
@@ -109925,7 +109925,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 48874
+  "solvedCount": 48875
  },
  {
   "contestId": 459,
@@ -110158,7 +110158,7 @@
   "tags": [
    "probabilities"
   ],
-  "solvedCount": 13050
+  "solvedCount": 13052
  },
  {
   "contestId": 452,
@@ -110286,7 +110286,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 77502
+  "solvedCount": 77503
  },
  {
   "contestId": 450,
@@ -110307,7 +110307,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 46798
+  "solvedCount": 46799
  },
  {
   "contestId": 449,
@@ -111357,7 +111357,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 100658
+  "solvedCount": 100659
  },
  {
   "contestId": 426,
@@ -111732,7 +111732,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 9686
+  "solvedCount": 9687
  },
  {
   "contestId": 414,
@@ -111779,7 +111779,7 @@
    "dp",
    "number theory"
   ],
-  "solvedCount": 30873
+  "solvedCount": 30874
  },
  {
   "contestId": 414,
@@ -112829,7 +112829,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 94506
+  "solvedCount": 94507
  },
  {
   "contestId": 380,
@@ -112861,7 +112861,7 @@
    "data structures",
    "schedules"
   ],
-  "solvedCount": 21252
+  "solvedCount": 21253
  },
  {
   "contestId": 380,
@@ -113083,7 +113083,7 @@
    "dfs and similar",
    "trees"
   ],
-  "solvedCount": 9437
+  "solvedCount": 9439
  },
  {
   "contestId": 375,
@@ -113506,7 +113506,7 @@
    "binary search",
    "data structures"
   ],
-  "solvedCount": 2743
+  "solvedCount": 2744
  },
  {
   "contestId": 367,
@@ -114049,7 +114049,7 @@
    "data structures",
    "dsu"
   ],
-  "solvedCount": 17283
+  "solvedCount": 17284
  },
  {
   "contestId": 355,
@@ -114835,7 +114835,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 83641
+  "solvedCount": 83643
  },
  {
   "contestId": 339,
@@ -114848,7 +114848,7 @@
    "sortings",
    "strings"
   ],
-  "solvedCount": 287125
+  "solvedCount": 287129
  },
  {
   "contestId": 338,
@@ -114931,7 +114931,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 98054
+  "solvedCount": 98056
  },
  {
   "contestId": 336,
@@ -115077,7 +115077,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 20256
+  "solvedCount": 20257
  },
  {
   "contestId": 333,
@@ -115474,7 +115474,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 51849
+  "solvedCount": 51851
  },
  {
   "contestId": 325,
@@ -115746,7 +115746,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 147813
+  "solvedCount": 147814
  },
  {
   "contestId": 317,
@@ -115768,7 +115768,7 @@
    "dp",
    "games"
   ],
-  "solvedCount": 1309
+  "solvedCount": 1310
  },
  {
   "contestId": 317,
@@ -115781,7 +115781,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 589
+  "solvedCount": 590
  },
  {
   "contestId": 317,
@@ -116116,7 +116116,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 57170
+  "solvedCount": 57171
  },
  {
   "contestId": 313,
@@ -116751,7 +116751,7 @@
    "data structures",
    "implementation"
   ],
-  "solvedCount": 27760
+  "solvedCount": 27762
  },
  {
   "contestId": 294,
@@ -117404,7 +117404,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 375149
+  "solvedCount": 375152
  },
  {
   "contestId": 281,
@@ -117427,7 +117427,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 281322
+  "solvedCount": 281324
  },
  {
   "contestId": 280,
@@ -117538,7 +117538,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 78457
+  "solvedCount": 78458
  },
  {
   "contestId": 279,
@@ -117800,7 +117800,7 @@
    "constructive algorithms",
    "graphs"
   ],
-  "solvedCount": 1351
+  "solvedCount": 1352
  },
  {
   "contestId": 272,
@@ -117902,7 +117902,7 @@
   "tags": [
    "brute force"
   ],
-  "solvedCount": 185020
+  "solvedCount": 185021
  },
  {
   "contestId": 270,
@@ -118120,7 +118120,7 @@
    "implementation",
    "shortest paths"
   ],
-  "solvedCount": 172164
+  "solvedCount": 172166
  },
  {
   "contestId": 266,
@@ -118264,7 +118264,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 331991
+  "solvedCount": 331993
  },
  {
   "contestId": 262,
@@ -118574,7 +118574,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 1023
+  "solvedCount": 1024
  },
  {
   "contestId": 255,
@@ -119491,7 +119491,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 293291
+  "solvedCount": 293293
  },
  {
   "contestId": 235,
@@ -119779,7 +119779,7 @@
    "brute force",
    "greedy"
   ],
-  "solvedCount": 450054
+  "solvedCount": 450064
  },
  {
   "contestId": 230,
@@ -119803,7 +119803,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 102621
+  "solvedCount": 102622
  },
  {
   "contestId": 229,
@@ -119919,7 +119919,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 145558
+  "solvedCount": 145559
  },
  {
   "contestId": 227,
@@ -120705,7 +120705,7 @@
    "dfs and similar",
    "trees"
   ],
-  "solvedCount": 9609
+  "solvedCount": 9610
  },
  {
   "contestId": 208,
@@ -120748,7 +120748,7 @@
   "tags": [
    "strings"
   ],
-  "solvedCount": 107878
+  "solvedCount": 107880
  },
  {
   "contestId": 207,
@@ -121636,7 +121636,7 @@
    "brute force",
    "dp"
   ],
-  "solvedCount": 84360
+  "solvedCount": 84364
  },
  {
   "contestId": 188,
@@ -121800,7 +121800,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 18737
+  "solvedCount": 18738
  },
  {
   "contestId": 185,
@@ -122508,7 +122508,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 3373
+  "solvedCount": 3374
  },
  {
   "contestId": 173,
@@ -122554,7 +122554,7 @@
    "dfs and similar",
    "shortest paths"
   ],
-  "solvedCount": 4187
+  "solvedCount": 4188
  },
  {
   "contestId": 173,
@@ -123227,7 +123227,7 @@
    "graphs",
    "sortings"
   ],
-  "solvedCount": 3598
+  "solvedCount": 3599
  },
  {
   "contestId": 160,
@@ -123261,7 +123261,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 149989
+  "solvedCount": 149991
  },
  {
   "contestId": 159,
@@ -123373,7 +123373,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 107374
+  "solvedCount": 107375
  },
  {
   "contestId": 158,
@@ -123384,7 +123384,7 @@
    "*special",
    "implementation"
   ],
-  "solvedCount": 335400
+  "solvedCount": 335404
  },
  {
   "contestId": 157,
@@ -123481,7 +123481,7 @@
   "tags": [
    "brute force"
   ],
-  "solvedCount": 96503
+  "solvedCount": 96504
  },
  {
   "contestId": 154,
@@ -123800,7 +123800,7 @@
    "math",
    "probabilities"
   ],
-  "solvedCount": 9549
+  "solvedCount": 9550
  },
  {
   "contestId": 148,
@@ -123834,7 +123834,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 115749
+  "solvedCount": 115750
  },
  {
   "contestId": 147,
@@ -123968,7 +123968,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 4282
+  "solvedCount": 4283
  },
  {
   "contestId": 144,
@@ -123988,7 +123988,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 125893
+  "solvedCount": 125896
  },
  {
   "contestId": 143,
@@ -124010,7 +124010,7 @@
    "brute force",
    "math"
   ],
-  "solvedCount": 15690
+  "solvedCount": 15691
  },
  {
   "contestId": 142,
@@ -124311,7 +124311,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 15375
+  "solvedCount": 15376
  },
  {
   "contestId": 137,
@@ -124342,7 +124342,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 152033
+  "solvedCount": 152034
  },
  {
   "contestId": 135,
@@ -124456,7 +124456,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 128543
+  "solvedCount": 128545
  },
  {
   "contestId": 132,
@@ -124992,7 +124992,7 @@
    "brute force",
    "number theory"
   ],
-  "solvedCount": 154630
+  "solvedCount": 154631
  },
  {
   "contestId": 121,
@@ -125218,7 +125218,7 @@
    "dfs and similar",
    "graphs"
   ],
-  "solvedCount": 9113
+  "solvedCount": 9114
  },
  {
   "contestId": 118,
@@ -125263,7 +125263,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 238528
+  "solvedCount": 238530
  },
  {
   "contestId": 117,
@@ -125342,7 +125342,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 182932
+  "solvedCount": 182934
  },
  {
   "contestId": 115,
@@ -125501,7 +125501,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 298989
+  "solvedCount": 298991
  },
  {
   "contestId": 111,
@@ -125631,7 +125631,7 @@
    "brute force",
    "implementation"
   ],
-  "solvedCount": 20230
+  "solvedCount": 20231
  },
  {
   "contestId": 108,
@@ -126240,7 +126240,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 200127
+  "solvedCount": 200129
  },
  {
   "contestId": 95,
@@ -126252,7 +126252,7 @@
    "dsu",
    "graphs"
   ],
-  "solvedCount": 2104
+  "solvedCount": 2106
  },
  {
   "contestId": 95,
@@ -126273,7 +126273,7 @@
   "tags": [
    "shortest paths"
   ],
-  "solvedCount": 3471
+  "solvedCount": 3472
  },
  {
   "contestId": 95,
@@ -126634,7 +126634,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 17892
+  "solvedCount": 17893
  },
  {
   "contestId": 86,
@@ -126866,7 +126866,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 32636
+  "solvedCount": 32637
  },
  {
   "contestId": 81,
@@ -127016,7 +127016,7 @@
    "graphs",
    "shortest paths"
   ],
-  "solvedCount": 765
+  "solvedCount": 766
  },
  {
   "contestId": 78,
@@ -127529,7 +127529,7 @@
   "tags": [
    "strings"
   ],
-  "solvedCount": 525888
+  "solvedCount": 525895
  },
  {
   "contestId": 70,
@@ -127641,7 +127641,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 208551
+  "solvedCount": 208552
  },
  {
   "contestId": 68,
@@ -128104,7 +128104,7 @@
    "shortest paths",
    "trees"
   ],
-  "solvedCount": 7819
+  "solvedCount": 7820
  },
  {
   "contestId": 61,
@@ -128134,7 +128134,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 140814
+  "solvedCount": 140815
  },
  {
   "contestId": 60,
@@ -128245,7 +128245,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 237860
+  "solvedCount": 237861
  },
  {
   "contestId": 58,
@@ -128428,7 +128428,7 @@
    "dp",
    "number theory"
   ],
-  "solvedCount": 4917
+  "solvedCount": 4918
  },
  {
   "contestId": 55,
@@ -128576,7 +128576,7 @@
   "tags": [
    "data structures"
   ],
-  "solvedCount": 11922
+  "solvedCount": 11923
  },
  {
   "contestId": 52,
@@ -128715,7 +128715,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 332413
+  "solvedCount": 332415
  },
  {
   "contestId": 49,
@@ -129245,7 +129245,7 @@
   "tags": [
    "strings"
   ],
-  "solvedCount": 71874
+  "solvedCount": 71876
  },
  {
   "contestId": 42,
@@ -129805,7 +129805,7 @@
    "sortings",
    "strings"
   ],
-  "solvedCount": 4884
+  "solvedCount": 4885
  },
  {
   "contestId": 34,
@@ -129816,7 +129816,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 68447
+  "solvedCount": 68448
  },
  {
   "contestId": 34,
@@ -129857,7 +129857,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 3651
+  "solvedCount": 3652
  },
  {
   "contestId": 33,
@@ -129920,7 +129920,7 @@
    "expression parsing",
    "implementation"
   ],
-  "solvedCount": 82481
+  "solvedCount": 82482
  },
  {
   "contestId": 32,
@@ -130281,7 +130281,7 @@
    "hashing",
    "strings"
   ],
-  "solvedCount": 3448
+  "solvedCount": 3449
  },
  {
   "contestId": 25,
@@ -130784,7 +130784,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 17839
+  "solvedCount": 17840
  },
  {
   "contestId": 15,
@@ -130908,7 +130908,7 @@
    "data structures",
    "dsu"
   ],
-  "solvedCount": 8582
+  "solvedCount": 8583
  },
  {
   "contestId": 13,
@@ -131205,7 +131205,7 @@
    "bitmasks",
    "dp"
   ],
-  "solvedCount": 4496
+  "solvedCount": 4497
  },
  {
   "contestId": 8,
@@ -131441,7 +131441,7 @@
    "brute force",
    "math"
   ],
-  "solvedCount": 720069
+  "solvedCount": 720081
  },
  {
   "contestId": 3,
@@ -131517,7 +131517,7 @@
    "hashing",
    "implementation"
   ],
-  "solvedCount": 32040
+  "solvedCount": 32041
  },
  {
   "contestId": 1,
@@ -131549,6 +131549,6 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 329873
+  "solvedCount": 329874
  }
 ]

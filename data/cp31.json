@@ -9,7 +9,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 89705
+  "solvedCount": 89709
  },
  {
   "band": 800,
@@ -20,7 +20,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 84502
+  "solvedCount": 84506
  },
  {
   "band": 800,
@@ -33,7 +33,7 @@
    "implementation",
    "strings"
   ],
-  "solvedCount": 72312
+  "solvedCount": 72313
  },
  {
   "band": 800,
@@ -45,7 +45,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 102811
+  "solvedCount": 102814
  },
  {
   "band": 800,
@@ -55,7 +55,7 @@
   "tags": [
    "sortings"
   ],
-  "solvedCount": 64845
+  "solvedCount": 64846
  },
  {
   "band": 800,
@@ -65,7 +65,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 63729
+  "solvedCount": 63731
  },
  {
   "band": 800,
@@ -76,7 +76,7 @@
    "brute force",
    "strings"
   ],
-  "solvedCount": 65974
+  "solvedCount": 65975
  },
  {
   "band": 800,
@@ -86,7 +86,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 86226
+  "solvedCount": 86227
  },
  {
   "band": 800,
@@ -96,7 +96,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 58565
+  "solvedCount": 58566
  },
  {
   "band": 800,
@@ -107,7 +107,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 76481
+  "solvedCount": 76483
  },
  {
   "band": 800,
@@ -117,7 +117,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 57553
+  "solvedCount": 57555
  },
  {
   "band": 800,
@@ -140,7 +140,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 59746
+  "solvedCount": 59748
  },
  {
   "band": 800,
@@ -152,7 +152,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 72522
+  "solvedCount": 72524
  },
  {
   "band": 800,
@@ -162,7 +162,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 28944
+  "solvedCount": 28945
  },
  {
   "band": 800,
@@ -174,7 +174,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 61332
+  "solvedCount": 61334
  },
  {
   "band": 800,
@@ -198,7 +198,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 59730
+  "solvedCount": 59732
  },
  {
   "band": 800,
@@ -209,7 +209,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 50546
+  "solvedCount": 50548
  },
  {
   "band": 800,
@@ -219,7 +219,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 50680
+  "solvedCount": 50681
  },
  {
   "band": 800,
@@ -229,7 +229,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 84679
+  "solvedCount": 84681
  },
  {
   "band": 800,
@@ -252,7 +252,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 47837
+  "solvedCount": 47838
  },
  {
   "band": 800,
@@ -263,7 +263,7 @@
    "bitmasks",
    "brute force"
   ],
-  "solvedCount": 46335
+  "solvedCount": 46336
  },
  {
   "band": 800,
@@ -274,7 +274,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 80419
+  "solvedCount": 80420
  },
  {
   "band": 800,
@@ -310,7 +310,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 53633
+  "solvedCount": 53636
  },
  {
   "band": 800,
@@ -321,7 +321,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 48580
+  "solvedCount": 48581
  },
  {
   "band": 800,
@@ -343,7 +343,7 @@
    "brute force",
    "constructive algorithms"
   ],
-  "solvedCount": 41115
+  "solvedCount": 41118
  },
  {
   "band": 900,
@@ -354,7 +354,7 @@
    "brute force",
    "implementation"
   ],
-  "solvedCount": 45056
+  "solvedCount": 45057
  },
  {
   "band": 900,
@@ -364,7 +364,7 @@
   "tags": [
    "strings"
   ],
-  "solvedCount": 65497
+  "solvedCount": 65500
  },
  {
   "band": 900,
@@ -374,7 +374,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 63149
+  "solvedCount": 63151
  },
  {
   "band": 900,
@@ -385,7 +385,7 @@
    "brute force",
    "greedy"
   ],
-  "solvedCount": 51903
+  "solvedCount": 51904
  },
  {
   "band": 900,
@@ -395,7 +395,7 @@
   "tags": [
    "constructive algorithms"
   ],
-  "solvedCount": 44090
+  "solvedCount": 44091
  },
  {
   "band": 900,
@@ -409,7 +409,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 49279
+  "solvedCount": 49285
  },
  {
   "band": 900,
@@ -422,7 +422,7 @@
    "implementation",
    "sortings"
   ],
-  "solvedCount": 66033
+  "solvedCount": 66034
  },
  {
   "band": 900,
@@ -432,7 +432,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 54752
+  "solvedCount": 54753
  },
  {
   "band": 900,
@@ -443,7 +443,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 42973
+  "solvedCount": 42974
  },
  {
   "band": 900,
@@ -466,7 +466,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 43928
+  "solvedCount": 43929
  },
  {
   "band": 900,
@@ -477,7 +477,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 40093
+  "solvedCount": 40094
  },
  {
   "band": 900,
@@ -487,7 +487,7 @@
   "tags": [
    "greedy"
   ],
-  "solvedCount": 39941
+  "solvedCount": 39943
  },
  {
   "band": 900,
@@ -511,7 +511,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 47174
+  "solvedCount": 47175
  },
  {
   "band": 900,
@@ -533,7 +533,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 35934
+  "solvedCount": 35937
  },
  {
   "band": 900,
@@ -544,7 +544,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 56612
+  "solvedCount": 56614
  },
  {
   "band": 900,
@@ -554,7 +554,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 42662
+  "solvedCount": 42664
  },
  {
   "band": 900,
@@ -577,7 +577,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 43795
+  "solvedCount": 43796
  },
  {
   "band": 900,
@@ -600,7 +600,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 49006
+  "solvedCount": 49009
  },
  {
   "band": 900,
@@ -612,7 +612,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 44043
+  "solvedCount": 44045
  },
  {
   "band": 900,
@@ -624,7 +624,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 45261
+  "solvedCount": 45263
  },
  {
   "band": 900,
@@ -635,7 +635,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 92141
+  "solvedCount": 92142
  },
  {
   "band": 900,
@@ -647,7 +647,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 41100
+  "solvedCount": 41101
  },
  {
   "band": 900,
@@ -658,7 +658,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 33028
+  "solvedCount": 33029
  },
  {
   "band": 900,
@@ -669,7 +669,7 @@
    "brute force",
    "data structures"
   ],
-  "solvedCount": 43367
+  "solvedCount": 43369
  },
  {
   "band": 900,
@@ -679,7 +679,7 @@
   "tags": [
    "games"
   ],
-  "solvedCount": 56409
+  "solvedCount": 56410
  },
  {
   "band": 900,
@@ -689,7 +689,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 76319
+  "solvedCount": 76320
  },
  {
   "band": 1000,
@@ -699,7 +699,7 @@
   "tags": [
    "strings"
   ],
-  "solvedCount": 56675
+  "solvedCount": 56676
  },
  {
   "band": 1000,
@@ -710,7 +710,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 55163
+  "solvedCount": 55167
  },
  {
   "band": 1000,
@@ -721,7 +721,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 38972
+  "solvedCount": 38975
  },
  {
   "band": 1000,
@@ -746,7 +746,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 48512
+  "solvedCount": 48514
  },
  {
   "band": 1000,
@@ -758,7 +758,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 52098
+  "solvedCount": 52100
  },
  {
   "band": 1000,
@@ -769,7 +769,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 38492
+  "solvedCount": 38493
  },
  {
   "band": 1000,
@@ -816,7 +816,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 31625
+  "solvedCount": 31626
  },
  {
   "band": 1000,
@@ -828,7 +828,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 36387
+  "solvedCount": 36388
  },
  {
   "band": 1000,
@@ -840,7 +840,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 32712
+  "solvedCount": 32713
  },
  {
   "band": 1000,
@@ -853,7 +853,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 38277
+  "solvedCount": 38278
  },
  {
   "band": 1000,
@@ -877,7 +877,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 33857
+  "solvedCount": 33858
  },
  {
   "band": 1000,
@@ -900,7 +900,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 33951
+  "solvedCount": 33952
  },
  {
   "band": 1000,
@@ -922,7 +922,7 @@
    "bitmasks",
    "greedy"
   ],
-  "solvedCount": 35402
+  "solvedCount": 35403
  },
  {
   "band": 1000,
@@ -947,7 +947,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 35730
+  "solvedCount": 35731
  },
  {
   "band": 1000,
@@ -972,7 +972,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 28875
+  "solvedCount": 28876
  },
  {
   "band": 1000,
@@ -985,7 +985,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 31367
+  "solvedCount": 31368
  },
  {
   "band": 1000,
@@ -1038,7 +1038,7 @@
    "constructive algorithms",
    "sortings"
   ],
-  "solvedCount": 41759
+  "solvedCount": 41760
  },
  {
   "band": 1000,
@@ -1050,7 +1050,7 @@
    "sortings",
    "strings"
   ],
-  "solvedCount": 28348
+  "solvedCount": 28349
  },
  {
   "band": 1100,
@@ -1075,7 +1075,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 43135
+  "solvedCount": 43136
  },
  {
   "band": 1100,
@@ -1125,7 +1125,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 31516
+  "solvedCount": 31517
  },
  {
   "band": 1100,
@@ -1136,7 +1136,7 @@
    "binary search",
    "sortings"
   ],
-  "solvedCount": 47483
+  "solvedCount": 47484
  },
  {
   "band": 1100,
@@ -1162,7 +1162,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 37800
+  "solvedCount": 37802
  },
  {
   "band": 1100,
@@ -1210,7 +1210,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 30517
+  "solvedCount": 30518
  },
  {
   "band": 1100,
@@ -1269,7 +1269,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 36422
+  "solvedCount": 36423
  },
  {
   "band": 1100,
@@ -1281,7 +1281,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 44066
+  "solvedCount": 44067
  },
  {
   "band": 1100,
@@ -1294,7 +1294,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 27786
+  "solvedCount": 27787
  },
  {
   "band": 1100,
@@ -1365,7 +1365,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 42983
+  "solvedCount": 42984
  },
  {
   "band": 1100,
@@ -1450,7 +1450,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 34107
+  "solvedCount": 34109
  },
  {
   "band": 1200,
@@ -1460,7 +1460,7 @@
   "tags": [
    "math"
   ],
-  "solvedCount": 42099
+  "solvedCount": 42100
  },
  {
   "band": 1200,
@@ -1497,7 +1497,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 37348
+  "solvedCount": 37349
  },
  {
   "band": 1200,
@@ -1520,7 +1520,7 @@
    "data structures",
    "two pointers"
   ],
-  "solvedCount": 35888
+  "solvedCount": 35889
  },
  {
   "band": 1200,
@@ -1532,7 +1532,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 34231
+  "solvedCount": 34232
  },
  {
   "band": 1200,
@@ -1567,7 +1567,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 33079
+  "solvedCount": 33080
  },
  {
   "band": 1200,
@@ -1589,7 +1589,7 @@
   "tags": [
    "implementation"
   ],
-  "solvedCount": 29702
+  "solvedCount": 29703
  },
  {
   "band": 1200,
@@ -1601,7 +1601,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 36115
+  "solvedCount": 36117
  },
  {
   "band": 1200,
@@ -1636,7 +1636,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 26979
+  "solvedCount": 26980
  },
  {
   "band": 1200,
@@ -1663,7 +1663,7 @@
    "strings",
    "two pointers"
   ],
-  "solvedCount": 25605
+  "solvedCount": 25606
  },
  {
   "band": 1200,
@@ -1722,7 +1722,7 @@
    "hashing",
    "math"
   ],
-  "solvedCount": 69082
+  "solvedCount": 69085
  },
  {
   "band": 1200,
@@ -1759,7 +1759,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 29218
+  "solvedCount": 29219
  },
  {
   "band": 1200,
@@ -1770,7 +1770,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 30606
+  "solvedCount": 30608
  },
  {
   "band": 1200,
@@ -1832,7 +1832,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 37445
+  "solvedCount": 37446
  },
  {
   "band": 1300,
@@ -1843,7 +1843,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 30849
+  "solvedCount": 30851
  },
  {
   "band": 1300,
@@ -1879,7 +1879,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 27101
+  "solvedCount": 27102
  },
  {
   "band": 1300,
@@ -1917,7 +1917,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 32500
+  "solvedCount": 32501
  },
  {
   "band": 1300,
@@ -1930,7 +1930,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 26267
+  "solvedCount": 26268
  },
  {
   "band": 1300,
@@ -1953,7 +1953,7 @@
    "binary search",
    "math"
   ],
-  "solvedCount": 27834
+  "solvedCount": 27836
  },
  {
   "band": 1300,
@@ -1966,7 +1966,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 22606
+  "solvedCount": 22607
  },
  {
   "band": 1300,
@@ -1978,7 +1978,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 23098
+  "solvedCount": 23099
  },
  {
   "band": 1300,
@@ -1991,7 +1991,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 24972
+  "solvedCount": 24974
  },
  {
   "band": 1300,
@@ -2005,7 +2005,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 31087
+  "solvedCount": 31089
  },
  {
   "band": 1300,
@@ -2016,7 +2016,7 @@
    "dp",
    "math"
   ],
-  "solvedCount": 22276
+  "solvedCount": 22278
  },
  {
   "band": 1300,
@@ -2028,7 +2028,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 38362
+  "solvedCount": 38363
  },
  {
   "band": 1300,
@@ -2039,7 +2039,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 29644
+  "solvedCount": 29645
  },
  {
   "band": 1300,
@@ -2050,7 +2050,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 27747
+  "solvedCount": 27748
  },
  {
   "band": 1300,
@@ -2061,7 +2061,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 45372
+  "solvedCount": 45373
  },
  {
   "band": 1300,
@@ -2073,7 +2073,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 49111
+  "solvedCount": 49113
  },
  {
   "band": 1300,
@@ -2085,7 +2085,7 @@
    "greedy",
    "implementation"
   ],
-  "solvedCount": 32880
+  "solvedCount": 32881
  },
  {
   "band": 1300,
@@ -2097,7 +2097,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 24507
+  "solvedCount": 24509
  },
  {
   "band": 1300,
@@ -2108,7 +2108,7 @@
    "dp",
    "strings"
   ],
-  "solvedCount": 23287
+  "solvedCount": 23288
  },
  {
   "band": 1300,
@@ -2121,7 +2121,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 17789
+  "solvedCount": 17790
  },
  {
   "band": 1300,
@@ -2129,7 +2129,7 @@
   "name": "Good Array",
   "url": "https://codeforces.com/problemset/problem/1077/C",
   "tags": [],
-  "solvedCount": 27470
+  "solvedCount": 27473
  },
  {
   "band": 1300,
@@ -2141,7 +2141,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 27628
+  "solvedCount": 27630
  },
  {
   "band": 1300,
@@ -2153,7 +2153,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 16613
+  "solvedCount": 16614
  },
  {
   "band": 1300,
@@ -2165,7 +2165,7 @@
    "greedy",
    "strings"
   ],
-  "solvedCount": 18838
+  "solvedCount": 18840
  },
  {
   "band": 1400,
@@ -2178,7 +2178,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 27887
+  "solvedCount": 27888
  },
  {
   "band": 1400,
@@ -2190,7 +2190,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 30716
+  "solvedCount": 30718
  },
  {
   "band": 1400,
@@ -2240,7 +2240,7 @@
    "data structures",
    "greedy"
   ],
-  "solvedCount": 22689
+  "solvedCount": 22690
  },
  {
   "band": 1400,
@@ -2251,7 +2251,7 @@
    "constructive algorithms",
    "greedy"
   ],
-  "solvedCount": 23550
+  "solvedCount": 23551
  },
  {
   "band": 1400,
@@ -2264,7 +2264,7 @@
    "graphs",
    "trees"
   ],
-  "solvedCount": 21657
+  "solvedCount": 21658
  },
  {
   "band": 1400,
@@ -2313,7 +2313,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 25429
+  "solvedCount": 25430
  },
  {
   "band": 1400,
@@ -2352,7 +2352,7 @@
    "bitmasks",
    "math"
   ],
-  "solvedCount": 23555
+  "solvedCount": 23556
  },
  {
   "band": 1400,
@@ -2363,7 +2363,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 30255
+  "solvedCount": 30256
  },
  {
   "band": 1400,
@@ -2377,7 +2377,7 @@
    "number theory",
    "sortings"
   ],
-  "solvedCount": 23706
+  "solvedCount": 23707
  },
  {
   "band": 1400,
@@ -2390,7 +2390,7 @@
    "constructive algorithms",
    "math"
   ],
-  "solvedCount": 21229
+  "solvedCount": 21230
  },
  {
   "band": 1400,
@@ -2402,7 +2402,7 @@
    "graphs",
    "math"
   ],
-  "solvedCount": 28600
+  "solvedCount": 28601
  },
  {
   "band": 1400,
@@ -2414,7 +2414,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 32730
+  "solvedCount": 32731
  },
  {
   "band": 1400,
@@ -2426,7 +2426,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 25020
+  "solvedCount": 25021
  },
  {
   "band": 1400,
@@ -2438,7 +2438,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 31071
+  "solvedCount": 31072
  },
  {
   "band": 1400,
@@ -2452,7 +2452,7 @@
    "math",
    "sortings"
   ],
-  "solvedCount": 23014
+  "solvedCount": 23015
  },
  {
   "band": 1400,
@@ -2464,7 +2464,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 19655
+  "solvedCount": 19656
  },
  {
   "band": 1400,
@@ -2474,7 +2474,7 @@
   "tags": [
    "dp"
   ],
-  "solvedCount": 37247
+  "solvedCount": 37249
  },
  {
   "band": 1400,
@@ -2485,7 +2485,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 21919
+  "solvedCount": 21920
  },
  {
   "band": 1400,
@@ -2497,7 +2497,7 @@
    "dsu",
    "graphs"
   ],
-  "solvedCount": 27921
+  "solvedCount": 27922
  },
  {
   "band": 1400,
@@ -2510,7 +2510,7 @@
    "interactive",
    "math"
   ],
-  "solvedCount": 17535
+  "solvedCount": 17537
  },
  {
   "band": 1400,
@@ -2521,7 +2521,7 @@
    "dfs and similar",
    "trees"
   ],
-  "solvedCount": 18860
+  "solvedCount": 18861
  },
  {
   "band": 1400,
@@ -2532,7 +2532,7 @@
    "greedy",
    "sortings"
   ],
-  "solvedCount": 17779
+  "solvedCount": 17780
  },
  {
   "band": 1400,
@@ -2544,7 +2544,7 @@
    "dp",
    "number theory"
   ],
-  "solvedCount": 30873
+  "solvedCount": 30874
  },
  {
   "band": 1500,
@@ -2570,7 +2570,7 @@
    "sortings",
    "two pointers"
   ],
-  "solvedCount": 21881
+  "solvedCount": 21882
  },
  {
   "band": 1500,
@@ -2580,7 +2580,7 @@
   "tags": [
    "dp"
   ],
-  "solvedCount": 25900
+  "solvedCount": 25901
  },
  {
   "band": 1500,
@@ -2629,7 +2629,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 19213
+  "solvedCount": 19214
  },
  {
   "band": 1500,
@@ -2671,7 +2671,7 @@
    "dp",
    "greedy"
   ],
-  "solvedCount": 26926
+  "solvedCount": 26927
  },
  {
   "band": 1500,
@@ -2710,7 +2710,7 @@
    "greedy",
    "shortest paths"
   ],
-  "solvedCount": 30155
+  "solvedCount": 30158
  },
  {
   "band": 1500,
@@ -2723,7 +2723,7 @@
    "implementation",
    "two pointers"
   ],
-  "solvedCount": 17669
+  "solvedCount": 17670
  },
  {
   "band": 1500,
@@ -2745,7 +2745,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 31907
+  "solvedCount": 31909
  },
  {
   "band": 1500,
@@ -2809,7 +2809,7 @@
    "math",
    "trees"
   ],
-  "solvedCount": 17618
+  "solvedCount": 17619
  },
  {
   "band": 1500,
@@ -2857,7 +2857,7 @@
    "dp",
    "implementation"
   ],
-  "solvedCount": 12577
+  "solvedCount": 12578
  },
  {
   "band": 1500,
@@ -3021,7 +3021,7 @@
    "implementation",
    "math"
   ],
-  "solvedCount": 16164
+  "solvedCount": 16165
  },
  {
   "band": 1600,
@@ -3211,7 +3211,7 @@
    "greedy",
    "trees"
   ],
-  "solvedCount": 20035
+  "solvedCount": 20036
  },
  {
   "band": 1600,
@@ -3259,7 +3259,7 @@
    "math",
    "two pointers"
   ],
-  "solvedCount": 15377
+  "solvedCount": 15379
  },
  {
   "band": 1600,
@@ -3322,7 +3322,7 @@
    "math",
    "number theory"
   ],
-  "solvedCount": 19955
+  "solvedCount": 19956
  },
  {
   "band": 1700,
@@ -3377,7 +3377,7 @@
    "greedy",
    "trees"
   ],
-  "solvedCount": 9866
+  "solvedCount": 9867
  },
  {
   "band": 1700,
@@ -3646,7 +3646,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 10077
+  "solvedCount": 10078
  },
  {
   "band": 1700,
@@ -3759,7 +3759,7 @@
    "graphs",
    "shortest paths"
   ],
-  "solvedCount": 9506
+  "solvedCount": 9507
  },
  {
   "band": 1800,
@@ -3875,7 +3875,7 @@
    "greedy",
    "two pointers"
   ],
-  "solvedCount": 8005
+  "solvedCount": 8006
  },
  {
   "band": 1800,
@@ -3952,7 +3952,7 @@
    "greedy",
    "math"
   ],
-  "solvedCount": 8547
+  "solvedCount": 8548
  },
  {
   "band": 1800,
