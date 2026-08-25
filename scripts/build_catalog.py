@@ -73,6 +73,8 @@ def call(url, method="GET", token=None, body=None, ua=UA_DISCORD):
 def hooks_map():
     env = os.environ.get("FEED_WEBHOOKS")
     path = env if env else LOCAL_HOOKS
+    if path.startswith("{"):
+        return json.loads(path)
     src = open(path) if ":" not in path[:8] else None
     if src:
         return json.load(src)
