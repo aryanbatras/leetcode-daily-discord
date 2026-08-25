@@ -1,0 +1,434 @@
+{
+  "java-fundamentals": {
+    "title": "Java Fundamentals",
+    "color": 15166336,
+    "intro": "Language core: compilation model, data types, packages, modifiers, Object class, annotations.",
+    "groups": [
+      ["Getting Started", "1. What is Java? History and major version milestones\n2. JDK vs JRE vs JVM — exact responsibilities\n3. Compilation & execution flow: .java → javac → .class bytecode → JVM\n4. What is bytecode and why does it make Java platform independent (WORA)?\n5. javac and java commands; compiling multi-file programs\n6. What is a JAR file? Creating and running one\n7. PATH vs CLASSPATH variables — what each controls\n8. Environment setup: JAVA_HOME and friends\n9. Key features: platform independence, robustness, security, multithreading, automatic memory management\n10. Why is Java not 100% object-oriented?"],
+      ["Data Types & Variables", "1. Primitive types, their sizes and ranges; why sizes are fixed unlike C\n2. Non-primitive (reference) types; default values of instance vs local variables\n3. char and Unicode/ASCII handling\n4. Implicit vs explicit casting; overflow/underflow behavior\n5. Wrapper classes and their purpose\n6. Autoboxing/unboxing; Integer cache (-128..127) equality trap\n7. varargs: rules, overload resolution, when to avoid"],
+      ["Packages & Access Control", "1. What is a package? Creating, importing, fully-qualified names\n2. Static imports — power and abuse\n3. Access modifiers matrix: private / default / protected / public across class, package, subclass, world\n4. Top-level vs member-level modifier legality\n5. Naming conventions: classes, methods, variables, constants, packages, interfaces"],
+      ["static, final & Initialization Order", "1. static variables, methods, blocks, nested classes — each explained\n2. Static block execution order and use cases\n3. final variable vs final method vs final class\n4. final vs finally vs finalize\n5. Instance initializer blocks; full initialization order (static → instance → constructor)\n6. Can we call a non-static method from a static context?"],
+      ["Object Class & Equality", "1. Every method of Object class and its role\n2. == vs equals() vs hashCode()\n3. Why equals and hashCode must be overridden together\n4. toString() conventions; getClass()\n5. Object cloning: shallow vs deep copy, Cloneable, clone() design flaws, copy constructors as alternative\n6. Pass-by-value in Java — including what happens with object references\n7. Immutable objects: recipe (final class, final fields, defensive copies, no setters) and benefits"],
+      ["Annotations, Enums & Misc", "1. What are annotations? Built-ins: @Override, @Deprecated, @SuppressWarnings, @FunctionalInterface\n2. Meta-annotations: @Retention, @Target; writing custom annotations + reflection processing\n3. Enums: values(), valueOf(), ordinal(); enums with constructors, fields and methods; EnumSet/EnumMap efficiency\n4. Command-line arguments\n5. Varargs vs array parameters"]
+    ],
+    "resources": [
+      ["Oracle Java Tutorials", "https://docs.oracle.com/javase/tutorial/"],
+      ["Baeldung – Java", "https://www.baeldung.com/java"],
+      ["GeeksforGeeks – Java", "https://www.geeksforgeeks.org/java/"],
+      ["JournalDev – Java", "https://www.journaldev.com/java"]
+    ]
+  },
+  "java-oops": {
+    "title": "OOPs & Inheritance",
+    "color": 15166336,
+    "intro": "Four pillars, constructors, inheritance, polymorphism, abstract classes vs interfaces, nested classes.",
+    "groups": [
+      ["Four Pillars", "1. Encapsulation: bundling + data hiding via private fields/accessors\n2. Inheritance: code reuse and IS-A modeling; extends semantics\n3. Polymorphism: one interface many implementations; compile-time vs runtime\n4. Abstraction: exposing essential behavior, hiding detail; achieved via abstract classes and interfaces\n5. Abstraction vs encapsulation — the classic distinction\n6. Why doesn't Java support pointers and operator overloading (design philosophy)?"],
+      ["Classes & Constructors", "1. Default constructor: when is it generated?\n2. Constructor overloading; copy constructor pattern in Java\n3. Constructor chaining with this() and super() — rules (first statement)\n4. Initialization order: static blocks → instance initializers → constructor body, with inheritance\n5. Private constructors: singletons, utility classes, builder pattern"],
+      ["Inheritance", "1. Supported types: single, multilevel, hierarchical; why multiple class inheritance is banned\n2. Diamond problem and how default methods reintroduce it + resolution rules\n3. super keyword: members, constructors\n4. Method hiding vs overriding for static methods\n5. Upcasting/downcasting; instanceof guard; ClassCastException\n6. IS-A vs HAS-A: association, aggregation, composition — with code shapes\n7. Composition over inheritance — reasons (fragile base class, coupling)\n8. Coupling and cohesion definitions in OO design"],
+      ["Polymorphism", "1. Compile-time polymorphism: overloading — resolution rules, why return type alone can't distinguish\n2. Ambiguous overload examples (null argument, boxing+varargs mix)\n3. Runtime polymorphism: overriding — signature, visibility (can widen not narrow), exception rules\n4. @Override annotation value\n5. Dynamic method dispatch: reference type vs object type\n6. Covariant return types (since Java 5)\n7. Can we override static, private, or final methods? Can we overload main()?"],
+      ["Abstract Classes vs Interfaces", "1. Abstract class rules: abstract methods, instantiation ban, constructors allowed\n2. Interface evolution: Java 8 default/static methods, Java 9 private methods\n3. Full comparison table: fields, constructors, multiple inheritance, state\n4. Decision criteria: contract vs shared skeleton; evolving APIs\n5. Functional interfaces and SAM; @FunctionalInterface\n6. Marker interfaces (Serializable, Cloneable): purpose and annotation alternatives\n7. Multiple inheritance via interfaces; conflicting default methods — mandatory override rule"],
+      ["Nested & Inner Classes", "1. Static nested vs inner (non-static) class — instances and outer reference\n2. Local classes; effectively-final capture rule\n3. Anonymous classes: syntax, use cases (listeners, comparator inline), this scoping\n4. When each variant is appropriate"]
+    ],
+    "resources": [
+      ["Baeldung – OOP in Java", "https://www.baeldung.com/java-oop"],
+      ["Oracle Tutorial – OOP Concepts", "https://docs.oracle.com/javase/tutorial/java/concepts/"],
+      ["GeeksforGeeks – OOPs", "https://www.geeksforgeeks.org/object-oriented-programming-oops-concept-in-java/"]
+    ]
+  },
+  "java-strings": {
+    "title": "Strings & Objects",
+    "color": 15166336,
+    "intro": "Immutability, string pool, StringBuilder family, equals/hashCode contracts, custom immutability.",
+    "groups": [
+      ["String Fundamentals", "1. Why is String immutable? Benefits: pooling, security, thread safety, cached hashCode\n2. String Constant Pool: where it lives (heap since Java 7), how literals are deduplicated\n3. intern(): mechanics and when manual interning helps\n4. String s = new String(\"abc\") — how many objects are created?\n5. == vs equals() on strings; compile-time constant folding (\"a\"+\"b\"==\"ab\")\n6. String vs StringBuffer vs StringBuilder: mutability, synchronization, performance\n7. Which to use when; method chaining style"],
+      ["Operations & Internals", "1. substring() before Java 7u6: shared char[] memory leak story\n2. split() vs StringTokenizer; regex cost in split\n3. replace() vs replaceAll() (literal vs regex); trim() vs strip() (Unicode-aware, Java 11)\n4. Formatting: String.format/printf, format specifiers; MessageFormat\n5. Text blocks \"\"\" (Java 15) for multiline strings\n6. Conversions: valueOf vs toString vs casting; parseInt family\n7. chars()/codePoints(); UTF-16 surrogate pairs; length() vs codePointCount\n8. StringJoiner, repeat(), indent(), lines() (newer API tour)\n9. Efficient concatenation in loops — why += is O(n²) and join/builder wins"],
+      ["equals & hashCode Contracts", "1. equals contract: reflexive, symmetric, transitive, consistent, null-handling\n2. hashCode contract: consistency with equals; equal objects ⇒ equal hashes\n3. Consequences of violating the contract in HashMap/HashSet\n4. Writing good hashCodes; why 31 as multiplier\n5. Generating with Objects.hash / IDE / Lombok @EqualsAndHashCode"],
+      ["Immutability in Practice", "1. Step-by-step: final class, private final fields, no mutators, defensive copying in getters/constructor\n2. Mutable component pitfall (Date, arrays, collections) and defensive copies\n3. Collections.unmodifiableList vs List.copyOf for defensive returns\n4. Records (Java 16+) as compact immutables; what records auto-generate"]
+    ],
+    "resources": [
+      ["Baeldung – String Pool", "https://www.baeldung.com/java-string-pool"],
+      ["Baeldung – Immutability", "https://www.baeldung.com/java-immutable-object"],
+      ["Oracle – String API", "https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html"]
+    ]
+  },
+  "java-exceptions": {
+    "title": "Exceptions",
+    "color": 15166336,
+    "intro": "Throwable hierarchy, checked vs unchecked, finally semantics, try-with-resources, custom exceptions.",
+    "groups": [
+      ["Hierarchy & Types", "1. Throwable tree: Error vs Exception; RuntimeException placement\n2. Checked vs unchecked: philosophy, compiler enforcement, examples of each\n3. Error cases: OutOfMemoryError, StackOverflowError, NoClassDefFoundError — should you catch them?\n4. Exception vs Error vs Throwable as catch targets"],
+      ["Mechanics", "1. try-catch-finally execution rules; finally running even after return/exception\n2. finally with return statements — surprising behavior; why avoid\n3. Cases where finally does NOT run (System.exit, JVM crash, daemon death)\n4. try-with-resources: AutoCloseable/Closeable, close order, suppressed exceptions (getSuppressed)\n5. Multi-catch with | — rules (no related types, effectively final parameter)\n6. throw vs throws; declaring checked exceptions; unreachable-catch compile errors\n7. Exception propagation up the call stack; where it lands\n8. Overriding rules: narrower exceptions OK, broader checked not, unchecked free"],
+      ["Best Practices", "1. Custom exceptions: extending Exception vs RuntimeException; meaningful messages + cause chaining\n2. Never swallow: log-or-rethrow patterns; wrapping low-level into domain exceptions\n3. Exceptions vs error codes vs Optional for expected absence\n4. Cost of exceptions (stack fill) and why not to use them for control flow\n5. Catch specifics, not Throwable; preserve information when translating\n6. finally vs try-with-resources for cleanup; Cleaner for non-memory resources"]
+    ],
+    "resources": [
+      ["Baeldung – Exceptions", "https://www.baeldung.com/java-exceptions"],
+      ["Oracle Tutorial – Exceptions", "https://docs.oracle.com/javase/tutorial/essential/exceptions/"]
+    ]
+  },
+  "java-collections": {
+    "title": "Collections Framework",
+    "color": 15166336,
+    "intro": "Hierarchy, ArrayList/LinkedList internals, HashMap deep dive, sets, queues, iterators, comparators.",
+    "groups": [
+      ["Framework Overview", "1. Iterable → Collection → List/Set/Queue; Map as separate root — draw it\n2. List vs Set vs Queue vs Map: selection guide\n3. Arrays vs ArrayList vs LinkedList trade-offs\n4. Big-O cheat sheet: get/add/remove/contains for each major implementation"],
+      ["Lists", "1. ArrayList internals: backing Object[], default capacity 10, 1.5× growth formula, ensureCapacity/trimToSize\n2. ArrayList vs LinkedList: random access vs structural modification; real-world advice\n3. Vector/Stack legacy status; what replaced them\n4. CopyOnWriteArrayList: snapshot semantics, writer cost, reader speed"],
+      ["Maps", "1. HashMap internals: hash spreading (xor high bits), index = hash & (n−1), buckets, collisions\n2. Load factor 0.75, resizing/rehashing, capacity always power of two — why\n3. Treeification: bin threshold 8, table threshold 64, TreeNode red-black fallback\n4. null keys/values policy across HashMap/Hashtable/ConcurrentHashMap/TreeMap\n5. HashMap vs Hashtable vs ConcurrentHashMap vs Collections.synchronizedMap\n6. LinkedHashMap: insertion vs access order; building LRU with removeEldestEntry\n7. TreeMap/NavigableMap: red-black tree, floorKey/ceilingKey/headMap/tailMap\n8. Specialized maps: WeakHashMap (canonical mappings), IdentityHashMap, EnumMap\n9. Keys must honor equals/hashCode; mutable-key hazard walkthrough"],
+      ["Sets & Queues", "1. HashSet backed by a dummy-valued HashMap; add O(1)\n2. LinkedHashSet iteration-order guarantee; TreeSet sorted + navigable\n3. TreeSet vs HashSet decision; SortedSet ops\n4. PriorityQueue: binary heap, offer/poll O(log n), custom comparators, no nulls\n5. ArrayDeque as preferred Stack/Queue; Deque both-ends ops"],
+      ["Iterators & Sorting", "1. Fail-fast vs fail-safe iterators; modCount mechanism; ConcurrentModificationException triggers\n2. Safe removals: iterator.remove(), removeIf, CopyOnWrite*, concurrent collections\n3. Iterator vs ListIterator capabilities\n4. Comparable (natural order) vs Comparator (external); Comparator.comparing/thenComparing/reversed/nullsFirst\n5. Arrays.asList() pitfalls: fixed-size view backed by array\n6. Collections.unmodifiable* vs Java 9+ List.of/Set.of/Map.of true immutability"],
+      ["Concurrent Collections Preview", "1. ConcurrentHashMap segment/bin-level locking evolution; computeIfAbsent atomicity\n2. BlockingQueue family: ArrayBlockingQueue, LinkedBlockingQueue, PriorityBlockingQueue, DelayQueue, SynchronousQueue\n3. When CopyOnWrite beats locking (read-mostly)"]
+    ],
+    "resources": [
+      ["Baeldung – Collections", "https://www.baeldung.com/java-collections"],
+      ["Jenkov – Java Collections", "http://tutorials.jenkov.com/java-collections/index.html"],
+      ["Oracle – Collections Framework Docs", "https://docs.oracle.com/javase/8/docs/technotes/guides/collections/"]
+    ]
+  },
+  "java-multithreading": {
+    "title": "Multithreading & Concurrency",
+    "color": 15166336,
+    "intro": "Threads, synchronization, volatile/atomics, executors, synchronizers, concurrent collections.",
+    "groups": [
+      ["Thread Basics", "1. Process vs thread; concurrency vs parallelism\n2. Creating threads: extends Thread vs implements Runnable vs Callable+Future vs executor lambdas — trade-offs (composition, pooling)\n3. Thread lifecycle: NEW, RUNNABLE, BLOCKED/WAITING/TIMED_WAITING, TERMINATED — transitions\n4. start() vs run()\n5. Daemon threads: setDaemon before start, JVM-exit semantics, use cases\n6. Priorities and scheduling caveats; context-switch cost\n7. InterruptedException: correct handling (restore flag / propagate), never swallow"],
+      ["Synchronization Fundamentals", "1. Race conditions: shared mutable state demo (lost-update counter)\n2. Critical sections; intrinsic monitor locks\n3. synchronized method vs synchronized(this) block vs synchronized(Class.class)\n4. Lock reentrancy; memory visibility guarantee of synchronized\n5. volatile: visibility + ordering, NOT atomicity; safe patterns (status flag, double-checked locking with volatile)\n6. Atomic classes: AtomicInteger/AtomicLong/AtomicReference, compareAndSet, LongAdder for hot counters\n7. Java Memory Model: happens-before, reordering; final field safe publication"],
+      ["wait / notify Coordination", "1. wait vs sleep: lock release, monitor ownership requirement\n2. notify vs notifyAll; missed signals\n3. Spurious wakeups → wait in a while-loop, always\n4. Producer-consumer with wait/notify — full walkthrough\n5. join() and yield() semantics\n6. Guarded blocks / condition queues mental model"],
+      ["Explicit Locks & Advanced", "1. ReentrantLock vs synchronized: tryLock(timeout), fairness, interruptible acquisition\n2. Condition.await/signal replacing wait/notify (multiple wait sets)\n3. ReadWriteLock and StampedLock (optimistic reads, upgrade hazards)\n4. Deadlock: four Coffman conditions, detection via jstack/thread dump, prevention (ordering, tryLock, open calls)\n5. Livelock and starvation; fairness policies\n6. ThreadLocal: per-thread state, initialValue/withInitial, memory-leak danger in thread pools"],
+      ["Executors & Futures", "1. Why pools; Executor/ExecutorService/ScheduledExecutorService hierarchy\n2. Factory configs: newFixedThreadPool, newCachedThreadPool, newSingleThreadExecutor, newWorkStealingPool — sizing heuristics (CPU vs IO bound)\n3. execute vs submit; Future.get timeout; cancellation\n4. Graceful shutdown: shutdown → shutdownNow → awaitTermination dance\n5. Callable vs Runnable; FutureTask\n6. CompletableFuture: supplyAsync/thenApply/thenCompose/thenCombine/allOf/exceptionally/handle; default ForkJoinPool.commonPool vs custom executor\n7. Virtual threads (Java 21): thread-per-request scaling, pinned-carrier pitfalls"],
+      ["Concurrent Collections & Synchronizers", "1. ConcurrentHashMap: CAS + synchronized bins, no full-table lock, weakly-consistent iterators; compute/merge/search primitives\n2. ConcurrentLinkedQueue lock-free Michael-Scott idea\n3. BlockingQueues for hand-off; put/take vs offer/poll with timeouts\n4. CountDownLatch vs CyclicBarrier (reusable, barrier action) vs Phaser (dynamic parties, tiers) vs Exchanger vs Semaphore (permits, fairness)\n5. Side-by-side scenario table: which synchronizer fits which coordination shape"],
+      ["Patterns", "1. Producer-consumer: BlockingQueue version vs wait/notify version\n2. Thread-safe lazy singleton (double-checked locking with volatile) — see design-patterns\n3. Bounded-buffer, reader-writer scenarios\n4. Shutdown hooks; uncaughtExceptionHandler"]
+    ],
+    "resources": [
+      ["Jenkov – Java Concurrency", "http://tutorials.jenkov.com/java-concurrency/index.html"],
+      ["Baeldung – Concurrency", "https://www.baeldung.com/java-concurrency"],
+      ["Oracle – Concurrency Lesson", "https://docs.oracle.com/javase/tutorial/essential/concurrency/"]
+    ]
+  },
+  "java-jvm-gc": {
+    "title": "JVM, Memory & GC",
+    "color": 15166336,
+    "intro": "Classloading, runtime data areas, JIT, garbage collectors, references, leak diagnosis.",
+    "groups": [
+      ["JVM Architecture", "1. ClassLoader subsystem: loading → linking (verify, prepare, resolve) → initialization\n2. Delegation model: Bootstrap → Extension/Platform → Application; why parental delegation; custom loaders\n3. Runtime data areas: PC register, JVM stacks, native method stacks, heap, method area/Metaspace\n4. PermGen vs Metaspace (Java 8 change) and why\n5. Execution engine: interpreter, JIT tiered compilation (C1 client / C2 server), profiling, deoptimization\n6. Reading bytecode with javap -c; operand-stack machine nature\n7. String constant pool location and lifecycle"],
+      ["Stack & Heap Details", "1. Stack frame anatomy: locals, operand stack, frame data; StackOverflowError mechanics\n2. Heap generations: Eden + two survivor spaces + Old Gen; allocation via TLAB\n3. Key flags: -Xms, -Xmx, -Xmn, -XX:SurvivorRatio, -XX:MaxMetaspaceSize\n4. Escape analysis, scalar replacement, on-stack allocation claims — what actually happens\n5. Heap fragmentation and compaction"],
+      ["Garbage Collection", "1. What GC roots exist (stack vars, statics, JNI, system classes)\n2. Mark-sweep vs mark-sweep-compact vs copying collectors\n3. Generational hypothesis; minor vs major vs full GC\n4. Survivor space aging, tenuring threshold, premature promotion\n5. Collector tour: Serial, Parallel (throughput), CMS (history/removal), G1 (regionized, pause goals, mixed collections), ZGC & Shenandoah (concurrent, sub-ms pauses)\n6. Selecting and tuning: -XX:+UseParallelGC / UseG1GC / UseZGC; GC logs -Xlog:gc*\n7. finalize() deprecation journey → java.lang.ref.Cleaner / try-with-resources"],
+      ["References & Leaks", "1. Strong vs soft (caches before OOM) vs weak (canonical maps) vs phantom (cleanup notifications) + ReferenceQueue\n2. Classic leak sources: static collections that grow, unbounded caches, listeners not deregistered, ThreadLocal in pools, ClassLoader leaks, substring-era strings\n3. Diagnosis toolkit: jmap heap dumps, jstat -gcutil, jstack, Eclipse MAT dominator tree, VisualVM, JFR\n4. OutOfMemoryError variants: Java heap space, GC overhead limit, Metaspace, direct buffer memory, unable-to-create-thread\n5. StackOverflowError: runaway recursion vs legitimate deep stacks; -Xss"],
+      ["Performance Quick Hits", "1. JIT warmup and benchmarking pitfalls (JMH, why microbenchmarks lie)\n2. Inlining, monomorphic vs megamorphic call sites\n3. Escape-analysis-backed optimizations\n4. Allocation rate reduction: object pooling debates, primitive specialization, value types outlook"]
+    ],
+    "resources": [
+      ["Oracle – HotSpot GC Tuning Guide", "https://docs.oracle.com/en/java/javase/17/gctuning/"],
+      ["Baeldung – JVM Series", "https://www.baeldung.com/jvm-garbage-collectors"],
+      ["Jenkov – Java Virtual Machine", "http://tutorials.jenkov.com/java-performance/jvm-overview.html"]
+    ]
+  },
+  "java-serialization": {
+    "title": "Serialization",
+    "color": 15166336,
+    "intro": "Serializable, serialVersionUID, transient, Externalizable, readResolve, security, alternatives.",
+    "groups": [
+      ["Fundamentals", "1. What serialization solves; ObjectOutputStream/ObjectInputStream round trip\n2. Serializable marker interface; NotSerializableException\n3. serialVersionUID: fingerprint role, mismatch InvalidClassException, computing default\n4. transient fields: skipped on write, defaults on read\n5. static fields are NEVER serialized (class state, not instance state)"],
+      ["Customization Hooks", "1. private writeObject/readObject: calling defaultWriteObject first; encrypting sensitive fields\n2. writeReplace: substituting a proxy at write time\n3. readResolve: enforcing singletons/enums after deserialization\n4. ObjectInputValidation\n5. Externalizable vs Serializable: full control, mandatory public no-arg constructor, performance, verbosity"],
+      ["Pitfalls & Security", "1. Superclass not serializable: state loss + superclass constructor reruns on deserialize\n2. Deserialization vulnerabilities: gadget chains, why untrusted deserialization is dangerous; safe alternatives/validation\n3. Versioning strategy: compatible vs incompatible changes (adding fields ok, changing types not)\n4. Deep copy via serialize/deserialize round trip — trick and cost\n5. Why records and enums have special serialization treatment"],
+      ["Alternatives", "1. JSON: Jackson vs Gson (performance, features, streaming API)\n2. Binary schemas: Protocol Buffers / Avro — schema evolution advantages\n3. Kryo/Java-native trade-offs; when to abandon built-in serialization entirely"]
+    ],
+    "resources": [
+      ["Baeldung – Serialization", "https://www.baeldung.com/java-serialize-deserialize"],
+      ["Oracle – Java Object Serialization Spec", "https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html"]
+    ]
+  },
+  "java-servlets": {
+    "title": "Servlets & Web Basics",
+    "color": 15166336,
+    "intro": "Lifecycle, request handling, sessions, filters, forwarding vs redirecting, JSP glance.",
+    "groups": [
+      ["Servlet Lifecycle & API", "1. What a servlet is; servlet container duties (Tomcat/Jetty)\n2. Lifecycle: init(ServletConfig) once → service() per request → destroy() at shutdown\n3. doGet/doPost and the service dispatcher; HttpServlet\n4. web.xml deployment descriptor vs @WebServlet annotation config\n5. ServletConfig (per-servlet init params) vs ServletContext (application-wide)\n6. load-on-startup and init ordering\n7. Single-instance-multi-thread model: why instance variables are dangerous"],
+      ["Request Handling", "1. GET vs POST: semantics, idempotency, caching, payload limits\n2. forward (RequestDispatcher, same server round, request attrs preserved) vs sendRedirect (client 302, new request)\n3. Reading params, headers, input streams\n4. Setting response headers/content type; character encoding discipline\n5. Filters: chain.doFilter, auth/logging/compression examples\n6. Listeners: ServletContextListener, HttpSessionListener, AsyncListener"],
+      ["Sessions & State", "1. HTTP is stateless — tracking options: cookies, URL rewriting, hidden form fields, HttpSession\n2. Cookie API: maxAge, path/domain, httpOnly, secure flags\n3. HttpSession mechanics: JSESSIONID cookie, server-side storage, invalidate(), timeout config\n4. Session fixation basics and cookie hygiene\n5. Distributed sessions overview (sticky sessions vs replicated/external stores)"],
+      ["JSP & MVC Glance", "1. JSP → translated to servlet; lifecycle parallels\n2. Scriptlets (legacy) vs EL ${} and JSTL tags\n3. MVC with servlet controller + JSP view + bean model\n4. Why frameworks (Spring MVC) superseded raw servlets"]
+    ],
+    "resources": [
+      ["Jakarta EE – Servlet Spec", "https://jakarta.ee/specifications/servlet/"],
+      ["Baeldung – Servlets", "https://www.baeldung.com/java-servlets-containers-intro"],
+      ["Oracle – Servlet Tutorial", "https://docs.oracle.com/javaee/7/tutorial/servlets001.htm"]
+    ]
+  },
+  "java-spring-boot": {
+    "title": "Spring & Spring Boot",
+    "color": 15166336,
+    "intro": "IoC/DI, bean lifecycles, MVC/REST, auto-configuration, actuator, AOP, transactions.",
+    "groups": [
+      ["Spring Core & IoC", "1. What the Spring framework is; module landscape (core, beans, context, AOP, MVC, boot, data, security)\n2. IoC concept; BeanFactory vs ApplicationContext capabilities\n3. Dependency Injection styles: constructor vs setter vs field — why constructor injection wins (immutability, required deps, testability, early circular detection)\n4. Bean scopes: singleton (default, per-container!), prototype, request/session/application/websocket; prototype-in-singleton problem and solutions (ObjectProvider, proxyMode)\n5. Bean lifecycle: instantiate → populate → aware callbacks → @PostConstruct/init → ready → @PreDestroy/destroy\n6. Stereotypes: @Component vs @Service vs @Repository vs @Controller (semantics + exception translation in repository)\n7. Component scanning rules; @Bean in @Configuration (CGLIB proxying ensures singleton semantics)\n8. @Autowired resolution: by-type conflicts → @Primary, @Qualifier, by-name fallback; required=false / Optional<T>\n9. Circular dependencies: field/setter OK via three-level cache, constructor injection fails — why and how to redesign\n10. XML config vs annotation config vs JavaConfig @Configuration/@Bean"],
+      ["Spring MVC & REST", "1. DispatcherServlet front-controller flow end-to-end\n2. @Controller vs @RestController; @ResponseBody/HttpMessageConverters/Jackson\n3. Mapping annotations: @GetMapping family, consumes/produces, params/headers narrowing\n4. @PathVariable, @RequestParam, @RequestHeader, @RequestBody, Model/ModelMap\n5. Bean Validation: @Valid/@Validated, constraint annotations, MethodArgumentNotValidException, BindingResult patterns\n6. Error handling: @ExceptionHandler → @ControllerAdvice/@RestControllerAdvice → ProblemDetail (RFC 7807)\n7. Filters vs HandlerInterceptors (where each sits, use cases)\n8. Content negotiation; returning ResponseEntity properly"],
+      ["Spring Boot", "1. Auto-configuration machinery: @EnableAutoConfiguration, condition annotations (@ConditionalOnClass/MissingBean/Property), AutoConfiguration.imports registry\n2. Starter dependencies: what they bundle; naming convention spring-boot-starter-*\n3. Parent POM / dependency BOM version management; overriding versions\n4. Embedded servers (Tomcat/Jetty/Undertow swap); executable fat jar structure (nested jars, launcher)\n5. Externalized configuration: application.properties/yml precedence, profiles (application-prod.yml, @Profile, spring.progs.active), @ConfigurationProperties vs @Value (relaxed binding, validation, IDE metadata)\n6. Actuator: health, metrics, info, env endpoints; exposure config; securing management port\n7. Spring Boot devtools restart; testing slices: @SpringBootTest vs @WebMvcTest vs @DataJpaTest vs @MockBean\n8. CommandLineRunner/ApplicationRunner; @EventListener and startup hooks"],
+      ["AOP & Transactions", "1. Cross-cutting concern definition; AspectJ annotation style (@Aspect, @Before/@After/@AfterReturning/@AfterThrowing/@Around, pointcut expression language)\n2. Proxy mechanics: JDK dynamic proxies (interfaces) vs CGLIB subclasses; final methods caveat\n3. Self-invocation bypasses proxy — the #1 transactional gotcha\n4. @Transactional: propagation REQUIRED/REQUIRES_NEW/NESTED/SUPPORTS/NOT_SUPPORTED/MANDATORY/NEVER with scenarios\n5. Isolation levels mapped onto DB; rollbackFor: only RuntimeException/Error by default, checked needs opt-in\n6. readOnly hint, timeout, transaction manager selection\n7. Programmatic TransactionTemplate alternative"]
+    ],
+    "resources": [
+      ["Spring Guides", "https://spring.io/guides"],
+      ["Baeldung – Spring", "https://www.baeldung.com/spring-tutorial"],
+      ["Spring Boot Reference", "https://docs.spring.io/spring-boot/docs/current/reference/html/"]
+    ]
+  },
+  "java-jpa-hibernate-sql": {
+    "title": "JPA, Hibernate, SQL & JDBC",
+    "color": 15166336,
+    "intro": "Entities and lifecycles, mappings and fetching, querying, caching, plus SQL and JDBC essentials.",
+    "groups": [
+      ["JPA & Hibernate Core", "1. ORM motivation; JPA (spec) vs Hibernate (impl) vs Spring Data JPA (repository layer)\n2. @Entity requirements: no-arg constructor, @Id, serializable optional\n3. @GeneratedValue strategies: IDENTITY vs SEQUENCE vs TABLE vs AUTO — batching implications of IDENTITY\n4. Persistence context; EntityManager vs SessionFactory/Session\n5. Entity lifecycle: new/transient → managed → detached → removed; transitions via persist/merge/remove/find\n6. persist vs merge vs update semantics (and common confusion)\n7. Dirty checking automatic UPDATEs; flush modes; find vs getReference (lazy proxy + LazyInitializationException risk)"],
+      ["Relationships", "1. @OneToOne, @OneToMany, @ManyToOne, @ManyToMany — join column vs join table\n2. Owning side concept; mappedBy; foreign key lives on owning side\n3. Bidirectional mapping best practice: helper sync methods, cascade from parent\n4. CascadeType options (PERSIST, MERGE, REMOVE, REFRESH, DETACH, ALL) and orphanRemoval=true distinction\n5. FetchType defaults: @ManyToOne/@OneToOne EAGER, collections LAZY — and why EAGER is usually wrong\n6. LazyInitializationException: root cause and fixes (join fetch in transaction, entity graphs, DTO projection — not open-session-in-view)\n7. N+1 select problem: recognition, measurement, fixes (JOIN FETCH, @EntityGraph, @BatchSize, subselect fetch)\n8. ManyToMany extra-columns case → decompose into two OneToMany with link entity"],
+      ["Querying", "1. JPQL vs HQL vs native SQL; named queries and their startup validation\n2. Criteria API type-safe queries; Spring Data Specifications\n3. Spring Data derived query methods (findByLastNameAndStatus...) and their limits\n4. @Query with JPQL/native, @Modifying for updates; pagination Pageable/Page/Sort\n5. DTO projections: interface-based, class-based constructor expressions\n6. Entity graphs for dynamic fetch plans"],
+      ["Caching, Locking & Performance", "1. First-level cache: per-persistence-context identity map guarantee\n2. Second-level cache: providers (Ehcache/Infinispan), entity/query collection regions, invalidation costs, read-only vs read-write strategies\n3. Query cache fragility (invalidates on any table write)\n4. Batch inserts/updates: hibernate.jdbc.batch_size, ordering, IDENTITY blocker\n5. Optimistic locking @Version + OptimisticLockException; pessimistic lock modes (PESSIMISTIC_READ/WRITE) and SELECT FOR UPDATE\n6. Transaction boundaries and isolation interplay with ORM"],
+      ["SQL Essentials", "1. Joins: INNER, LEFT/RIGHT/FULL OUTER, CROSS, SELF — with concrete result-set sketches\n2. ON vs WHERE in outer joins\n3. WHERE vs HAVING; GROUP BY legal columns; aggregate functions\n4. DELETE vs TRUNCATE vs DROP: rollback support, triggers, speed, resets\n5. Keys: primary vs unique vs foreign; candidate/composite/super keys\n6. Constraints: NOT NULL, CHECK, DEFAULT, FK referential actions (CASCADE/SET NULL)\n7. Indexes: B-tree structure, clustered vs non-clustered, covering indexes, when indexes hurt writes, EXPLAIN plans\n8. Normalization 1NF→2NF→3NF (BCNF nod); deliberate denormalization trade-offs\n9. ACID; isolation levels READ UNCOMMITTED→SERIALIZABLE mapped to anomalies: dirty read, non-repeatable read, phantom read\n10. Subqueries vs JOINs; EXISTS vs IN semantics with NULLs\n11. UNION vs UNION ALL; INTERSECT/EXCEPT\n12. Nth-highest salary: OFFSET/LIMIT, correlated subquery, DENSE_RANK window approach\n13. Window functions: ROW_NUMBER vs RANK vs DENSE_RANK, OVER(PARTITION BY ... ORDER BY ...), running totals\n14. Views vs materialized views; stored procedures/triggers/functions pros-cons"],
+      ["JDBC", "1. JDBC architecture: driver types, DriverManager vs DataSource (connection pooling: HikariCP default in Boot)\n2. Statement vs PreparedStatement vs CallableStatement; SQL-injection prevention via parameters\n3. ResultSet cursor movement, types (forward-only/scroll-sensitive), concurrency modes\n4. Resource discipline: try-with-resources on Connection/Statement/ResultSet\n5. Manual transactions: setAutoCommit(false) → commit/rollback; savepoints\n6. Batch updates addBatch/executeBatch; rewriteBatchedStatements MySQL note\n7. Fetch size and streaming large results\n8. Pool sizing heuristic: connections ≈ cores × 2 + spindles (HikariCP guidance)"],
+      ["Maven Quick Block", "1. Maven's role; convention over configuration\n2. pom.xml anatomy; groupId/artifactId/version coordinates; packaging types\n3. Lifecycle phases (validate→compile→test→package→verify→install→deploy) vs plugin goals\n4. install vs deploy (local ~/.m2 vs remote repo)\n5. Dependency scopes: compile, provided, runtime, test, system, import (BOM)\n6. Transitive deps and nearest-wins mediation; exclusions; dependencyManagement pinning\n7. Snapshots vs releases; repositories and mirrors\n8. Profiles, properties, resource filtering; multi-module reactor builds\n9. Must-know plugins: compiler, surefire, jar/war, shade (fat jars), enforcer\n10. Gradle contrast in interviews"]
+    ],
+    "resources": [
+      ["Hibernate ORM Docs", "https://hibernate.org/orm/documentation/"],
+      ["Baeldung – JPA/Hibernate", "https://www.baeldung.com/learn-jpa-hibernate"],
+      ["SQLBolt (interactive)", "https://sqlbolt.com/"],
+      ["Use The Index, Luke", "https://use-the-index-luke.com/"],
+      ["Maven Guides", "https://maven.apache.org/guides/"]
+    ]
+  },
+  "java-design-patterns": {
+    "title": "Design Patterns & Architecture",
+    "color": 15166336,
+    "intro": "SOLID, GoF creational/structural/behavioral, DI vs Service Locator, architectural styles.",
+    "groups": [
+      ["Principles First", "1. SOLID walkthrough with Java snippets:\n    S — Single Responsibility: one reason to change\n    O — Open/Closed: extension via strategy/template, not editing switch statements\n    L — Liskov Substitution: Rectangle/Square violation classic\n    I — Interface Segregation: fat-interface refactor\n    D — Dependency Inversion: depend on abstractions; ties directly to Spring DI\n2. Composition over inheritance; program to interfaces not implementations\n3. KISS, YAGNI, DRY — and when DRY misleads"],
+      ["Creational", "1. Singleton: eager init, lazy + synchronized, double-checked locking WITH volatile, static holder idiom (best), enum (safe)\n2. Breaking singletons: reflection (setAccessible), serialization (readResolve fix), cloning — and defenses\n3. Simple Factory vs Factory Method vs Abstract Factory — precise differences + when each\n4. Builder: telescoping-constructor pain, fluent API, validation in build(); Lombok @Builder note\n5. Prototype: clone() pitfalls, copy-constructor alternative\n6. Object pool pattern (connections/threads)"],
+      ["Structural", "1. Adapter: interface translation; class vs object adapters; java.io InputStreamReader example\n2. Decorator vs Adapter vs Proxy vs Facade — the four-way interview showdown\n3. Decorator: layered java.io streams; adding behavior dynamically\n4. Facade: simplified front over subsystem\n5. Proxy types: virtual, protection, remote, caching; vs Decorator intent difference\n6. Composite: tree uniformity (GUI components)\n7. Bridge: decouple abstraction from implementation dimension explosion\n8. Flyweight: shared intrinsic state; String pool analogy"],
+      ["Behavioral", "1. Observer: event systems, PropertyChangeListener, java.util.concurrent.Flow; memory-leak risk of unremoved listeners\n2. Strategy: injectable algorithms; Comparator as everyday proof\n3. Command: undo/redo, queuing; Runnable as command\n4. Template Method: final skeleton + hook methods; HttpServlet.service example\n5. State vs Strategy — structurally identical, intent different\n6. Chain of Responsibility: servlet filters, interceptors, logging levels\n7. Iterator: relationship to java.util.Iterator\n8. Mediator: centralizing colleague communication (chat room)\n9. Memento: snapshots without breaking encapsulation\n10. Visitor: double dispatch; adding operations to stable hierarchies; downsides\n11. Null Object pattern; Optional as idiomatic cousin"],
+      ["Architecture & Wiring", "1. Dependency Injection vs Service Locator vs java.util.ServiceLoader\n2. MVC vs MVP vs MVVM; where Spring MVC actually lands\n3. Layered architecture (controller-service-repository) and anemic-domain critique\n4. Hexagonal/ports-and-adapters in one slide\n5. Microservices pattern sampler: circuit breaker (Resilience4j), API gateway, saga, CQRS teaser"]
+    ],
+    "resources": [
+      ["Refactoring.Guru – Patterns", "https://refactoring.guru/design-patterns"],
+      ["SourceMaking – Patterns", "https://sourcemaking.com/design_patterns"],
+      ["Baeldung – Patterns", "https://www.baeldung.com/java-design-patterns"]
+    ]
+  },
+  "java-tooling-testing": {
+    "title": "Testing, Maven & Tooling",
+    "color": 15166336,
+    "intro": "JUnit 5, Mockito, coverage, Git workflows, Jenkins CI/CD, SonarQube, logging, JSON.",
+    "groups": [
+      ["Unit Testing & JUnit 5", "1. JUnit 4 vs JUnit 5 architecture (platform/engine/API split), @Before→@BeforeEach renames, extensions vs runners/rules\n2. Lifecycle annotations order: @BeforeAll/@BeforeEach/@AfterEach/@AfterAll\n3. Assertions: JUnit built-ins vs AssertJ fluent chains; assertThrows; assumptions vs assertions\n4. Parameterized tests: @ValueSource/@CsvSource/@MethodSource\n5. Display names, tagging/filtering, test ordering caveats (tests must be independent)\n6. TDD red-green-refactor; AAA structure; F.I.R.S.T. properties (Fast, Independent, Repeatable, Self-validating, Timely)"],
+      ["Mockito & Test Doubles", "1. Taxonomy: dummy, stub, fake, mock, spy — precise definitions\n2. when(...).thenReturn(...) stubbing; argument matchers any()/eq()/argThat\n3. verify: times/never/atLeastOnce, verification modes, InOrder\n4. ArgumentCaptor; Answer for dynamic returns\n5. @Mock/@InjectMocks wiring; MockitoExtension\n6. Spies: doReturn-vs-when on spies gotcha (real method fires)\n7. Final/static/private: inline mock maker era, PowerMock retirement\n8. Integration tests: @SpringBootTest context caching, Testcontainers for real databases"],
+      ["Coverage & Quality", "1. JaCoCo: line/branch coverage reports; why 100% coverage proves nothing\n2. Mutation testing idea (PIT) to score assertion strength\n3. Static analysis lineup: SpotBugs, ErrorProne, Checkstyle, PMD\n4. SonarQube quality gates in pipeline"],
+      ["Git & Version Control", "1. Three trees: working directory ↔ staging ↔ repository; status/log/diff/show\n2. Branching/merging: fast-forward vs three-way merge; conflict resolution workflow\n3. merge vs rebase; interactive rebase squash; rebasing shared branches = pain\n4. reset --soft/--mixed/--hard vs revert vs restore — decision table\n5. stash, cherry-pick, tag (lightweight vs annotated), detached HEAD recovery\n6. Remotes: clone/fetch/pull/push; PR flow; fork-and-branch vs feature-branch\n7. .gitignore patterns; submodule glance"],
+      ["CI/CD with Jenkins", "1. Jenkins role; declarative vs scripted pipeline syntax\n2. Pipeline anatomy: agent, stages/steps, environment, post conditions, options\n3. Jenkinsfile committed to SCM; multibranch jobs; webhooks triggering\n4. Agents/nodes/labels; workspaces; credentials binding (secrets out of code)\n5. CI vs continuous delivery vs continuous deployment — gates between them\n6. Typical stage flow: checkout → build → unit tests → static scan → package artifact → docker build → deploy to env\n7. Artifact repositories (Nexus/Artifactory); versioning schemes; promotion model"],
+      ["Logging & JSON", "1. SLF4J facade + Logback/Log4j2 backend; parameterized messages log.info(\"user={} did {}\", ...)\n2. Level strategy TRACE→ERROR; logger hierarchy and additivity\n3. Appenders/patterns; RollingFile policies; async loggers for throughput\n4. MDC for request correlation IDs; never log secrets/PII\n5. Jackson vs Gson; ObjectMapper thread-safety, @JsonProperty/@JsonIgnore, unknown-properties FAIL_ON_UNKNOWN toggle, JavaTimeModule for dates; tree model vs data binding"],
+      ["Maven Recap Block", "1. Lifecycle phases vs goals; clean/compile/test/package/install/deploy on demand\n2. Scopes and transitivity; BOM imports; nearest-wins conflicts\n3. Profiles and multi-module reactors; surefire vs failsafe (unit vs integration naming *Test vs IT)\n4. Shade plugin fat jars; Gradle comparison soundbites"]
+    ],
+    "resources": [
+      ["JUnit 5 User Guide", "https://junit.org/junit5/docs/current/user-guide/"],
+      ["Mockito Docs", "https://site.mockito.org/"],
+      ["Pro Git Book", "https://git-scm.com/book/en/v2"],
+      ["Jenkins Pipeline Docs", "https://www.jenkins.io/doc/book/pipeline/"],
+      ["Maven Introduction", "https://maven.apache.org/what-is-maven.html"]
+    ]
+  },
+  "py-fundamentals": {
+    "title": "Python Fundamentals",
+    "color": 3634475,
+    "intro": "Execution model, data structures, functions, scoping, errors, files, strings.",
+    "groups": [
+      ["Execution Model", "1. CPython pipeline: source → bytecode (.pyc/__pycache__) → PVM evaluation\n2. Interpreted vs compiled — the honest nuanced answer\n3. Dynamic + strong typing; duck typing\n4. Everything-is-an-object: id(), type(), first-class citizens\n5. is vs ==; identity vs equality; small-int/identifier interning quirks\n6. None semantics; truthiness rules; bool is subclass of int trivia"],
+      ["Built-in Data Structures", "1. list / tuple / set / dict: mutation, ordering guarantees (dict ordered since 3.7), hashing requirements\n2. When tuple over list (records, dict keys, fixed arity)\n3. Comprehensions: list/dict/set + generator expressions; nesting readability ceiling\n4. Slicing deep dive: [start:stop:step] copies, slice() objects, ::-1 idiom\n5. Shallow vs deep copy (copy.copy/deepcopy) and the nested-list multiplication trap [[0]*3]*3\n6. Unpacking: a, b = ..., starred expressions in calls/literals, extended unpacking\n7. Walrus operator := assignments in expressions\n8. frozenset; bytes/bytearray/memoryview vs str; encode/decode discipline"],
+      ["Functions", "1. def creates objects at runtime; docstrings, annotations\n2. *args/**kwargs; positional-only (/) and keyword-only (*) markers\n3. Default arguments evaluated ONCE at def-time — mutable default bug and None sentinel fix\n4. Closures and the late-binding loop-variable gotcha (default-arg fix)\n5. Lambdas: single-expression limits, sorting key= idioms\n6. Decorators: plain, with arguments, @functools.wraps necessity, stacking order bottom-up, class-based decorators\n7. Generators preview: yield turns function into factory (full treatment in core-interview)\n8. RecursionLimit; lack of TCO"],
+      ["Scope & Modules", "1. LEGB resolution; global/nonlocal statements\n2. Class-body scope oddity (methods skip class scope)\n3. Modules & packages: __init__.py roles, relative vs absolute imports, __all__, importlib.reload\n4. if __name__ == '__main__' mechanics\n5. Virtual environments: venv, pip freeze; uv/poetry pointer (packaging channel)"],
+      ["Errors, Files & Context Managers", "1. EAFP vs LBYL philosophy\n2. try/except/else/finally full grammar; exception chaining (raise ... from e) and implicit __context__\n3. Custom exception hierarchies; catching broad vs specific; contextlib.suppress\n4. with statement protocol: __enter__/__exit__, contextlib.contextmanager decorator, multiple managers\n5. open() modes; ALWAYS pass encoding=; pathlib.Path operations vs os.path"],
+      ["Strings & Formatting", "1. f-strings incl. = debugging specifier and format specs ({:>10,.2f})\n2. str.join vs concatenation performance\n3. Essential methods: split/rsplit/partition, strip family, zfill, format_map\n4. str vs repr; implementing __str__ vs __repr__"],
+      ["Quick-Fire Gotchas", "1. Chained comparisons (0 <= x < 1)\n2. Chained assignment aliasing (a = b = [])\n3. Integer division // vs /; modulo sign with negatives\n4. Floating-point representation surprises; decimal/fraction modules\n5. timeit for honest micro-benchmarks"]
+    ],
+    "resources": [
+      ["Official Tutorial", "https://docs.python.org/3/tutorial/"],
+      ["Real Python", "https://realpython.com/"],
+      ["CPython InternalDocs", "https://github.com/python/cpython/tree/main/InternalDocs"]
+    ]
+  },
+  "py-internals-guide": {
+    "title": "CPython Internals Guide",
+    "color": 3634475,
+    "intro": "Anchor resource: the official CPython InternalDocs — what each document covers and the interview questions it unlocks.",
+    "groups": [
+      ["The Repository Map", "InternalDocs (github.com/python/cpython/tree/main/InternalDocs) currently covers:"],
+      ["codeobj.md — Code Objects", "1. What compiling a function produces: co_consts, co_names, co_varnames, co_code\n2. Inspecting with dis.dis / dis.Bytecode; LOAD_FAST/STORE_FAST economics\n3. Why code objects are immutable and shareable\nInterview angle: 'What actually is a function body in Python?'"],
+      ["frames.md — Execution Frames", "1. Frame contents: value stack, locals, builtins/globals linkage, f_back chain\n2. Frame objects exposed via sys._getframe / inspect; perf implications\nInterview angle: 'Walk me through a function call at the C level.'"],
+      ["generator.md — Generators", "1. Suspended-frame mechanics behind yield\n2. send/throw/close plumbing; gi_frame lifetime\nInterview angle: 'Where does a paused generator live?'"],
+      ["objects.md — Object Model", "1. PyObject header: refcount + type pointer precede every object\n2. Why everything is a PyObject*; type slots (tp_* function tables)\nInterview angle: 'What does every Python object carry?'"],
+      ["longint_repr — Arbitrary Precision Ints", "1. Digit-array representation (30-bit limbs), sign handling\n2. Why Python ints never overflow; performance cliff when huge\nInterview angle: 'Why doesn't Python integer overflow?'"],
+      ["import.md — The Import System", "1. Finders → loaders → module creation pipeline\n2. sys.modules cache short-circuit; importlib machinery\n3. Relative import resolution; circular import failure modes\nInterview angle: 'What happens on `import foo` twice?'"],
+      ["GC Notes — Refcounting + Cycle Detector", "1. Primary strategy: deterministic reference counting\n2. Generational cyclic GC for unreachable cycles (gc module, thresholds)\n3. Interaction with __del__ (post PEP 442 safety)\nInterview angle: 'How does Python free memory without a stop-the-world GC?'"],
+      ["subinterpreters.md — Subinterpreters", "1. Per-interpreter state isolation\n2. PEP 684 per-interpreter GIL; PEP 703 free-threading build direction\nInterview angle: 'What state would break if the GIL vanished tomorrow?'"],
+      ["Companion Resources", "1. CPython Developer's Guide — building from source, PR workflow\n2. PEP index — read 8 (style), 484 (typing), 492 (async), 552/569, 684/703 (parallelism)\n3. CPython source tree browsing tips (Objects/, Python/, Include/)"]
+    ],
+    "resources": [
+      ["CPython InternalDocs", "https://github.com/python/cpython/tree/main/InternalDocs"],
+      ["CPython Developer's Guide", "https://devguide.python.org/"],
+      ["PEP Index", "https://peps.python.org/"]
+    ]
+  },
+  "py-core-interview": {
+    "title": "Core Interview Questions",
+    "color": 3634475,
+    "intro": "Object model, descriptors, iterators/generators, metaclasses/MRO, functional tools, memory & GIL.",
+    "groups": [
+      ["Mutability & Object Gotchas", "1. Mutable default arguments — reproduce, explain, fix\n2. Late-binding closures in loops — reproduce, fix via default arg / functools.partial\n3. += on tuple containing a list: why it sometimes works then raises (augmented assignment on shared element)\n4. __slots__: memory savings, faster attr access, no __dict__, multiple-inheritance slot conflicts, dataclass(slots=True)\n5. Small-int cache [-5,256]; string interning rules; when is-check lies\n6. Copy semantics: b = a[:] vs b = a vs copy.deepcopy"],
+      ["Protocols & Dunder Methods", "1. Iterator protocol (__iter__/__next__) vs iterable; StopIteration contract; for-loop desugaring\n2. Context manager protocol (__enter__/__exit__); contextlib helpers\n3. Descriptor protocol (__get__/__set__/__delete__) — functions ARE descriptors (bound methods); property/classmethod/staticmethod implemented via descriptors\n4. __getattr__ vs __getattribute__ (and infinite-recursion footgun)\n5. __new__ vs __init__: when to define __new__ (singletons, immutables, interning)\n6. Rich comparisons, arithmetic dunders, reflected ops (__radd__)\n7. Hashability: __hash__/__eq__ contract; setting __hash__ = None makes unhashable"],
+      ["Iterators & Generators", "1. Generator functions vs expressions; laziness and memory profiles\n2. yield from delegation; capturing delegated return value\n3. send/throw/close — generator-as-coroutine heritage\n4. Infinite generators + islice pipelines; tee() duplication warning\n5. itertools essentials: chain, product, permutations, combinations, groupby (requires sorted input!), accumulate\n6. enumerate(start=), zip(strict=True) (3.10), reversed() on custom classes via __reversed__\n7. Generator-based streaming ETL example prompt"],
+      ["Decorators, Metaclasses & MRO", "1. Decorators with/without args; preserving signatures (functools.wraps, inspect.signature)\n2. Class decorators vs metaclasses — modern preference order: plain function > __init_subclass__ > metaclass\n3. type(name, bases, ns) three-arg form; metaclass __call__ controlling instantiation (singleton)\n4. __set_name__, __init_subclass__ as lightweight hooks\n5. C3 linearization; reading __mro__; why super() means 'next in MRO', not 'parent'\n6. Cooperative multiple inheritance mixin pattern (correct super() chains)\n7. ABCs vs typing.Protocol (nominal vs structural); @runtime_checkable limits"],
+      ["Functional Toolkit", "1. functools.lru_cache/maxsize/typed, cache (3.9), cached_property; unhashable-args pitfalls\n2. functools.partial vs closures; reduce vs comprehension clarity\n3. singledispatch for clean type-based dispatch\n4. dataclasses: field(default_factory), frozen, eq/order, kw_only (3.10), slots (3.10), replace()\n5. typing essentials: Optional[X] = X | None, Union syntax, Generic[T], TypedDict, Literal, Annotated, Callable[[int], str]\n6. Static checking: mypy vs pyright roles; gradual typing rollout"],
+      ["Memory Management & GIL", "1. Reference counting primary GC; sys.getrefcount off-by-one; del semantics\n2. Generational cycle collector: thresholds (gc.get_threshold), collect(), why refcount alone fails\n3. __del__ in cycles: pre-3.4 leak, PEP 442 resurrection-safe finalization\n4. Memory measurement: sys.getsizeof (shallow!) vs tracemalloc vs pympler; __slots__ savings demo\n5. GIL: what it serializes (interpreter execution), release points (blocking IO, time.sleep, many C extensions, NumPy inner loops)\n6. CPU-bound threading uselessness demo; multiprocessing escape hatch; process pool IPC costs\n7. Free-threaded CPython (PEP 703, 3.13+ experimental) and per-interpreter GIL (PEP 684) — interview talking points"],
+      ["Rapid-Fire Classics", "1. *args/**kwargs forwarding in wrappers\n2. Global interpreter vs module reload state\n3. Exception in generator vs function timing\n4. isinstance vs type() checks (subclass friendliness)\n5. Pickle vs json (arbitrary objects vs interoperable; security warning on unpickling)"]
+    ],
+    "resources": [
+      ["CPython InternalDocs", "https://github.com/python/cpython/tree/main/InternalDocs"],
+      ["Real Python – GIL", "https://realpython.com/python-gil/"],
+      ["Fluent Python (book)", "https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/"]
+    ]
+  },
+  "py-asyncio-concurrency": {
+    "title": "Asyncio & Concurrency",
+    "color": 3634475,
+    "intro": "Event loop, coroutines/tasks, cancellation, sync primitives, threads vs processes vs asyncio.",
+    "groups": [
+      ["Choosing the Model", "1. Decision matrix: IO-bound few tasks → threads; IO-bound massive → asyncio; CPU-bound → processes\n2. Preemptive vs cooperative scheduling consequences\n3. GIL's role in each model\n4. Hybrid architectures: asyncio + run_in_executor for blocking libs"],
+      ["asyncio Core", "1. async def defines coroutine FUNCTION; calling it returns coroutine object — nothing runs until awaited/scheduled\n2. asyncio.run bootstraps loop; never nest/run inside running loop\n3. Tasks wrap coroutines for concurrent scheduling: create_task vs ensure_future\n4. await semantics: suspension point; awaiting sequential vs gathered — the latency demo\n5. TaskGroup (3.11): structured concurrency, automatic cancellation of siblings on error\n6. gather(return_exceptions=True); as_completed streaming results\n7. Timeouts: wait_for vs asyncio.timeout context (3.11); shielding critical sections (shield)\n8. Cancellation: CancelledError must propagate (swallowing = bug); cleanup in finally\n9. Awaitables: Coroutine/Task/Future; __await__ protocol"],
+      ["Sync Primitives & Streams", "1. asyncio.Lock/Semaphore/Event/Condition/Queue — cooperative (no OS blocking)\n2. Rate-limiting pattern: semaphore around fetches\n3. Producer-consumer with asyncio.Queue (put/get, join/task_done)\n4. Streams: asyncio.open_connection/start_server; reader/writer flow control\n5. Subprocess from async code; aiohttp/aiofiles ecosystem note"],
+      ["Threading & Multiprocessing", "1. threading.Thread essentials: target/args, join, daemon flag semantics\n2. Shared-state hazards; queue.Queue for hand-off; Lock/RLock/Event/Semaphore\n3. concurrent.futures: ThreadPoolExecutor/ProcessPoolExecutor submit/map/as_completed; chunksize for processes\n4. multiprocessing: Process, Pool.map, Manager dicts/lists, SharedMemory (3.8); pickling constraints\n5. Start methods fork vs spawn (platform defaults, why spawn is safer)\n6. CPU-bound parallelism demo: Pool vs sequential timing\n7. Race-condition showcase: unsynchronized counter across threads"],
+      ["Patterns & Practice", "1. Retry with exponential backoff + jitter (async wrapper sketch)\n2. Fan-out/fan-in scraping pattern (gather + semaphore cap)\n3. Pipeline stages connected by queues\n4. Graceful shutdown: signal handlers + cancel pending tasks + gather\n5. Debugging: PYTHONASYNCIODEBUG, loop.set_debug, slow-callback warnings; never-call-blocking-functions-in-coroutines checklist\n6. Testing async: pytest-asyncio, anyio backends; fake clocks (loop.time)"],
+      ["Rapid-Fire", "1. Why is time.sleep in a coroutine catastrophic? (blocks whole loop)\n2. gather vs TaskGroup vs wait comparison\n3. create_task fire-and-forget dangers (garbage collection of tasks, exceptions unseen)\n4. async generators: async for + yield; aiter/anext\n5. uvicorn/fastapi sit on asyncio — production framing"]
+    ],
+    "resources": [
+      ["asyncio Docs", "https://docs.python.org/3/library/asyncio.html"],
+      ["PEP 492 – Coroutines", "https://peps.python.org/pep-0492/"],
+      ["Real Python – Async IO", "https://realpython.com/async-io-python/"]
+    ]
+  },
+  "py-stdlib-essentials": {
+    "title": "Standard Library Essentials",
+    "color": 3634475,
+    "intro": "collections, dates, text/data formats, filesystem/subprocess, logging/CLI, crypto & misc.",
+    "groups": [
+      ["collections & Containers", "1. Counter: most_common, arithmetic (+,-,&,|), elements()\n2. defaultdict patterns (grouping, tree-building); missing hook\n3. deque: O(1) ends, maxlen ring buffer, BFS staple\n4. namedtuple vs dataclass vs TypedDict — pick per scenario\n5. ChainMap for layered config; UserDict/List/String when to subclass\n6. heapq: nlargest/nsmallest, heapify/pushpop invariants; bisect.insort/bisect_left for sorted lists"],
+      ["Dates & Time", "1. datetime naive vs aware; timezone.utc discipline; zoneinfo (3.9)\n2. timedelta arithmetic; parsing with strptime format codes\n3. Measuring durations: time.perf_counter vs monotonic vs time.time (wall clock lies)\n4. date vs datetime vs time objects; isoformat round-trips"],
+      ["Text & Data Formats", "1. json: dumps/loads kwargs (indent, sort_keys, default= for custom types, object_hook), compact separators\n2. json vs pickle decision (interop + SECURITY: never unpickle untrusted)\n3. csv.DictReader/Writer; the newline='' gotcha\n4. re: compile once, match vs search vs fullmatch, greedy vs lazy, groups + named groups (?P<name>), finditer, substitution with backrefs, verbose mode\n5. struct.pack/unpack for binary protocols; base64/hex encodings"],
+      ["Filesystem, OS & Subprocess", "1. pathlib: / operator, glob/rglob, read_text/write_bytes, with_stem/name/suffix surgery, Path.home/cwd\n2. os.walk/scandir traversal; shutil.copytree/rmtree/move; stat info\n3. tempfile: NamedTemporaryFile, TemporaryDirectory contexts\n4. subprocess.run: LIST args (shell=False default — injection safety), capture_output, text=True, check=True, timeout; piping between processes\n5. os.environ access; platform detection"],
+      ["Logging & CLI", "1. Logger hierarchy, getLogger(__name__) idiom, propagation and effective levels\n2. Handlers/formatters/filters wiring; basicConfig limits\n3. RotatingFileHandler/TimedRotating; QueueHandler for threads\n4. argparse: positionals/options, type=/action= (store_true, append), subparsers, nargs patterns\n5. External polishers: click/typer/rich — one-line mentions"],
+      ["Security & Misc", "1. random vs secrets: PRNG predictability, token_hex/urlsafe tokens, compare_digest for constant-time compares\n2. hashlib sha256 streaming large files; hmac message auth\n3. uuid.uuid4; sqlite3 minimal CRUD + parameterized queries (injection again)\n4. enum.Enum: auto(), unique, Flag combos\n5. math/statistics gems: isclose, fsum, mean/median/stdev\n6. itertools cross-ref to core-interview channel"]
+    ],
+    "resources": [
+      ["Module Index (full stdlib)", "https://docs.python.org/3/modindex.html"],
+      ["Python Module of the Week", "https://pymotw.com/3/"],
+      ["Official Library Reference", "https://docs.python.org/3/library/index.html"]
+    ]
+  },
+  "py-testing-packaging": {
+    "title": "Testing & Packaging",
+    "color": 3634475,
+    "intro": "pytest mastery, mocking, coverage/lint/type gates, CI, and shipping packages.",
+    "groups": [
+      ["pytest Core", "1. Discovery rules (test_*.py / *_test.py, Test* classes); plain assert + introspection rewriting\n2. Fixtures: dependency injection, scope ladder (function/class/module/package/session), autouse\n3. conftest.py sharing; fixture composition (fixtures requesting fixtures)\n4. Yield-style teardown vs finalizers\n5. parametrize: ids, stacked params, indirect\n6. Marks: skip/skipif/xfail, custom registration in ini, strict mode\n7. Built-in fixtures: monkeypatch (setattr/delenv), tmp_path/tmp_path_factory, capsys/capfd, caplog"],
+      ["Mocking", "1. unittest.mock: Mock vs MagicMock vs AsyncMock; speccing against real classes (autospec) to survive refactors\n2. patch targeting rule: patch WHERE THE NAME IS LOOKED UP (module under test), not definition site\n3. return_value vs side_effect (sequences, exceptions, dynamic callables)\n4. call_args/assert_called_once_with/await_args; Mock call introspection\n5. patch as decorator vs context manager vs start/stop\n6. Test-doubles taxonomy recap; preferring fakes (in-memory repo) over deep mocks\n7. pytest-mock mocker fixture convenience"],
+      ["Coverage, Lint & Types", "1. coverage.py: branch coverage, term-missing reports, pytest-cov wiring, # pragma: no cover ethics\n2. Coverage≠correctness; mutation testing (mutmut) mention\n3. Formatting/linting: ruff (linter+formatter, replaces black/isort/flake8), line-length policy decisions\n4. Type checking: mypy (strict flags) vs pyright speed; stubs/typeshed for untyped deps; Annotated validators\n5. pre-commit framework config sample (ruff, trailing whitespace, secret scanners)\n6. tox/nox for multi-version matrices"],
+      ["CI with GitHub Actions", "1. Workflow anatomy: on.push/pull_request triggers, jobs.matrix python-versions\n2. steps: actions/setup-python, dependency caching (pip cache hashFiles), install, ruff check, mypy, pytest --cov\n3. Artifacts upload of coverage/html reports; status badges\n4. Secrets in Actions env vs repo vars; dependabot config glance"],
+      ["Packaging & Distribution", "1. pyproject.toml [project] metadata (PEP 621): name/version/requires-python/dependencies/entry-points\n2. Backends: setuptools vs hatchling vs flit; build-system requires table\n3. sdist vs wheel (built vs source); python -m build; installing editable (-e)\n4. Console-script entry points; extras (package[extra])\n5. Versioning: semver discipline, single-source version (__version__), lock files (uv.lock/pip-tools compile)\n6. venv vs pipx (apps vs libraries); PyPI publishing: twine check/upload, trusted publishing OIDC\n7. Deprecation policy and CHANGELOG habits"]
+    ],
+    "resources": [
+      ["pytest Documentation", "https://docs.pytest.org/"],
+      ["Python Packaging User Guide", "https://packaging.python.org/"],
+      ["Real Python – Testing", "https://realpython.com/pytest-python-testing/"]
+    ]
+  },
+  "cpp-fundamentals": {
+    "title": "C++ Fundamentals",
+    "color": 22740,
+    "intro": "Compilation model, type system, RAII, templates basics, undefined-behavior awareness.",
+    "groups": [
+      ["Compilation Model", "1. Pipeline: preprocess → compile → assemble → link; what each stage emits\n2. Translation units; declaration vs definition; One Definition Rule violations\n3. Header guards vs #pragma once; include path <> vs \"\"\n4. Forward declarations to cut includes; pimpl teaser\n5. Static vs dynamic linking; artifacts (.a/.so/.dylib/.dll/.lib)\n6. Name mangling and extern \"C\" interop\n7. Toolchains: gcc/clang/msvc; exploring output on godbolt.org"],
+      ["Type System & Values", "1. Fundamental types and implementation-defined sizes; <cstdint> fixed-width types\n2. sizeof/alignof; alignment rules\n3. Value categories: lvalue/prvalue/xvalue — modern mental model\n4. const correctness: const objects, const T* vs T* const, const member functions, logical vs bitwise const, mutable\n5. constexpr vs const (compile-time vs read-only); consteval/constinit (C++20)\n6. References vs pointers; pass-by-value vs const& vs && decision table\n7. auto deduction rules vs decltype; trailing return types\n8. Structured bindings; uniform initialization syntax and initializer_list<vector> pitfall\n9. enum class vs plain enum: scoping, no implicit conversion, underlying type"],
+      ["RAII & Error Handling", "1. RAII principle: resource lifetime bound to object lifetime; destructors deterministic vs GC languages\n2. Stack unwinding during exceptions; why destructors must not throw\n3. noexcept: contracts + optimizer effects; move operations should be noexcept\n4. Exception safety guarantees: basic / strong / nothrow\n5. Alternatives: error codes, std::optional for absence, std::expected (C++23)\n6. Rule of 0 / Rule of 3 / Rule of 5 — the core ownership liturgy"],
+      ["Functions, Overloading & Templates", "1. Overload resolution order and ambiguity traps (exact > promotion > conversion)\n2. Default arguments: rules, virtual-function caveats (static binding of defaults)\n3. inline keyword: ODR meaning vs optimization hint\n4. Function templates: deduction, explicit specialization, two-phase lookup mention\n5. Class templates basics; template argument deduction for classes (CTAD, C++17)\n6. Lambdas: capture by value/reference, mutable, init-capture for moves, generic lambdas, captureless → function pointer\n7. std::function type erasure and its allocation cost"],
+      ["Undefined Behavior Hall of Fame", "1. Signed integer overflow; shifting by ≥ width; dereferencing null/dangling\n2. Out-of-bounds access; iterator invalidation; data races (UB by standard!)\n3. Strict aliasing teaser; uninitialized reads\n4. Sequencing: sequenced-before model, i++ + ++i folklore\n5. Defense kit: -Wall -Wextra -Wpedantic -Werror, -fsanitize=address,undefined, valgrind, static analyzers"]
+    ],
+    "resources": [
+      ["LearnCpp (tutorial)", "https://www.learncpp.com/"],
+      ["cppreference", "https://en.cppreference.com/w/"],
+      ["ISO C++ FAQ", "https://isocpp.org/faq"],
+      ["C++ Core Guidelines", "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines"]
+    ]
+  },
+  "cpp-stl": {
+    "title": "STL Deep Dive",
+    "color": 22740,
+    "intro": "Containers, iterator invalidation, algorithms, utilities, complexity guarantees.",
+    "groups": [
+      ["Sequence Containers", "1. vector: contiguous storage, geometric growth, reserve vs resize, emplace_back vs push_back\n2. Iterator/pointer/reference invalidation rules for EVERY mutating op (interview favorite)\n3. deque: chunked segments, O(1) ends, middle worse than vector\n4. list vs forward_list: node overhead, splice O(1), when linked structures actually win (rarely — say it)\n5. std::array fixed size; std::string SSO behavior; string_view non-owning dangling danger\n6. Container selection flowchart: random access? ends-only? stability of references? sorted?"],
+      ["Associative Containers", "1. map/set: node-based balanced trees (typically RB), bidirectional iterators, ordered guarantees, lower_bound/upper_bound/equal_range\n2. operator[] vs at vs find/insert on map ([] default-inserts!)\n3. insert_or_assign/try_emplace (C++17)\n4. unordered_map/set: bucket arrays, hash functions, load factor max_load_factor rehashing; reserve upfront for known sizes\n5. Writing custom hash + equality for keys; hash-combining pairs/tuples\n6. multiset/multimap duplicates; equal_range iteration\n7. Transparent/heterogeneous lookup (is_transparent) to avoid string_view temporary constructions"],
+      ["Adapters, Views & Utilities", "1. stack/queue/priority_queue adapter nature; priority_queue custom comparators (min-heap trick greater<>)\n2. span (C++20): non-owning range view; fixed_extent\n3. mdspan (C++23) mention\n4. pair/tuple: get<i>, structured bindings, tie for multi-returns\n5. optional: has_value/value_or, monadic and_then/transform (C++23)\n6. variant + visit type-safe unions; any type-erased single value\n7. expected (C++23): error-channel composition"],
+      ["Algorithms", "1. Non-modifying: find/find_if, count_if, all_of/any_of/none_of, for_each debate\n2. Modifying: transform, copy_if, remove_if + erase idiom (remove-erase) vs std::erase_if (C++20)\n3. Sorting family: sort (introsort), stable_sort, partial_sort, nth_element; custom comparators MUST be strict weak orderings (UB otherwise — classic crash)\n4. Numeric: accumulate, inner_product, iota, reduce (C++17 parallelizable)\n5. Partitioning/binary-search family on sorted ranges\n6. minmax_element, unique + adjacent pairing patterns\n7. Iterator categories: input/output/forward/bidirectional/random-access/contiguous — which algorithms require which\n8. insert/back_inserter iterators; stream iterators one-liners"],
+      ["Ranges & Modern Access", "1. ranges:: algorithms pipe syntax | views::filter/transform laziness, materialization into containers\n2. Views are non-owning: dangling view dangers (C++23 ranges::to for materializing)\n3. Projection parameters killing boilerplate lambdas\n4. constexpr containers/algorithms progress"],
+      ["Complexity Cheat Sheet", "1. Table drill: vector push_back amortized O(1) / insert O(n); deque ends O(1); list splice O(1); map ops O(log n); unordered average O(1) worst O(n)\n2. When linear scan beats map (small n, cache effects) — measured pragmatism"]
+    ],
+    "resources": [
+      ["cppreference – Containers", "https://en.cppreference.com/w/cpp/container"],
+      ["Hacking C++ (visual cheatsheets)", "https://hackingcpp.com/"],
+      ["Effective STL (book)", "https://www.oreilly.com/library/view/effective-stl/9780134387517/"]
+    ]
+  },
+  "cpp-memory-smart-pointers": {
+    "title": "Memory & Smart Pointers",
+    "color": 22740,
+    "intro": "Allocation mechanics, unique/shared/weak internals, move semantics, ownership guidelines.",
+    "groups": [
+      ["Raw Memory & Lifetime", "1. Storage durations: automatic, static, dynamic, thread-local\n2. new/delete vs malloc/free: construction, exceptions (bad_alloc), pairing discipline\n3. Operator new/delete overloads; placement new; aligned new; nothrow form\n4. Program layout: text/data/bss/heap/stack; where everything lives\n5. Object lifetime rules; temporaries; dangling pointers/references; use-after-free demos\n6. alignof/alignas; padding/struct layout quizzes; hardware_destructive_interference_size\n7. Leak/UAF detection: AddressSanitizer, LeakSanitizer, Valgrind memcheck workflows"],
+      ["unique_ptr", "1. Exclusive ownership; zero-size overhead with stateless deleter (EBO)\n2. make_unique: exception-safety reasoning (pre-C++17 interleaving), symmetry\n3. Custom deleters (FILE*, C handles, opaque libs); array specialization\n4. Ownership transfer ONLY via std::move; post-move state = valid-unspecified\n5. Incomplete types + pimpl idiom: why out-of-line destructor needed"],
+      ["shared_ptr & weak_ptr", "1. Control block anatomy: strong count, weak count, deleter; double-allocation avoided by make_shared\n2. make_shared drawback: weak_ptrs keep entire allocation alive\n3. Copy cost: atomic increments — thread-safety of CONTROL BLOCK vs pointee (frequent interview confusion!)\n4. Cycles → memory leaks; weak_ptr breaking them; lock() race-free promotion pattern\n5. Aliasing constructor (member-of-owned-object sharing)\n6. enable_shared_from_this: why shared_from_this in constructor fails\n7. Custom deleters + bad_cast-free type erasure notes"],
+      ["Move Semantics & Forwarding", "1. Rvalue references &&; named rvalue refs ARE lvalues (identity!)\n2. std::move = unconditional cast; std::forward = conditional cast — say exactly this\n3. Reference collapsing rules powering perfect forwarding\n4. Forwarding references (T&& deduction) vs plain rvalue refs — deduction context distinction\n5. Writing move ctor/assignment; self-move safety; defaulted moves\n6. noexcept moves matter: vector growth uses move-if-noexcept\n7. copy-and-swap idiom: strong guarantee + self-assignment safety for free\n8. Moved-from contract: valid but unspecified; destruction must be safe"],
+      ["Ownership Guidelines", "1. Core Guidelines R-series digest: sinks take by value+move; non-owning params = raw ptr/reference/span; shared ownership explicit shared_ptr\n2. Returning: unique_ptr expresses factories; never return shared_ptr where unique suffices\n3. Member ordering: raw non-owning first, owning smart ptrs; initialization order follows DECLARATION order\n4. When raw new/delete is acceptable: almost never (custom allocator internals aside)"],
+      ["Allocator & Pool Concepts", "1. Allocator awareness (std::allocator, pmr::memory_resource C++17)\n2. Arena/pool/slab ideas for allocation-heavy paths\n3. Placement-new object pools sketch (alignment + lifetime care)"]
+    ],
+    "resources": [
+      ["Core Guidelines – Resources", "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-resource"],
+      ["LearnCpp – Smart Pointers", "https://www.learncpp.com/cpp-tutorial/introduction-to-smart-pointers-and-move-semantics/"],
+      ["Effective Modern C++ (book)", "https://www.oreilly.com/library/view/effective-modern-c/9781491908419/"]
+    ]
+  },
+  "cpp-concurrency": {
+    "title": "Concurrency",
+    "color": 22740,
+    "intro": "threads, locks, atomics & memory orders, futures, thread-pool design.",
+    "groups": [
+      ["std::thread Basics", "1. Creation, join vs detach (detach = footgun: dangling references), RAII joiner / std::jthread (C++20) + stop_token cooperative cancel\n2. Passing arguments: copies vs moves; ref capture with std::ref necessity\n3. hardware_concurrency; oversubscription\n4. Data race DEFINITION (conflicting unsynchronized accesses, UB) and happens-before introduction\n5. thread_local storage duration uses"],
+      ["Locking", "1. mutex/recursive_mutex/timed_mutex/shared_mutex (reader-writer)\n2. RAII wrappers: lock_guard, unique_lock (flexible, movable), shared_lock, scoped_lock multi-lock deadlock-free (C++17)\n3. condition_variable: wait(predicate) overload kills spurious-wakeup bugs; notify while holding lock or not — subtleties; missed wakeup analysis\n4. Deadlock avoidance: total ordering, std::lock/scoped_lock, try_lock backoff\n5. once_flag/call_once for lazy init\n6. Granularity advice: coarse-then-refine; lock contention measurement"],
+      ["Atomics & Memory Model", "1. atomic<T>: is_lock_free, fetch_add, CAS loop pattern (lock-free stack sketch)\n2. memory_order: seq_cst default, acquire/release pairing (mutex unlock/lock analogy), relaxed counters with fences, acq_rel RMW\n3. Store-load ordering intuition; when relaxed is enough (statistics) vs publish-protocol (acquire/release)\n4. volatile ≠ atomicity/thread-safety — Java contrast interview trap\n5.ABA problem mention; tagged pointers idea\n6. False sharing: cache-line ping-pong, padding/alignment of hot atomics"],
+      ["Futures & Async", "1. promise/future channel; broken_promise, wait_for statuses\n2. packaged_task binding callables to futures\n3. std::async launch::async vs deferred: deferred runs on WAIT (surprise!), future dtor blocks for async policy, no thread-pool guarantee — production prefers own pools\n4. Parallel STL: std::sort(par_unseq, ...) execution policies (TBB backend)"],
+      ["Design Problems (Interview Classics)", "1. Bounded thread-safe queue: mutex+cv full walkthrough; then lock-free sketch with atomics\n2. Minimal thread pool: worker loop, task queue, shutdown protocol\n3. Producer-consumer variations; reader-writer with shared_mutex\n4. Countdown latch equivalent with cv+counter; barrier (C++20 std::barrier/latch/semaphore!)\n5. C++20 sync primitives tour: latch, barrier, counting_semaphore, atomic_flag spin (test_and_set, clear, wait/notify)"],
+      ["Coroutines & Beyond", "1. C++20 coroutine machinery: co_await/co_yield/co_return, promise_type, symmetric transfer — conceptual map only\n2. Generator and Task library-shaped examples\n3. Executors/senders (P2300 direction) one-slide horizon"]
+    ],
+    "resources": [
+      ["cppreference – Concurrency Support", "https://en.cppreference.com/w/cpp/thread"],
+      ["Anthony Williams – Concurrency in Action (book)", "https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition"],
+      ["Modernes C++ Blog", "https://www.modernescpp.com/"]
+    ]
+  },
+  "cpp-modern-cpp-interview": {
+    "title": "Modern C++ Interview",
+    "color": 22740,
+    "intro": "Virtual dispatch internals, casts, template metaprogramming, C++20 features, classic traps, coding prompts.",
+    "groups": [
+      ["OOP Mechanics Under the Hood", "1. Virtual dispatch: vptr per object, vtable per class; indirection cost, inlining blockers, devirtualization\n2. Why constructors/destructors don't virtually dispatch to derived (during construction you ARE the base)\n3. Calling virtuals in ctors/dtors — defined but dangerous\n4. Virtual destructor necessity: deleting Derived via Base* without it = UB\n5. pure virtual functions CAN have definitions (called explicitly Base::f())\n6. override/final keywords: catching signature drift, sealing hierarchies\n7. Object slicing: pass-by-value derived→base; prevention (abstract bases, deleted copy)\n8. Multiple inheritance: multiple vptrs, diamond, virtual inheritance layout cost & dynamic_cast necessity\n9. RTTI: typeid/dynamic_cast cost model; disabling with -fno-rtti consequences\n10. CRTP static polymorphism replacing virtual dispatch (compile-time, no vptr)"],
+      ["Casts & Conversions", "1. static_cast: sane numeric/up/down (unchecked) casts\n2. dynamic_cast: checked down/cross-cast, null-vs-throw for pointers vs refs\n3. const_cast: legitimate with C APIs; UB if modifying truly-const\n4. reinterpret_cast: bit reinterpretation, aliasing rules, uintptr_t round-trips\n5. C-style casts = first-match-any-of-them — ban them\n6. Implicit conversions: converting constructors, user-defined conversion operators, explicit keyword; copy-list-initialization narrowing bans"],
+      ["Templates & Metaprogramming", "1. Instantiation model; code bloat; explicit instantiation control\n2. typename disambiguator, dependent names, .template construct\n3. SFINAE era: enable_if, void_t detection idiom\n4. Modern replacements: constexpr if, if-with-initializer, concepts (requires clauses/expressions) — readable constraints\n5. Type traits staples: remove_reference/decay/is_same/conditional\n6. Variadic templates: pack expansion, fold expressions sum((args + ...))\n7. CTAD; NTTPs (non-type template params) incl. class types (C++20)\n8. Expression templates idea (Eigen-style) one-slide"],
+      ["constexpr & Compile-Time", "1. constexpr functions ARE also runtime functions; immediate functions consteval\n2. Compile-time containers/algorithms; static_assert driven development\n3. constinit vs constexpr vs const trio disambiguation"],
+      ["C++20/23 Feature Tour", "1. Concepts, ranges, coroutines, modules — status and migration realities\n2. Spaceship operator <=> defaulted comparisons\n3. designated initializers, bits library (<bit> popcount)\n4. C++23: std::expected, print/println, ranges::to, deducing this (explicit object parameter) — horizon talk"],
+      ["Classic Traps Rapid-Fire", "1. sizeof(empty)=1; empty base optimization\n2. static initialization order fiasco → Meyers singleton (function-local static, thread-safe since C++11 magic statics)\n3. vector<bool> is not a vector of bool (proxy bit-reference)\n4. Most vexing parse; uniform-init rescue\n5. Iterator invalidation quiz gauntlet (vector/map/unordered under insert/erase)\n6. Exceptions zero-cost model: table-driven, pay-on-throw; -fno-exceptions ecosystems (games/embedded) alternatives\n7. ABI stability: std::string layout lore, inline namespaces for versioning, pimpl as ABI firewall\n8. Overload set + default args + virtual = subtle bug farm examples"],
+      ["Coding Prompts (practice targets)", "1. Implement unique_ptr (move-only, custom deleter, static_assert completeness)\n2. Implement minimal shared_ptr with control block + make_shared\n3. Thread-safe bounded queue (cv version) then lock-free SPSC ring\n4. LRU cache: unordered_map + intrusive list, O(1) ops\n5. Split/join string utilities; trim family\n6. Simple memory arena with alignment handling\n7. Observable/event bus with RAII subscription tokens\n8. Matrix class demonstrating Rule of Five + expression-template teaser"]
+    ],
+    "resources": [
+      ["Compiler Explorer", "https://godbolt.org/"],
+      ["awesome-cpp (curated list)", "https://github.com/fffaraz/awesome-cpp"],
+      ["C++ Core Guidelines", "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines"],
+      ["cppreference", "https://en.cppreference.com/w/"]
+    ]
+  }
+}

@@ -3,6 +3,8 @@
 Usage: python3 scripts/build_catalog.py <mode>
 Modes:
     cses-intro   — all Introductory Problems tasks, full scraped statements
+    core         — dump all 5 domain files (os, cn, db, lld, hld)
+    core-<slug>  — single key from the domain files (e.g. core-tdgis)
 
 Webhooks come from $FEED_WEBHOOKS or the local map file. Channel ids resolve
 via the bot token in $DISCORD_BOT_TOKEN.
@@ -915,8 +917,127 @@ def mode_notes(only=None):
         print(f"[{key}] done")
 
 
+def mode_langs(only=None, path="data/lang_notes.json"):
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    notes = json.load(open(path))
+    keys = [only] if only else list(notes)
+    for key in keys:
+        note = notes[key]
+        hook = hooks.get(key)
+        if not hook:
+            print(f"[{key}] no webhook — skipped")
+            continue
+        channel_id = find_channel_id(token, key)
+        clear_channel(token, channel_id)
+        send_embed(hook, {
+            "author": {"name": note["title"]},
+            "title": note["title"],
+            "color": note["color"],
+            "description": note["intro"] + "\n\nOne card per question group, resources card, catalog at the end.",
+            "footer": {"text": f"{len(note['groups'])} groups · {sum(len(g[1].splitlines()) for g in note['groups'])} items"},
+        })
+        catalog = [f"**Catalog — {note['title']}**", ""]
+        for i, (gtitle, gbody) in enumerate(note["groups"], 1):
+            send_embed(hook, {
+                "author": {"name": note["title"]},
+                "title": f"{i}. {gtitle}",
+                "color": note["color"],
+                "description": truncate(gbody, 3900, "\n…"),
+            })
+            catalog.append(f"**{i}.** {gtitle}")
+            time.sleep(0.2)
+        res = note.get("resources") or []
+        if res:
+            lines = [f"{n} → {u}" for n, u in res]
+            send_embed(hook, {
+                "author": {"name": note["title"]},
+                "title": f"{len(note['groups']) + 1}. Topic-wise Resources",
+                "color": note["color"],
+                "description": "\n".join(lines)[:3900],
+            })
+            catalog.append(f"**{len(note['groups']) + 1}.** Topic-wise Resources")
+        payload = {"content": "\n".join(catalog)[:2000],
+                   "allowed_mentions": {"parse": []}}
+        call(hook, method="POST", body=payload)
+        time.sleep(SEND_PACE)
+        print(f"[{key}] done")
+
+
+def _load_domain_notes():
+    merged = {}
+    for fn in ["os_notes.json", "cn_notes.json", "db_notes.json",
+               "lld_notes.json", "hld_notes.json"]:
+        p = f"data/{fn}"
+        if os.path.exists(p):
+            merged.update(json.load(open(p)))
+    return merged
+
+
+DOMAIN_MAP = {
+    "os": ("Operating Systems", "OS Deep Dive"),
+    "cn": ("Computer Networks", "Networks Deep Dive"),
+    "db": ("Databases", "Database Deep Dive"),
+    "lld": ("Low-Level Design", "LLD Deep Dive"),
+    "hld": ("High-Level Design", "HLD Deep Dive"),
+}
+
+
+def mode_core(only=None):
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    notes = _load_domain_notes()
+    keys = [only] if only else list(notes)
+    for key in keys:
+        note = notes[key]
+        hook = hooks.get(key)
+        if not hook:
+            print(f"[{key}] no webhook — skipped")
+            continue
+        channel_id = find_channel_id(token, key)
+        clear_channel(token, channel_id)
+        domain = key.split("-", 1)[0]
+        author_name = DOMAIN_MAP.get(domain, ("Core Engineering", "Core"))[1]
+        send_embed(hook, {
+            "author": {"name": author_name},
+            "title": note["title"],
+            "color": note["color"],
+            "description": note["intro"] + "\n\nOne card per topic group, resources card, catalog at the end.",
+            "footer": {"text": f"{len(note['groups'])} groups · {sum(len(g[1].splitlines()) for g in note['groups'])} items"},
+        })
+        catalog = [f"**Catalog — {note['title']}**", ""]
+        for i, (gtitle, gbody) in enumerate(note["groups"], 1):
+            send_embed(hook, {
+                "author": {"name": author_name},
+                "title": f"{i}. {gtitle}",
+                "color": note["color"],
+                "description": truncate(gbody, 3900, "\n…"),
+            })
+            catalog.append(f"**{i}.** {gtitle}")
+            time.sleep(0.2)
+        res = note.get("resources") or []
+        if res:
+            lines = [f"{n} → {u}" for n, u in res]
+            send_embed(hook, {
+                "author": {"name": author_name},
+                "title": f"{len(note['groups']) + 1}. Topic-wise Resources",
+                "color": note["color"],
+                "description": "\n".join(lines)[:3900],
+            })
+            catalog.append(f"**{len(note['groups']) + 1}.** Topic-wise Resources")
+        payload = {"content": "\n".join(catalog)[:2000],
+                   "allowed_mentions": {"parse": []}}
+        call(hook, method="POST", body=payload)
+        time.sleep(SEND_PACE)
+        print(f"[{key}] done")
+
+
 MODES.update({
     "notes": mode_notes,
+    "langs": mode_langs,
+    "core": mode_core,
 })
 
 
@@ -941,6 +1062,12 @@ def resolve_mode(mode):
     m = re.fullmatch(r"sde-(.+)", mode)
     if m and m.group(1) in SDE_GROUPS:
         return lambda: mode_sde_all(only=m.group(1))
+    m = re.fullmatch(r"langs-(.+)", mode)
+    if m and m.group(1) in json.load(open("data/lang_notes.json")):
+        return lambda: mode_langs(only=m.group(1))
+    m = re.fullmatch(r"core-(.+)", mode)
+    if m and m.group(1) in _load_domain_notes():
+        return lambda: mode_core(only=m.group(1))
     raise SystemExit(f"unknown mode '{mode}'")
 
 
