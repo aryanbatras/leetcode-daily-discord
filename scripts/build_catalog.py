@@ -44,7 +44,7 @@ def call(url, method="GET", token=None, body=None, ua=UA_DISCORD):
         data = json.dumps(body).encode()
     req = urllib.request.Request(url, method=method, data=data, headers=headers)
     start = time.time()
-    while time.time() - start < 60:
+    while time.time() - start < 600:
         try:
             with urllib.request.urlopen(req, timeout=30) as r:
                 raw = r.read().decode()
@@ -111,7 +111,9 @@ def send_text(hook, content):
 
 def send_embed(hook, embed):
     payload = {"embeds": [embed], "allowed_mentions": {"parse": []}}
-    call(hook, method="POST", body=payload)
+    res = call(hook, method="POST", body=payload)
+    if res is None:
+        raise RuntimeError(f"webhook gone: {hook}")
     time.sleep(SEND_PACE)
 
 
@@ -193,24 +195,27 @@ def fmt_task_embed(idx, total, task, detail):
     }
 
 
-def mode_cses_intro():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
-    hooks = hooks_map()
-    hook = hooks.get("cses-introductory-problems")
-    assert hook, "webhook key cses-introductory-problems missing"
-    channel_id = find_channel_id(token, "introductory-problems")
+CSES_SECTIONS = [
+    "Introductory Problems", "Sorting and Searching", "Dynamic Programming",
+    "Graph Algorithms", "Range Queries", "Tree Algorithms", "Mathematics",
+    "String Algorithms", "Geometry", "Advanced Techniques", "Additional Problems",
+]
 
-    tasks = [t for t in json.load(open("data/cses.json"))
-             if t["category"] == "Introductory Problems"]
-    tasks.sort(key=lambda t: t["id"])
-    print(f"{len(tasks)} introductory tasks")
+
+def dump_cses_section(hooks, token, section, tasks):
+    key = "cses-" + section.lower().replace(" ", "-")
+    hook = hooks.get(key)
+    if not hook:
+        print(f"[{section}] no webhook key {key} — skipped")
+        return
+    channel_id = find_channel_id(token, key[5:])  # channel names drop the cses- prefix
+    print(f"[{section}] {len(tasks)} tasks")
 
     clear_channel(token, channel_id)
 
     send_embed(hook, {
         "author": {"name": "CSES Problem Set"},
-        "title": "Introductory Problems",
+        "title": section,
         "url": "https://cses.fi/problemset/list/",
         "color": 0x2C3E50,
         "description": ("All tasks in order, full statement on each card. "
@@ -218,7 +223,7 @@ def mode_cses_intro():
         "footer": {"text": f"{len(tasks)} tasks"},
     })
 
-    catalog = ["**Catalog — Introductory Problems**", ""]
+    catalog = [f"**Catalog — {section}**", ""]
     for i, task in enumerate(tasks, 1):
         try:
             detail = scrape_cses_task(task["id"])
@@ -227,22 +232,57 @@ def mode_cses_intro():
             detail = {"tl": "", "ml": "", "body": "*(scrape failed — solve at the link)*"}
         send_embed(hook, fmt_task_embed(i, len(tasks), task, detail))
         catalog.append(f"**{i}.** {task['name']}")
-        print(f"posted {i}/{len(tasks)} {task['name']}")
+        print(f"[{section}] posted {i}/{len(tasks)} {task['name']}")
         time.sleep(FETCH_PACE)
 
     payload = {"content": "\n".join(catalog)[:2000], "allowed_mentions": {"parse": []}}
     call(hook, method="POST", body=payload)
     time.sleep(SEND_PACE)
-    print("catalog posted (unpinned) — done")
+    print(f"[{section}] catalog posted — done")
+
+
+def mode_cses_all(only=None):
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    tasks_by_section = {}
+    for t in json.load(open("data/cses.json")):
+        tasks_by_section.setdefault(t["category"], []).append(t)
+    if only:
+        sections = [only]
+    else:  # stable site-like order: by each section's first task id
+        sections = sorted(tasks_by_section, key=lambda s: min(t["id"] for t in tasks_by_section[s]))
+    for section in sections:
+        tasks = sorted(tasks_by_section.get(section, []), key=lambda t: t["id"])
+        if not tasks:
+            print(f"[{section}] no tasks in dataset — skipped")
+            continue
+        dump_cses_section(hooks, token, section, tasks)
 
 
 MODES = {
-    "cses-intro": mode_cses_intro,
+    "cses-intro": lambda: mode_cses_all(only="Introductory Problems"),
+    "cses-all": mode_cses_all,
 }
 
 
+def resolve_mode(mode):
+    """cses-intro / cses-all / cses-<section-slug> for any single section."""
+    if mode in MODES:
+        return MODES[mode]
+    m = re.fullmatch(r"cses-(.+)", mode)
+    if m:
+        slug = m.group(1)
+        cats = {t["category"] for t in json.load(open("data/cses.json"))}
+        for cat in cats:
+            if cat.lower().replace(" ", "-") == slug:
+                return lambda: mode_cses_all(only=cat)
+        raise SystemExit(f"no CSES section matches slug '{slug}'")
+    raise SystemExit(f"unknown mode '{mode}'")
+
+
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in MODES:
-        print(f"usage: build_catalog.py [{'|'.join(MODES)}]")
+    if len(sys.argv) != 2:
+        print(f"usage: build_catalog.py [cses-all|cses-intro|cses-<section-slug>|...]")
         sys.exit(2)
-    MODES[sys.argv[1]]()
+    resolve_mode(sys.argv[1])()
