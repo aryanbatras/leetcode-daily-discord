@@ -20,6 +20,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from datetime import datetime, timezone, timedelta
 
 BASE = "https://discord.com/api/v10"
 GUILD = 1541028379598397452
@@ -1037,10 +1038,134 @@ def mode_core(only=None):
         print(f"[{key}] done")
 
 
+def mode_contests():
+    """Fetch upcoming LeetCode + Codeforces contests and post to #upcoming-contests."""
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    hook = hooks.get("upcoming-contests")
+    if not hook:
+        print("[contests] no webhook key upcoming-contests — skipped")
+        return
+    channel_id = find_channel_id(token, "upcoming-contests")
+
+    now = time.time()
+    lc_contests = []
+    cf_contests = []
+
+    # LeetCode
+    try:
+        body = json.dumps({"query": "query { allContests { title titleSlug startTime duration } }"}).encode()
+        req = urllib.request.Request(
+            "https://leetcode.com/graphql", data=body, method="POST",
+            headers={"Content-Type": "application/json",
+                     "User-Agent": CF_UA,
+                     "Referer": "https://leetcode.com/contest/"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.loads(r.read().decode())
+        for c in data["data"]["allContests"]:
+            if c["startTime"] > now:
+                lc_contests.append(c)
+        lc_contests = lc_contests[:5]
+    except Exception as exc:
+        print(f"[contests] leetcode fetch failed: {exc}")
+
+    # Codeforces
+    try:
+        req = urllib.request.Request(
+            "https://codeforces.com/api/contest.list",
+            headers={"User-Agent": CF_UA})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.loads(r.read().decode())
+        for c in data["result"]:
+            if c.get("phase") == "BEFORE":
+                cf_contests.append(c)
+        cf_contests = cf_contests[:5]
+    except Exception as exc:
+        print(f"[contests] codeforces fetch failed: {exc}")
+
+    if not lc_contests and not cf_contests:
+        print("[contests] no upcoming contests found")
+        return
+
+    clear_channel(token, channel_id)
+
+    IST = timezone(timedelta(hours=5, minutes=30))
+
+    # Intro embed
+    send_embed(hook, {
+        "author": {"name": "Upcoming Contests"},
+        "title": "Contest Calendar",
+        "color": 0xE67E22,
+        "description": "All upcoming competitive programming contests. Updated daily.",
+        "footer": {"text": f"{len(lc_contests)} LeetCode · {len(cf_contests)} Codeforces"},
+    })
+
+    # LeetCode contests
+    if lc_contests:
+        lines = []
+        for c in lc_contests:
+            dt = datetime.fromtimestamp(c["startTime"], tz=timezone.utc).astimezone(IST)
+            dur_h = c["duration"] // 3600
+            dur_m = (c["duration"] % 3600) // 60
+            dur_str = f"{dur_h}h{dur_m}m" if dur_m else f"{dur_h}h"
+            link = f"https://leetcode.com/contest/{c['titleSlug']}/"
+            lines.append(
+                f"**{c['title']}**\n"
+                f"→ {dt.strftime('%a, %b %d · %I:%M %p IST')} · {dur_str}\n"
+                f"→ {link}"
+            )
+        send_embed(hook, {
+            "author": {"name": "LeetCode"},
+            "title": f"Upcoming LeetCode Contests ({len(lc_contests)})",
+            "url": "https://leetcode.com/contest/",
+            "color": 0xF1C40F,
+            "description": "\n\n".join(lines)[:3900],
+        })
+
+    # Codeforces contests
+    if cf_contests:
+        lines = []
+        for c in cf_contests:
+            dt = datetime.fromtimestamp(c["startTimeSeconds"], tz=timezone.utc).astimezone(IST)
+            dur_h = c["durationSeconds"] // 3600
+            dur_m = (c["durationSeconds"] % 3600) // 60
+            dur_str = f"{dur_h}h{dur_m}m" if dur_m else f"{dur_h}h"
+            link = f"https://codeforces.com/contest/{c['id']}"
+            lines.append(
+                f"**{c['name']}**\n"
+                f"→ {dt.strftime('%a, %b %d · %I:%M %p IST')} · {dur_str}\n"
+                f"→ {link}"
+            )
+        send_embed(hook, {
+            "author": {"name": "Codeforces"},
+            "title": f"Upcoming Codeforces Contests ({len(cf_contests)})",
+            "url": "https://codeforces.com/contests",
+            "color": 0x1F61EB,
+            "description": "\n\n".join(lines)[:3900],
+        })
+
+    # Summary embed
+    send_embed(hook, {
+        "author": {"name": "Upcoming Contests"},
+        "title": "Quick Links",
+        "color": 0xE67E22,
+        "description": (
+            f"**LeetCode** → [contest page](https://leetcode.com/contest/) · "
+            f"[register](https://leetcode.com/contest/list/)\n"
+            f"**Codeforces** → [contest page](https://codeforces.com/contests)\n\n"
+            "Contests refresh daily at 06:00 IST."
+        ),
+    })
+
+    print(f"[contests] posted {len(lc_contests)} LC + {len(cf_contests)} CF")
+
+
 MODES.update({
     "notes": mode_notes,
     "langs": mode_langs,
     "core": mode_core,
+    "contests": mode_contests,
 })
 
 
