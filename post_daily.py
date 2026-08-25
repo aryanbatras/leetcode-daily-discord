@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import sys
 import time
 import urllib.request
@@ -139,12 +140,21 @@ def main():
     # Clear channel before posting fresh content
     token = os.environ.get("DISCORD_BOT_TOKEN")
     if token:
-        import re
         m = re.search(r"/webhooks/(\d+)/", webhook_url)
         if m:
-            channel_id = m.group(1)
-            clear_channel(token, channel_id)
-            print(f"Cleared channel {channel_id}")
+            wh_id = m.group(1)
+            # Fetch webhook to get the actual channel_id
+            try:
+                req = urllib.request.Request(
+                    f"https://discord.com/api/v10/webhooks/{wh_id}",
+                    headers={"Authorization": f"Bot {token}", "User-Agent": "MFGrindBot/1.0"})
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    wh_data = json.loads(r.read().decode())
+                channel_id = wh_data["channel_id"]
+                clear_channel(token, channel_id)
+                print(f"Cleared channel {channel_id}")
+            except Exception as e:
+                print(f"Warning: could not clear channel: {e}")
 
     data = lc_graphql(QUERY)
     daily = data.get("data", {}).get("activeDailyCodingChallengeQuestion")
@@ -159,8 +169,8 @@ def main():
         webhook_url,
         embed,
         username="Daily Problem",
-        content="@everyone Today's problem is up — first solve takes the crown.",
-        ping_everyone=True,
+        content="Today's problem is up — first solve takes the crown.",
+        ping_everyone=False,
     )
     if not ok:
         print("Discord webhook failed")
