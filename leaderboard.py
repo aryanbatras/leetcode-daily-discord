@@ -262,6 +262,51 @@ def cmd_poll():
 
 # ── Post leaderboard ────────────────────────────────────────────────────────
 
+def clear_leaderboard(token, channel_id):
+    """Delete all messages in the leaderboard channel."""
+    after = "0"
+    ids = []
+    while True:
+        url = f"https://discord.com/api/v10/channels/{channel_id}/messages?limit=100&after={after}"
+        batch = dapi(url, token=token)
+        if not batch:
+            break
+        ids += [m["id"] for m in batch]
+        after = max(ids)
+        if len(batch) < 100:
+            break
+        time.sleep(0.3)
+    while ids:
+        chunk = ids[-100:]
+        del ids[-100:]
+        dapi(f"https://discord.com/api/v10/channels/{channel_id}/messages/bulk-delete",
+             method="POST", token=token, body={"messages": chunk})
+        time.sleep(0.5)
+
+
+def today_ist():
+    return datetime.now(IST).strftime("%Y-%m-%d")
+
+
+def week_start_ist(today=None):
+    now = datetime.now(IST) if today is None else datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=IST)
+    monday = now - timedelta(days=now.weekday())
+    return monday.strftime("%Y-%m-%d")
+
+
+def post_webhook_embeds(webhook, embeds):
+    """Post multiple embeds via webhook, splitting if needed."""
+    for i in range(0, len(embeds), 5):
+        chunk = embeds[i:i+5]
+        body = {
+            "username": "Leaderboard",
+            "embeds": chunk,
+            "allowed_mentions": {"parse": []},
+        }
+        dapi(webhook, method="POST", body=body)
+        time.sleep(0.5)
+
+
 def cmd_board():
     token = os.environ.get("DISCORD_BOT_TOKEN")
     webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
@@ -270,8 +315,20 @@ def cmd_board():
     if not webhook:
         sys.exit("LEADERBOARD_WEBHOOK_URL required")
     resolve_channels(token)
+    lb_id = CHANNEL_NAMES.get("leaderboard")
+    if not lb_id:
+        sys.exit("#leaderboard channel not found")
 
     members = load("members.json", {})
+    snapshots = load("snapshots.json", {})
+    now = datetime.now(IST)
+    today = today_ist()
+    week_start = week_start_ist(today)
+
+    # ── Clear channel ──
+    clear_leaderboard(token, lb_id)
+    print("Cleared #leaderboard")
+
     if not members:
         body = {
             "username": "Leaderboard",
@@ -286,78 +343,148 @@ def cmd_board():
         print("No members — posted empty board")
         return
 
-    # Fetch stats for all members (with rate limiting)
+    # ── Fetch stats for all members ──
     rows = []
     for i, (did, member) in enumerate(members.items()):
         lc_user = member["lc_username"]
         print(f"[{i+1}/{len(members)}] Fetching {lc_user}...")
         stats = lc_stats(lc_user)
 
-        # Update stored totals
         member["totals"] = stats["totals"]
         member["avatar"] = stats["avatar"]
 
-        total = stats["totals"]["All"]
-        easy = stats["totals"]["Easy"]
-        medium = stats["totals"]["Medium"]
-        hard = stats["totals"]["Hard"]
+        # Store daily snapshot for weekly tracking
+        store = snapshots.setdefault(did, {})
+        if today not in store:
+            store[today] = dict(stats["totals"])
 
-        contest_line = ""
-        if stats["contest"]:
-            c = stats["contest"]
-            contest_line = f" · {c['rating']} rating"
+        # Get Monday baseline for weekly delta
+        prior_days = sorted(d for d in store if week_start <= d <= today)
+        if prior_days:
+            baseline = store[prior_days[0]]
+        else:
+            baseline = store.get(today, stats["totals"])
+
+        weekly_delta = stats["totals"]["All"] - baseline.get("All", 0)
+        weekly_easy = stats["totals"]["Easy"] - baseline.get("Easy", 0)
+        weekly_medium = stats["totals"]["Medium"] - baseline.get("Medium", 0)
+        weekly_hard = stats["totals"]["Hard"] - baseline.get("Hard", 0)
 
         rows.append({
             "name": member.get("display_name", lc_user),
             "lc_username": lc_user,
             "avatar": stats["avatar"],
-            "total": total,
-            "easy": easy,
-            "medium": medium,
-            "hard": hard,
-            "contest": contest_line,
+            "total": stats["totals"]["All"],
+            "easy": stats["totals"]["Easy"],
+            "medium": stats["totals"]["Medium"],
+            "hard": stats["totals"]["Hard"],
+            "contest": stats["contest"],
+            "weekly_delta": weekly_delta,
+            "weekly_easy": weekly_easy,
+            "weekly_medium": weekly_medium,
+            "weekly_hard": weekly_hard,
         })
 
-    # Sort by total solved descending, then easy/medium/hard
-    rows.sort(key=lambda r: (-r["total"], -r["hard"], -r["medium"], -r["easy"]))
-
-    # Build embed
-    now = datetime.now(IST)
-    lines = []
-    medals = ["\U0001F947", "\U0001F948", "\U0001F949"]  # 🥇🥈🥉
-    for i, r in enumerate(rows):
-        medal = medals[i] if i < 3 else f"**{i+1}.**"
-        lines.append(
-            f"{medal} **{r['name']}** — **{r['total']}** solved "
-            f"({r['easy']}E / {r['medium']}M / {r['hard']}H){r['contest']}"
-        )
-
-    # Split if too long for one embed
-    description = "\n".join(lines)
-    if len(description) > 4000:
-        description = description[:3997] + "..."
-
-    embed = {
-        "author": {"name": "LeetCode Leaderboard"},
-        "title": now.strftime("%B %d, %Y"),
-        "description": description,
-        "color": 0x5865F2,
-        "footer": {"text": f"{len(rows)} members · updates daily at 06:00 IST · register in #register"},
-    }
-
-    if rows and rows[0]["avatar"]:
-        embed["thumbnail"] = {"url": rows[0]["avatar"]}
-
-    body = {
-        "username": "Leaderboard",
-        "embeds": [embed],
-        "allowed_mentions": {"parse": []},
-    }
-    dapi(webhook, method="POST", body=body)
-
-    # Save updated totals
+    # Save snapshots
+    save("snapshots.json", snapshots)
     save("members.json", members)
-    print(f"Board posted: {len(rows)} members")
+
+    # ── Build embeds ──
+    embeds = []
+    medals = ["\U0001F947", "\U0001F948", "\U0001F949"]
+
+    # --- Header ---
+    embeds.append({
+        "author": {"name": "LeetCode Leaderboard"},
+        "title": f"\U0001F4CA {now.strftime('%B %d, %Y')}",
+        "description": f"**{len(rows)}** registered members · Updated at **{now.strftime('%I:%M %p IST')}**",
+        "color": 0x5865F2,
+    })
+
+    # --- Overall Rankings (sorted by total) ---
+    by_total = sorted(rows, key=lambda r: (-r["total"], -r["hard"], -r["medium"], -r["easy"]))
+    lines = []
+    for i, r in enumerate(by_total):
+        medal = medals[i] if i < 3 else f"**{i+1}.**"
+        contest = f" · {r['contest']['rating']} rating" if r["contest"] else ""
+        lines.append(
+            f"{medal} **{r['name']}** (`{r['lc_username']}`)\n"
+            f"    **{r['total']}** solved — {r['easy']}E / {r['medium']}M / {r['hard']}H{contest}"
+        )
+    embeds.append({
+        "title": "\U0001F3C6 All-Time Rankings",
+        "description": "\n".join(lines)[:4000],
+        "color": 0xF1C40F,
+    })
+
+    # --- Weekly Grind (sorted by weekly delta) ---
+    by_weekly = sorted(rows, key=lambda r: (-r["weekly_delta"], -r["total"]))
+    lines = []
+    for i, r in enumerate(by_weekly):
+        medal = medals[i] if i < 3 else f"**{i+1}.**"
+        delta = r["weekly_delta"]
+        if delta > 0:
+            delta_str = f"**+{delta}**"
+        elif delta < 0:
+            delta_str = f"**{delta}**"
+        else:
+            delta_str = "0"
+        lines.append(
+            f"{medal} **{r['name']}** — {delta_str} this week "
+            f"({r['weekly_easy']}E / {r['weekly_medium']}M / {r['weekly_hard']}H)"
+        )
+    embeds.append({
+        "title": f"\U0001F4C8 Weekly Grind (since {week_start})",
+        "description": "\n".join(lines)[:4000] if any(r["weekly_delta"] != 0 for r in rows) else "*No progress yet this week — start solving!*",
+        "color": 0x2ECC71,
+    })
+
+    # --- Difficulty Breakdown ---
+    total_easy = sum(r["easy"] for r in rows)
+    total_medium = sum(r["medium"] for r in rows)
+    total_hard = sum(r["hard"] for r in rows)
+    total_all = sum(r["total"] for r in rows)
+    lines = [
+        f"**Total solved across all members:** {total_all}",
+        f"\u2705 Easy: **{total_easy}** · \U0001F7E1 Medium: **{total_medium}** · \U0001F534 Hard: **{total_hard}**",
+    ]
+    if rows:
+        avg = total_all // len(rows)
+        lines.append(f"**Average per member:** {avg} problems")
+    embeds.append({
+        "title": "\U0001F4CA Server Stats",
+        "description": "\n".join(lines),
+        "color": 0xE74C3C,
+    })
+
+    # --- Contest Champions (if anyone has contest data) ---
+    contest_rows = [r for r in rows if r["contest"]]
+    if contest_rows:
+        by_rating = sorted(contest_rows, key=lambda r: -r["contest"]["rating"])
+        lines = []
+        for i, r in enumerate(by_rating[:10]):
+            medal = medals[i] if i < 3 else f"**{i+1}.**"
+            c = r["contest"]
+            lines.append(
+                f"{medal} **{r['name']}** — **{c['rating']}** rating "
+                f"(#{c['global_rank']:,} global · top {c['top_pct']}%)"
+            )
+        embeds.append({
+            "title": "\U0001F3AE Contest Champions",
+            "description": "\n".join(lines),
+            "color": 0x9B59B6,
+        })
+
+    # --- Footer ---
+    embeds.append({
+        "title": "\U00002753 How to Join",
+        "description": "Type your LeetCode username in **#register** to get on the board.",
+        "color": 0x95A5A6,
+        "footer": {"text": f"Resets weekly (Monday) · register in #register"},
+    })
+
+    post_webhook_embeds(webhook, embeds)
+    print(f"Board posted: {len(rows)} members, {len(embeds)} embeds")
 
 
 # ── Main ────────────────────────────────────────────────────────────────────
