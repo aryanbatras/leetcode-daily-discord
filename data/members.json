@@ -3,6 +3,12 @@
     "avatar": "https://assets.leetcode.com/users/avatars/avatar_1691924960.png",
     "display_name": "Aryan",
     "lc_username": "aryanbatra",
-    "registered_at": "2026-08-24T15:28:17.026078+05:30"
+    "registered_at": "2026-08-24T15:28:17.026078+05:30",
+    "totals": {
+      "All": 217,
+      "Easy": 109,
+      "Hard": 19,
+      "Medium": 89
+    }
   }
 }

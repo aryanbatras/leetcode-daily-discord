@@ -1,12 +1,10 @@
-"""Local LeetCode leaderboard for Mission Faang.
+"""LeetCode leaderboard for Mission Faang.
 
 Modes:
-    python3 leaderboard.py poll   -> process new "!register"/"!remove" messages in #leaderboard
-    python3 leaderboard.py board  -> snapshot totals and post the weekly board
-    python3 leaderboard.py daily  -> seed morning baseline / post evening daily board
+    python3 leaderboard.py poll    -> scan #register for new usernames, validate, store
+    python3 leaderboard.py board   -> fetch stats for all members, post to #leaderboard
 
-State lives in data/ and is committed back to the repo by GitHub Actions,
-so there is no server and nothing to host.
+State lives in data/members.json — committed back by GitHub Actions.
 """
 
 import json
@@ -15,15 +13,14 @@ import re
 import sys
 import time
 import urllib.error
-import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
-API = "https://discord.com/api/v10"
-LC_GRAPHQL = "https://leetcode.com/graphql"
+# ── Config ──────────────────────────────────────────────────────────────────
+
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 GUILD_ID = 1541028379598397452
-FOCUS_ROOM_ID = 1541028380655231119
+CHANNEL_NAMES = {"register": None, "leaderboard": None}  # resolved at runtime
 
 IST = timezone(timedelta(hours=5, minutes=30))
 LC_UA = (
@@ -31,509 +28,342 @@ LC_UA = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 )
 DISCORD_UA = "MFGrindBot/1.0 (github.com/aryanbatras/leetcode-daily-discord)"
+LC_DELAY = 1.0  # seconds between LeetCode API calls
 
-REGISTER_RE = re.compile(r"^\s*!register\s+([A-Za-z0-9_\-]{1,40})\s*$", re.I)
-REMOVE_RE = re.compile(r"^\s*!remove\s*$", re.I)
+# ── LeetCode ────────────────────────────────────────────────────────────────
 
-LC_QUERY = """query userData($username: String!) {
+LC_GRAPHQL = "https://leetcode.com/graphql"
+
+LC_PROFILE_QUERY = """query userData($username: String!) {
     matchedUser(username: $username) {
         username
-        profile {
-            userAvatar
-        }
+        profile { userAvatar }
         submitStats: submitStatsGlobal {
-            acSubmissionNum {
-                difficulty
-                count
-            }
+            acSubmissionNum { difficulty count }
         }
     }
 }"""
 
+LC_CONTEST_QUERY = """query userContestRankingInfo($username: String!) {
+    userContestRanking(username: $username) {
+        attendedContestsCount
+        rating
+        globalRanking
+        topPercentage
+    }
+}"""
 
-def path(name):
-    return os.path.join(DATA_DIR, name)
 
-
-def load_json(name, default):
+def lc_request(query, variables):
+    payload = json.dumps({"query": query, "variables": variables}).encode()
+    req = urllib.request.Request(
+        LC_GRAPHQL, data=payload, method="POST",
+        headers={"Content-Type": "application/json",
+                 "User-Agent": LC_UA,
+                 "Referer": "https://leetcode.com"})
     try:
-        with open(path(name), encoding="utf-8") as fh:
-            return json.load(fh)
-    except FileNotFoundError:
-        return default
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.loads(r.read().decode())
+    except Exception:
+        return None
 
 
-def save_json(name, obj):
-    os.makedirs(DATA_DIR, exist_ok=True)
-    tmp = path(name) + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as fh:
-        json.dump(obj, fh, indent=2, sort_keys=True)
-    os.replace(tmp, path(name))
+def lc_validate(username):
+    """Check if a LeetCode username exists. Returns profile dict or None."""
+    data = lc_request(LC_PROFILE_QUERY, {"username": username})
+    if not data:
+        return None
+    user = (data.get("data") or {}).get("matchedUser")
+    if not user:
+        return None
+    counts = {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0}
+    for row in user.get("submitStats", {}).get("acSubmissionNum", []):
+        counts[row["difficulty"]] = row["count"]
+    return {
+        "username": user["username"],
+        "avatar": user.get("profile", {}).get("userAvatar", ""),
+        "totals": counts,
+    }
 
 
-def request(url, method="GET", token=None, body=None):
+def lc_stats(username):
+    """Fetch full stats (totals + contest info) for a user."""
+    profile = lc_request(LC_PROFILE_QUERY, {"username": username})
+    time.sleep(LC_DELAY)
+    contest = lc_request(LC_CONTEST_QUERY, {"username": username})
+    time.sleep(LC_DELAY)
+
+    result = {"username": username, "totals": {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0}, "avatar": "", "contest": None}
+
+    if profile:
+        user = (profile.get("data") or {}).get("matchedUser")
+        if user:
+            result["avatar"] = user.get("profile", {}).get("userAvatar", "")
+            for row in user.get("submitStats", {}).get("acSubmissionNum", []):
+                result["totals"][row["difficulty"]] = row["count"]
+
+    if contest:
+        ranking = (contest.get("data") or {}).get("userContestRanking")
+        if ranking:
+            result["contest"] = {
+                "attended": ranking.get("attendedContestsCount", 0),
+                "rating": round(ranking.get("rating", 0)),
+                "global_rank": ranking.get("globalRanking", 0),
+                "top_pct": round(ranking.get("topPercentage", 0), 1),
+            }
+
+    return result
+
+
+# ── Discord ─────────────────────────────────────────────────────────────────
+
+def dapi(url, method="GET", token=None, body=None):
     headers = {"User-Agent": DISCORD_UA}
     if token:
         headers["Authorization"] = f"Bot {token}"
     data = None
     if body is not None:
         headers["Content-Type"] = "application/json"
-        data = json.dumps(body).encode("utf-8")
+        data = json.dumps(body).encode()
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read()
-            return resp.status, json.loads(raw.decode("utf-8")) if raw else None
-    except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", "replace")[:300]
-        print(f"{method} {url} -> {exc.code}: {detail}")
-        return exc.code, None
-
-
-def lc_profile(username):
-    """Return matched-user dict or None if the LeetCode username does not exist."""
-    payload = {"query": LC_QUERY, "variables": {"username": username}}
-    req = urllib.request.Request(
-        LC_GRAPHQL,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json", "Referer": "https://leetcode.com", "User-Agent": LC_UA},
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            raw = r.read()
+            return json.loads(raw.decode()) if raw else {}
+    except urllib.error.HTTPError as e:
         return None
-    return (data.get("data") or {}).get("matchedUser")
 
 
-def lc_totals(matched):
-    counts = {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0}
-    for row in matched["submitStats"]["acSubmissionNum"]:
-        counts[row["difficulty"]] = row["count"]
-    return counts
+def resolve_channels(token):
+    chans = dapi(f"https://discord.com/api/v10/guilds/{GUILD_ID}/channels", token=token)
+    for c in chans:
+        if c["type"] == 0 and c["name"] in CHANNEL_NAMES:
+            CHANNEL_NAMES[c["name"]] = c["id"]
 
 
-def today_ist():
-    return datetime.now(IST).strftime("%Y-%m-%d")
+def react(token, channel_id, message_id, emoji):
+    import urllib.parse
+    encoded = urllib.parse.quote(emoji)
+    dapi(f"https://discord.com/api/v10/channels/{channel_id}/messages/{message_id}/reactions/{encoded}/@me",
+         method="PUT", token=token)
 
 
-def week_start_ist(today=None):
-    now = datetime.now(IST) if today is None else datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=IST)
-    monday = now - timedelta(days=now.weekday())
-    return monday.strftime("%Y-%m-%d")
+def fetch_messages(token, channel_id, after="0"):
+    msgs = []
+    while True:
+        url = f"https://discord.com/api/v10/channels/{channel_id}/messages?limit=100&after={after}"
+        batch = dapi(url, token=token)
+        if not batch:
+            break
+        msgs.extend(batch)
+        after = batch[0]["id"]
+        if len(batch) < 100:
+            break
+        time.sleep(0.3)
+    return msgs
 
 
-def take_snapshot(members, snapshots, overwrite=True, sleep_s=0.0):
-    """Fetch current totals for every member and store them under today's date.
+# ── State ───────────────────────────────────────────────────────────────────
 
-    overwrite=False keeps the earliest value already stored for today — used by
-    the morning seed so the daily board measures the whole day's grind.
-    sleep_s paces LeetCode calls (one member every ~2s) to stay under rate limits.
-    """
-    day = today_ist()
-    stale_cutoff = (datetime.now(IST) - timedelta(days=21)).strftime("%Y-%m-%d")
-    for key, member in members.items():
-        matched = lc_profile(member["lc_username"])
-        if not matched:
-            continue
-        if sleep_s:
-            time.sleep(sleep_s)
-        totals = lc_totals(matched)
-        member["avatar"] = matched.get("profile", {}).get("userAvatar")
-        store = snapshots.setdefault(member.get("discord_id", key), {})
-        if overwrite or day not in store:
-            store[day] = totals
-    for uid in list(snapshots):
-        snapshots[uid] = {
-            d: t for d, t in snapshots[uid].items() if d >= stale_cutoff or d == day
-        }
-        if not snapshots[uid]:
-            del snapshots[uid]
-
-
-def baseline_for(snapshots, uid, week_start, day):
-    days = sorted(snapshots.get(uid, {}))
-    prior = [d for d in days if week_start <= d <= day]
-    if prior:
-        return snapshots[uid][prior[0]]
-    if days:  # registered mid-week: their registration snapshot is the baseline
-        return snapshots[uid][days[0]]
-    return {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0}
-
-
-def cmd_board():
-    token_webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
-    if not token_webhook:
-        print("LEADERBOARD_WEBHOOK_URL is not set")
-        sys.exit(1)
-
-    members = load_json("members.json", {})
-    snapshots = load_json("snapshots.json", {})
-    if not members:
-        body = {
-            "username": "Weekly Board",
-            "embeds": [
-                {
-                    "title": "Weekly Board",
-                    "description": (
-                        "No one has registered yet.\n"
-                        "Type `!register <your-leetcode-username>` in this channel "
-                        "and you're in."
-                    ),
-                    "color": 0x95A5A6,
-                }
-            ],
-        }
-    else:
-        take_snapshot(members, snapshots)
-        day = today_ist()
-        start = week_start_ist(day)
-        rows = []
-        for key, member in members.items():
-            uid = member.get("discord_id", key)
-            snaps = snapshots.get(uid, {})
-            current = snaps.get(day)
-            if not current:
-                continue
-            base = baseline_for(snapshots, uid, start, day)
-            rows.append(
-                {
-                    "name": member["display_name"],
-                    "delta": current["All"] - base["All"],
-                    "easy": current["Easy"] - base["Easy"],
-                    "medium": current["Medium"] - base["Medium"],
-                    "hard": current["Hard"] - base["Hard"],
-                    "total": current["All"],
-                }
-            )
-        rows.sort(key=lambda r: (-r["delta"], -r["total"]))
-        lines = []
-        for i, r in enumerate(rows, 1):
-            lines.append(
-                f"**{i}.** {r['name']} — **+{r['delta']}** this week "
-                f"({r['easy']}E / {r['medium']}M / {r['hard']}H) · {r['total']} total"
-            )
-        save_json("snapshots.json", snapshots)
-        body = {
-            "username": "Weekly Board",
-            "allowed_mentions": {"parse": []},
-            "embeds": [
-                {
-                    "author": {"name": "LeetCode Weekly Board"},
-                    "title": f"Week of {start} → {day}",
-                    "description": "\n".join(lines)[:4000],
-                    "color": 0x5865F2,
-                    "footer": {
-                        "text": "Resets every Monday · join with !register <username>"
-                    },
-                }
-            ],
-        }
-
-    status, _ = request(token_webhook, method="POST", body=body)
-    if status not in (200, 204):
-        print(f"Webhook returned {status}")
-        sys.exit(1)
-    print(f"Weekly board posted ({len(members)} members)")
-
-
-def cmd_daily():
-    """Morning: seed today's baseline (first write wins). Evening: post the daily board."""
-    token_webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
-    if not token_webhook:
-        print("LEADERBOARD_WEBHOOK_URL is not set")
-        sys.exit(1)
-
-    now = datetime.now(IST)
-    mode = os.environ.get("MF_DAILY_MODE") or ("seed" if now.hour < 12 else "post")
-    day = today_ist()
-    members = load_json("members.json", {})
-    snapshots = load_json("snapshots.json", {})
-
-    zero = {
-        "title": f"Daily Grind — {day}",
-        "description": (
-            "No one has registered yet.\n"
-            "Type `!register <your-leetcode-username>` in this channel "
-            "and show up on tomorrow's board."
-        ),
-        "color": 0x95A5A6,
-    }
-
-    rows = []
-    if members:
-        if mode == "seed":
-            take_snapshot(members, snapshots, overwrite=False, sleep_s=2.0)
-            print(f"seeded baseline for {len(members)} members (2s pacing)")
-        else:
-            baselines = {}
-            for key, member in members.items():
-                uid = member.get("discord_id", key)
-                baselines[uid] = dict(snapshots.get(uid, {}).get(day) or {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0})
-            take_snapshot(members, snapshots, overwrite=True, sleep_s=2.0)
-            for key, member in members.items():
-                uid = member.get("discord_id", key)
-                current = snapshots.get(uid, {}).get(day)
-                if not current:
-                    continue
-                base = baselines[uid]
-                delta = current["All"] - base["All"]
-                if delta < 0:
-                    continue  # re-registered mid-day; don't punish
-                rows.append({
-                    "name": member["display_name"],
-                    "delta": delta,
-                    "easy": current["Easy"] - base["Easy"],
-                    "medium": current["Medium"] - base["Medium"],
-                    "hard": current["Hard"] - base["Hard"],
-                    "total": current["All"],
-                })
-        save_json("snapshots.json", snapshots)
-        save_json("members.json", members)
-
-    if mode == "seed":
-        create_focus_event()
-        return
-
-    contest_radar()
-
-    rows.sort(key=lambda r: (-r["delta"], -r["total"]))
-    medals = ["🥇", "🥈", "🥉"]
-    lines = []
-    crowned = []
-    for i, r in enumerate(rows):
-        medal = medals[i] if i < 3 and r["delta"] > 0 else ""
-        if medal:
-            crowned.append(r["name"])
-        lines.append(
-            f"{medal or '**' + str(i + 1) + '.**'} {r['name']} — **+{r['delta']}** today "
-            f"({r['easy']}E / {r['medium']}M / {r['hard']}H) · {r['total']} total"
-        )
-    if not lines:
-        lines.append("Quiet day. The board resets at midnight — tomorrow is unwritten.")
-    if crowned:
-        lines.append(f"\n👑 {' · '.join(crowned)}")
-    body = {
-        "username": "Daily Board",
-        "allowed_mentions": {"parse": []},
-        "embeds": [{
-            "author": {"name": "LeetCode Daily Grind"},
-            "title": f"Solved today — {day}",
-            "description": "\n".join(lines)[:4000],
-            "color": 0xF1C40F,
-            "footer": {"text": "measured midnight to midnight IST · join with !register <username>"},
-        }],
-    }
-    status, _ = request(token_webhook, method="POST", body=body)
-    if status not in (200, 204):
-        print(f"Webhook returned {status}")
-        sys.exit(1)
-    print(f"Daily board posted ({len(rows)} rows, mode={mode})")
-
-
-def create_focus_event():
-    """Keep exactly one upcoming 'night grind' event: tomorrow 21:00 IST in focus-room."""
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    if not token:
-        return
-    start = (datetime.now(IST) + timedelta(days=1)).replace(
-        hour=21, minute=0, second=0, microsecond=0)
-    end = start + timedelta(hours=1)
-    start_iso = start.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    end_iso = end.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    existing = request(f"{API}/guilds/{GUILD_ID}/scheduled-events", token=token)[1] or []
-    if any(e.get("scheduled_start_time", "").startswith(start_iso[:10]) for e in existing):
-        print("focus event already covered for", start_iso[:10])
-        return
-    status, created = request(
-        f"{API}/guilds/{GUILD_ID}/scheduled-events",
-        method="POST",
-        token=token,
-        body={
-            "name": "night grind - silent focus",
-            "description": "focus hour in voice. cameras off.",
-            "scheduled_start_time": start_iso,
-            "scheduled_end_time": end_iso,
-            "entity_type": 2,
-            "channel_id": FOCUS_ROOM_ID,
-            "privacy_level": 2,
-        },
-    )
-    print("focus event:", created.get("id") if isinstance(created, dict) else f"status {status}")
-
-
-def contest_radar():
-    """Upcoming LeetCode + Codeforces contests, posted to #leaderboard via webhook."""
-    token_webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
-    if not token_webhook:
-        return
-    lines = []
-    lc_query = '{"query":"query { topTwoContests { title titleSlug startTime duration } }"}'
-    req = urllib.request.Request(
-        LC_GRAPHQL, data=lc_query.encode(),
-        headers={"Content-Type": "application/json",
-                 "User-Agent": LC_UA, "Referer": "https://leetcode.com"})
+def load(name, default=None):
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode())["data"]["topTwoContests"]
-        for c in data:
-            lines.append(
-                f"**LeetCode** — [{c['title']}](https://leetcode.com/contest/{c['titleSlug']}/)\n"
-                f"{datetime.fromtimestamp(int(c['startTime']), tz=IST).strftime('%a %d %b, %I:%M %p IST')}"
-                f" · {(int(c['duration']) // 3600)}h {(int(c['duration']) % 3600) // 60:02d}m"
-            )
-    except Exception as exc:
-        print("lc contests failed:", exc)
-    try:
-        cf = json.load(urllib.request.urlopen(urllib.request.Request(
-            "https://codeforces.com/api/contest.list",
-            headers={"User-Agent": DISCORD_UA}), timeout=30))["result"]
-        upcoming = sorted((c for c in cf if c.get("phase") == "BEFORE"),
-                          key=lambda c: c["startTimeSeconds"])[:4]
-        for c in upcoming:
-            d = int(c.get("durationSeconds", 7200))
-            lines.append(
-                f"**Codeforces** — [{c['name']}](https://codeforces.com/contests/{c['id']})\n"
-                f"{datetime.fromtimestamp(c['startTimeSeconds'], tz=IST).strftime('%a %d %b, %I:%M %p IST')}"
-                f" · {d // 3600}h {(d % 3600) // 60:02d}m"
-            )
-    except Exception as exc:
-        print("cf contests failed:", exc)
-    if not lines:
-        return
-    body = {
-        "username": "Contest Radar",
-        "allowed_mentions": {"parse": []},
-        "embeds": [{
-            "author": {"name": "Upcoming Contests"},
-            "title": "Put them on your calendar",
-            "description": "\n\n".join(lines)[:4000],
-            "color": 0xF39C12,
-            "footer": {"text": "refreshed nightly · all times IST"},
-        }],
-    }
-    status, _ = request(token_webhook, method="POST", body=body)
-    print("contest radar posted:", status in (200, 204))
+        with open(os.path.join(DATA_DIR, name)) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return default if default is not None else {}
+
+
+def save(name, obj):
+    os.makedirs(DATA_DIR, exist_ok=True)
+    p = os.path.join(DATA_DIR, name) + ".tmp"
+    with open(p, "w") as f:
+        json.dump(obj, f, indent=2, sort_keys=True)
+    os.replace(p, os.path.join(DATA_DIR, name))
+
+
+# ── Poll registrations ──────────────────────────────────────────────────────
+
+USERNAME_RE = re.compile(r"^\s*([A-Za-z0-9_\-]{2,40})\s*$")
 
 
 def cmd_poll():
     token = os.environ.get("DISCORD_BOT_TOKEN")
     if not token:
-        print("DISCORD_BOT_TOKEN is not set — skipping poll (set the secret to activate)")
-        return
+        sys.exit("DISCORD_BOT_TOKEN required")
+    resolve_channels(token)
+    reg_id = CHANNEL_NAMES.get("register")
+    if not reg_id:
+        sys.exit("#register channel not found")
 
-    state = load_json("state.json", {})
-    channel_id = state.get("channel_id")
-    if not channel_id:
-        print("state.json missing channel_id")
-        sys.exit(1)
+    members = load("members.json", {})
+    processed = load("processed_ids.json", [])
+    seen = set(processed)
 
-    after = state.get("last_message_id", "0")
-    messages = None
-    for attempt in range(3):
-        url = f"{API}/channels/{channel_id}/messages?after={after}&limit=100"
-        status, messages = request(url, token=token)
-        if status == 200:
-            break
-        print(f"Read failed (attempt {attempt + 1}/3, status {status}); backing off")
-        import time
+    msgs = fetch_messages(token, reg_id)
+    new_count = 0
 
-        time.sleep(3 * (attempt + 1))
-        messages = None
-    if messages is None:
-        print("Giving up this cycle; will retry next run")
-        return
-
-    messages.reverse()  # oldest first so last_message_id advances correctly
-    members = load_json("members.json", {})
-    snapshots = load_json("snapshots.json", {})
-    changed = False
-
-    for msg in messages:
-        state["last_message_id"] = msg["id"]
-        author = msg["author"]
-        if author.get("bot"):
+    for m in msgs:
+        mid = m["id"]
+        if mid in seen:
             continue
-        content = msg.get("content", "")
-        reg = REGISTER_RE.match(content)
-        rem = REMOVE_RE.match(content)
-        uid = str(author["id"])
-        display = author.get("global_name") or author.get("username")
+        seen.add(mid)
+        processed.append(mid)
 
-        if reg:
-            username = reg.group(1)
-            matched = lc_profile(username)
-            if matched:
-                existing = members.get(uid)
-                members[uid] = {
-                    "discord_id": uid,
-                    "display_name": display,
-                    "lc_username": matched["username"],
-                    "avatar": matched.get("profile", {}).get("userAvatar"),
-                    "registered_at": datetime.now(IST).isoformat(),
-                }
-                snapshots.setdefault(uid, {})[today_ist()] = lc_totals(matched)
-                changed = True
-                totals = lc_totals(matched)
-                verb = (
-                    f"Updated your registration to **{matched['username']}**"
-                    if existing and existing["lc_username"] != matched["username"]
-                    else f"You're on the board as **{matched['username']}**"
-                )
-                request(
-                    f"{API}/channels/{channel_id}/messages",
-                    method="POST",
-                    token=token,
-                    body={
-                        "content": (
-                            f"<@{uid}> {verb}.\n"
-                            f"Lifetime: **{totals['All']} solved** "
-                            f"({totals['Easy']}E / {totals['Medium']}M / {totals['Hard']}H)."
-                        ),
-                        "message_reference": {"message_id": msg["id"]},
-                        "allowed_mentions": {"users": [uid]},
-                    },
-                )
-                request(
-                    f"{API}/channels/{channel_id}/messages/{msg['id']}"
-                    f"/reactions/%E2%9C%85/@me",
-                    method="PUT",
-                    token=token,
-                )
-                print(f"Registered {display} -> {matched['username']}")
-            else:
-                request(
-                    f"{API}/channels/{channel_id}/messages",
-                    method="POST",
-                    token=token,
-                    body={
-                        "content": f"<@{uid}> No LeetCode user called `{username}` — check the spelling and try again.",
-                        "message_reference": {"message_id": msg["id"]},
-                        "allowed_mentions": {"users": [uid]},
-                    },
-                )
-                print(f"Rejected bad username '{username}' for {display}")
-        elif rem:
-            if uid in members:
-                del members[uid]
-                snapshots.pop(uid, None)
-                changed = True
-                request(
-                    f"{API}/channels/{channel_id}/messages/{msg['id']}"
-                    f"/reactions/%F0%9F%91%8B/@me",
-                    method="PUT",
-                    token=token,
-                )
-                print(f"Removed {display}")
+        # Skip bot messages
+        if m.get("author", {}).get("bot"):
+            continue
 
-    save_json("state.json", state)
-    if changed:
-        save_json("members.json", members)
-        save_json("snapshots.json", snapshots)
+        content = (m.get("content") or "").strip()
+        match = USERNAME_RE.match(content)
+        if not match:
+            continue
 
+        lc_username = match.group(1)
+        discord_id = m["author"]["id"]
+        discord_name = m["author"].get("global_name") or m["author"]["username"]
+
+        # Check if already registered
+        already = False
+        for existing in members.values():
+            if existing.get("lc_username", "").lower() == lc_username.lower():
+                already = True
+                break
+
+        if already:
+            react(token, reg_id, mid, "\u274C")  # ❌
+            continue
+
+        # Validate against LeetCode
+        profile = lc_validate(lc_username)
+        if not profile:
+            react(token, reg_id, mid, "\u274C")  # ❌
+            continue
+
+        # Store member
+        members[discord_id] = {
+            "lc_username": profile["username"],
+            "display_name": discord_name,
+            "avatar": profile["avatar"],
+            "totals": profile["totals"],
+            "registered": datetime.now(IST).strftime("%Y-%m-%d"),
+        }
+        react(token, reg_id, mid, "\u2705")  # ✅
+        new_count += 1
+        print(f"Registered: {discord_name} -> {profile['username']}")
+
+    # Trim processed_ids to last 2000
+    if len(processed) > 2000:
+        processed = processed[-2000:]
+
+    save("members.json", members)
+    save("processed_ids.json", processed)
+    print(f"Poll done: {new_count} new registrations, {len(members)} total members")
+
+
+# ── Post leaderboard ────────────────────────────────────────────────────────
+
+def cmd_board():
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
+    if not token:
+        sys.exit("DISCORD_BOT_TOKEN required")
+    if not webhook:
+        sys.exit("LEADERBOARD_WEBHOOK_URL required")
+    resolve_channels(token)
+
+    members = load("members.json", {})
+    if not members:
+        body = {
+            "username": "Leaderboard",
+            "embeds": [{
+                "title": "LeetCode Leaderboard",
+                "description": "No one registered yet.\nType your LeetCode username in #register to join.",
+                "color": 0x95A5A6,
+            }],
+            "allowed_mentions": {"parse": []},
+        }
+        dapi(webhook, method="POST", body=body)
+        print("No members — posted empty board")
+        return
+
+    # Fetch stats for all members (with rate limiting)
+    rows = []
+    for i, (did, member) in enumerate(members.items()):
+        lc_user = member["lc_username"]
+        print(f"[{i+1}/{len(members)}] Fetching {lc_user}...")
+        stats = lc_stats(lc_user)
+
+        # Update stored totals
+        member["totals"] = stats["totals"]
+        member["avatar"] = stats["avatar"]
+
+        total = stats["totals"]["All"]
+        easy = stats["totals"]["Easy"]
+        medium = stats["totals"]["Medium"]
+        hard = stats["totals"]["Hard"]
+
+        contest_line = ""
+        if stats["contest"]:
+            c = stats["contest"]
+            contest_line = f" · {c['rating']} rating"
+
+        rows.append({
+            "name": member.get("display_name", lc_user),
+            "lc_username": lc_user,
+            "avatar": stats["avatar"],
+            "total": total,
+            "easy": easy,
+            "medium": medium,
+            "hard": hard,
+            "contest": contest_line,
+        })
+
+    # Sort by total solved descending, then easy/medium/hard
+    rows.sort(key=lambda r: (-r["total"], -r["hard"], -r["medium"], -r["easy"]))
+
+    # Build embed
+    now = datetime.now(IST)
+    lines = []
+    medals = ["\U0001F947", "\U0001F948", "\U0001F949"]  # 🥇🥈🥉
+    for i, r in enumerate(rows):
+        medal = medals[i] if i < 3 else f"**{i+1}.**"
+        lines.append(
+            f"{medal} **{r['name']}** — **{r['total']}** solved "
+            f"({r['easy']}E / {r['medium']}M / {r['hard']}H){r['contest']}"
+        )
+
+    # Split if too long for one embed
+    description = "\n".join(lines)
+    if len(description) > 4000:
+        description = description[:3997] + "..."
+
+    embed = {
+        "author": {"name": "LeetCode Leaderboard"},
+        "title": now.strftime("%B %d, %Y"),
+        "description": description,
+        "color": 0x5865F2,
+        "footer": {"text": f"{len(rows)} members · updates daily at 06:00 IST · register in #register"},
+    }
+
+    if rows and rows[0]["avatar"]:
+        embed["thumbnail"] = {"url": rows[0]["avatar"]}
+
+    body = {
+        "username": "Leaderboard",
+        "embeds": [embed],
+        "allowed_mentions": {"parse": []},
+    }
+    dapi(webhook, method="POST", body=body)
+
+    # Save updated totals
+    save("members.json", members)
+    print(f"Board posted: {len(rows)} members")
+
+
+# ── Main ────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in ("poll", "board", "daily"):
-        print("usage: leaderboard.py [poll|board|daily]")
+    if len(sys.argv) != 2 or sys.argv[1] not in ("poll", "board"):
+        print("usage: leaderboard.py [poll|board]")
         sys.exit(2)
-    {"poll": cmd_poll, "board": cmd_board, "daily": cmd_daily}[sys.argv[1]]()
+    {"poll": cmd_poll, "board": cmd_board}[sys.argv[1]]()
