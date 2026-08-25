@@ -249,7 +249,7 @@ def post_register_message(token, channel_id, members):
     })
 
     body = {
-        "username": "Register",
+        "username": "Register Bot",
         "embeds": embeds,
         "allowed_mentions": {"parse": []},
     }
