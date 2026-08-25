@@ -649,11 +649,210 @@ def mode_cp31_all(only=None):
                        start_slot=start_slot if len(bands) == 1 else 1)
 
 
+LC_GRAPHQL = "https://leetcode.com/graphql"
+LC_QUERY = """query q($titleSlug: String!) {
+  question(titleSlug: $titleSlug) {
+    title titleSlug difficulty content
+    topicTags { name }
+  }
+}"""
+
+
+def fetch_lc_question(slug):
+    body = json.dumps({"query": LC_QUERY, "variables": {"titleSlug": slug}}).encode()
+    req = urllib.request.Request(
+        LC_GRAPHQL, data=body, method="POST",
+        headers={"Content-Type": "application/json",
+                 "User-Agent": CF_UA,
+                 "Referer": f"https://leetcode.com/problems/{slug}/"})
+    start = time.time()
+    while time.time() - start < 60:
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                data = json.loads(r.read().decode())
+                return (data.get("data") or {}).get("question")
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                time.sleep(10)
+            else:
+                return None
+        except Exception:
+            time.sleep(5)
+    return None
+
+
+def fmt_lc_embed(idx, total, name, slug, q):
+    url = f"https://leetcode.com/problems/{slug}/" if slug else ""
+    if not q or not q.get("content"):
+        embed = {
+            "author": {"name": "DSA Topics"},
+            "title": f"{idx}. {name}",
+            "color": 0x8E44AD,
+            "description": ("Classic curated problem — find the statement on "
+                            "LeetCode/GeeksforGeeks."),
+        }
+        if url:
+            embed["url"] = url
+        return embed
+    body_md = _latex_to_plain(cses_html_to_md(q["content"]))
+    tags = ", ".join(t["name"] for t in (q.get("topicTags") or [])[:4])
+    fields = [{"name": "Difficulty", "value": q.get("difficulty") or "—", "inline": True}]
+    if tags:
+        fields.append({"name": "Topics", "value": truncate(tags, 200, "…"), "inline": True})
+    fields.append({"name": "Position", "value": f"{idx}/{total}", "inline": True})
+    return {
+        "author": {"name": "DSA Topics · LeetCode"},
+        "title": f"{idx}. {q.get('title') or name}",
+        "url": url,
+        "color": 0x8E44AD,
+        "description": truncate(body_md, 3900, "\n… *(truncated — full statement at the link)*"),
+        "fields": fields,
+    }
+
+
+def _dump_topic_list(hook, token, channel_name, author, color, items, theory=None):
+    channel_id = find_channel_id(token, channel_name)
+    clear_channel(token, channel_id)
+
+    intro = {
+        "author": {"name": author},
+        "title": channel_name.replace("-", " ").title(),
+        "color": color,
+        "description": ("Curated sequence — every problem in order, statement on "
+                        "each card. Catalog at the end."),
+        "footer": {"text": f"{len(items)} problems"},
+    }
+    send_embed(hook, intro)
+
+    if theory:
+        send_embed(hook, {
+            "author": {"name": author},
+            "title": "Concepts first",
+            "color": color,
+            "description": truncate(theory, 3900, "\n…"),
+        })
+
+    catalog = [f"**Catalog — {channel_name.replace('-', ' ').title()}**", ""]
+    for i, item in enumerate(items, 1):
+        name = item[0]
+        slug = item[1] if len(item) > 1 else ""
+        q = fetch_lc_question(slug) if slug else None
+        send_embed(hook, fmt_lc_embed(i, len(items), name, slug, q))
+        catalog.append(f"**{i}.** {name}")
+        print(f"[{channel_name}] posted {i}/{len(items)} {name}")
+        time.sleep(0.1)
+
+    payload = {"content": "\n".join(catalog)[:2000], "allowed_mentions": {"parse": []}}
+    call(hook, method="POST", body=payload)
+    time.sleep(SEND_PACE)
+    print(f"[{channel_name}] catalog posted — done")
+
+
+THEORY_KEYS = {
+    "stacks-and-queues": "stacks-and-queues", "linked-list": "linked-list",
+    "trees": "trees", "graphs": "graphs",
+    "searching-and-sorting": "searching-and-sorting",
+}
+
+
+def mode_topics_all(only=None):
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    sheet = json.load(open("data/topics_sheet.json"))
+    topics = sheet["topics"]
+    slugs = [only] if only else list(topics)
+    for slug in slugs:
+        hook = hooks.get(f"dsa-{slug}")
+        if not hook:
+            print(f"[{slug}] no webhook — skipped")
+            continue
+        items = [(it[0], it[1] if len(it) > 1 else "") for it in topics[slug]]
+        theory = None
+        key = THEORY_KEYS.get(slug)
+        if key and key in sheet.get("theory", {}):
+            theory = sheet["theory"][key]
+        _dump_topic_list(hook, token, slug, "DSA Topics", 0x8E44AD, items, theory)
+
+
+def mode_topics_concepts():
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    sheet = json.load(open("data/topics_sheet.json"))
+    hook = hooks.get("dsa-concepts")
+    assert hook, "dsa-concepts webhook missing"
+    channel_id = find_channel_id(token, "concepts")
+    clear_channel(token, channel_id)
+
+    send_embed(hook, {
+        "author": {"name": "DSA Topics"},
+        "title": "Core Concepts",
+        "color": 0x7D3C98,
+        "description": ("Foundations before the problem lists. One card per "
+                        "concept area."),
+        "footer": {"text": f"{len(sheet['theory'])} areas"},
+    })
+    titles = {
+        "intro": "Introduction to Data Structures & Algorithms",
+        "stacks-and-queues": "Stacks & Queues", "linked-list": "Linked Lists",
+        "trees": "Trees", "graphs": "Graphs", "searching-and-sorting":
+        "Sorting & Searching",
+    }
+    catalog = ["**Catalog — Core Concepts**", ""]
+    for i, (key, text) in enumerate(sheet["theory"].items(), 1):
+        send_embed(hook, {
+            "author": {"name": "DSA Topics"},
+            "title": f"{i}. {titles.get(key, key.replace('-', ' ').title())}",
+            "color": 0x7D3C98,
+            "description": truncate(text, 3900, "\n…"),
+        })
+        catalog.append(f"**{i}.** {titles.get(key, key)}")
+        time.sleep(0.2)
+    payload = {"content": "\n".join(catalog), "allowed_mentions": {"parse": []}}
+    call(hook, method="POST", body=payload)
+    time.sleep(SEND_PACE)
+    print("[concepts] done")
+
+
+def mode_revision():
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    sheet = json.load(open("data/topics_sheet.json"))
+    hook = hooks.get("dsa-revision")
+    items = []
+    for group, rows in sheet["revision"].items():
+        for r in rows:
+            items.append((f"[{group.replace('-', ' ').title()}] {r[0]}",
+                          r[1] if len(r) > 1 else ""))
+    _dump_topic_list(hook, token, "revision", "Revision Sprint", 0xD35400, items)
+
+
+def mode_blind75():
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    sheet = json.load(open("data/topics_sheet.json"))
+    hook = hooks.get("blind-75")
+    items = [(r[0], r[1]) for r in sheet["blind75"]]
+    _dump_topic_list(hook, token, "blind-75", "Blind 75", 0x2471A3, items)
+
+
 MODES = {
     "cses-intro": lambda: mode_cses_all(only="Introductory Problems"),
     "cses-all": mode_cses_all,
     "cp31-all": mode_cp31_all,
 }
+
+
+
+MODES.update({
+    "topics-all": mode_topics_all,
+    "topics-concepts": mode_topics_concepts,
+    "revision": mode_revision,
+    "blind75": mode_blind75,
+})
 
 
 def resolve_mode(mode):
@@ -671,6 +870,9 @@ def resolve_mode(mode):
     m = re.fullmatch(r"cp31-(\d{3,4})", mode)
     if m:
         return lambda: mode_cp31_all(only=int(m.group(1)))
+    m = re.fullmatch(r"topics-(.+)", mode)
+    if m and m.group(1) in json.load(open("data/topics_sheet.json"))["topics"]:
+        return lambda: mode_topics_all(only=m.group(1))
     raise SystemExit(f"unknown mode '{mode}'")
 
 
