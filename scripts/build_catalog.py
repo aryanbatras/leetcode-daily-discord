@@ -11,6 +11,7 @@ via the bot token in $DISCORD_BOT_TOKEN.
 import html as htmllib
 import json
 import os
+import random
 import re
 import subprocess
 import sys
@@ -23,8 +24,8 @@ GUILD = 1541028379598397452
 LOCAL_HOOKS = "/var/folders/y6/rr08l8t92zv7ztv48m74gjsr0000gn/T/opencode/feed_webhooks_v2.json"
 UA_DISCORD = "MFGrindBot/1.0 (github.com/aryanbatras/leetcode-daily-discord)"
 UA_BROWSER = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-SEND_PACE = 2.5
-FETCH_PACE = 1.5
+SEND_PACE = 0.25
+FETCH_PACE = 0.2
 
 MATH_REPL = [
     ("\\rightarrow", "→"), ("\\leftarrow", "←"), ("\\le", "≤"), ("\\leq", "≤"),
@@ -363,31 +364,77 @@ def _curl_text(args, timeout_s):
         return False, ""
 
 
-def fetch_cf_html(url):
-    """Codeforces blocks bots (Cloudflare). Strategy: Wayback Machine first
-    (problem pages are immutable), then r.jina.ai HTML mode as fallback."""
-    ok, meta = _curl_text(
-        ["http://archive.org/wayback/available?url=" + url], 30)
-    if ok and meta.strip():
-        try:
-            closest = json.loads(meta)["archived_snapshots"]["closest"]
-            snap = closest["url"]
-            ts_end = snap.find("/", len("http://web.archive.org/web/"))
-            snap = snap[:ts_end] + "id_" + snap[ts_end:]
-            ok, h = _curl_text(["-L", snap], 90)
-            if '<div class="problem-statement"' in h:
-                return h
-        except Exception:
-            pass
+def _wayback_variants(snap0):
+    ts_end = snap0.find("/", len("http://web.archive.org/web/"))
+    base_ts = snap0[:ts_end]
+    path = snap0[ts_end:]
+    yield base_ts + "id_" + path
+    yield base_ts + "if_" + path
+    yield snap0
 
-    # fallback: reader proxy in html mode
-    start = time.time()
-    while time.time() - start < 300:
+
+def fetch_cf_html(url):
+    """Wayback (closest + CDX alternates, 3 url variants) -> memento ->
+    jina. Cycles until deadline."""
+    deadline = time.time() + 90
+    bare = url.replace("https://", "").replace("http://", "")
+    tried = set()
+    while time.time() < deadline:
+        ok, meta = _curl_text(
+            ["http://archive.org/wayback/available?url=" + url], 15)
+        if ok and meta.strip():
+            try:
+                closest = json.loads(meta)["archived_snapshots"]["closest"]
+                for snap in _wayback_variants(closest["url"]):
+                    if snap in tried:
+                        continue
+                    tried.add(snap)
+                    ok, h = _curl_text(["-L", snap], 30)
+                    if '<div class="problem-statement"' in h:
+                        return h
+            except Exception:
+                pass
+
+        ok, cdx = _curl_text(
+            ["http://web.archive.org/cdx/search/cdx?url=" + bare +
+             "&output=json&filter=statuscode:200"], 15)
+        if ok and cdx.strip():
+            try:
+                rows = json.loads(cdx)[1:]
+                random.shuffle(rows)
+                for row in rows[:4]:
+                    snap = f"http://web.archive.org/web/{row[1]}id_/{row[2]}"
+                    if snap in tried:
+                        continue
+                    tried.add(snap)
+                    ok, h = _curl_text(["-L", snap], 30)
+                    if '<div class="problem-statement"' in h:
+                        return h
+            except Exception:
+                pass
+
+        ok, mem = _curl_text(
+            ["http://timetravel.mementoweb.org/api/json/2026/" + url], 15)
+        if ok and mem.strip():
+            try:
+                data = json.loads(mem)
+                snaps = data.get("mementos", {}).get("list", [])
+                for s in snaps[:3]:
+                    uri = s.get("uri")
+                    if not uri or uri in tried:
+                        continue
+                    tried.add(uri)
+                    ok, h = _curl_text(["-L", uri], 30)
+                    if '<div class="problem-statement"' in h:
+                        return h
+            except Exception:
+                pass
+
         ok, out = _curl_text(["-H", "X-Return-Format: html", "-A", CF_UA,
-                              "https://r.jina.ai/" + url], 90)
+                              "https://r.jina.ai/" + url], 30)
         if ok and '<div class="problem-statement"' in out:
             return out
-        time.sleep(15)
+        time.sleep(3)
     raise RuntimeError(f"cf fetch exhausted: {url}")
 
 
@@ -509,7 +556,26 @@ def fmt_cf_embed(band, total, p, detail):
     }
 
 
-def dump_cp31_band(hooks, token, band, problems):
+def _clear_from_slot(token, channel_id, start_slot):
+    """Delete bot messages at slot >= start_slot and any catalog message.
+    Keeps the intro embed and cards for earlier slots."""
+    msgs = call(f"{BASE}/channels/{channel_id}/messages?limit=100", token=token)
+    removed = 0
+    for msg in msgs:
+        if not msg.get("author", {}).get("bot"):
+            continue
+        embed = (msg.get("embeds") or [{}])[0]
+        m = re.match(r"^(\d+)\.", embed.get("title") or "")
+        is_catalog = (msg.get("content") or "").startswith("**Catalog")
+        if is_catalog or (m and int(m.group(1)) >= start_slot):
+            call(f"{BASE}/channels/{channel_id}/messages/{msg['id']}",
+                 method="DELETE", token=token)
+            time.sleep(0.15)
+            removed += 1
+    return removed
+
+
+def dump_cp31_band(hooks, token, band, problems, start_slot=1):
     key = f"cf-{band}"
     hook = hooks.get(key)
     if not hook:
@@ -517,22 +583,28 @@ def dump_cp31_band(hooks, token, band, problems):
         return
     channel_id = find_channel_id(token, str(band))
     problems.sort(key=lambda p: p["slot"])
-    print(f"[cp31 {band}] {len(problems)} problems")
+    print(f"[cp31 {band}] {len(problems)} problems (start slot {start_slot})")
 
-    clear_channel(token, channel_id)
+    if start_slot <= 1:
+        clear_channel(token, channel_id)
+        send_embed(hook, {
+            "author": {"name": "CP-31 Sheet"},
+            "title": f"Band {band}",
+            "url": "https://codeforces.com/problemset/",
+            "color": 0x2874A6,
+            "description": ("31 problems rated " + str(band) + ", one slot per day. "
+                            "Full statement on each card. Catalog at the end."),
+            "footer": {"text": f"{len(problems)} problems"},
+        })
+    else:
+        removed = _clear_from_slot(token, channel_id, start_slot)
+        print(f"[cp31 {band}] resumed — removed {removed} stale messages")
 
-    send_embed(hook, {
-        "author": {"name": "CP-31 Sheet"},
-        "title": f"Band {band}",
-        "url": "https://codeforces.com/problemset/",
-        "color": 0x2874A6,
-        "description": ("31 problems rated " + str(band) + ", one slot per day. "
-                        "Full statement on each card. Catalog at the end."),
-        "footer": {"text": f"{len(problems)} problems"},
-    })
+    todo = [p for p in problems if p["slot"] >= start_slot]
 
     catalog = [f"**Catalog — band {band}**", ""]
-    for p in problems:
+    catalog += [f"**{p['slot']}.** {p['name']}" for p in problems]
+    for p in todo:
         try:
             detail = scrape_cf_problem(p["url"])
         except Exception as exc:
@@ -540,9 +612,8 @@ def dump_cp31_band(hooks, token, band, problems):
             detail = {"tl": "", "ml": "",
                       "body": "*(scrape failed — solve at the link)*"}
         send_embed(hook, fmt_cf_embed(band, len(problems), p, detail))
-        catalog.append(f"**{p['slot']}.** {p['name']}")
         print(f"[cp31 {band}] posted {p['slot']}/{len(problems)} {p['name']}")
-        time.sleep(max(FETCH_PACE, 2.0))
+        time.sleep(0.1)
 
     payload = {"content": "\n".join(catalog)[:2000], "allowed_mentions": {"parse": []}}
     call(hook, method="POST", body=payload)
@@ -568,12 +639,14 @@ def mode_cp31_all(only=None):
     hooks = hooks_map()
     by_band = load_cp31()
     bands = [only] if only else CP31_BANDS
+    start_slot = int(os.environ.get("CP31_START_SLOT", "1"))
     for band in bands:
         problems = by_band.get(int(band), [])
         if not problems:
             print(f"[cp31 {band}] no problems in dataset — skipped")
             continue
-        dump_cp31_band(hooks, token, int(band), problems)
+        dump_cp31_band(hooks, token, int(band), problems,
+                       start_slot=start_slot if len(bands) == 1 else 1)
 
 
 MODES = {
