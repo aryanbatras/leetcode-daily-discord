@@ -204,13 +204,13 @@ CSES_SECTIONS = [
 ]
 
 
-def dump_cses_section(hooks, token, section, tasks):
+def dump_cses_section(hooks, token, section, tasks, channel_id=None):
     key = "cses-" + section.lower().replace(" ", "-")
     hook = hooks.get(key)
     if not hook:
         print(f"[{section}] no webhook key {key} — skipped")
         return
-    channel_id = find_channel_id(token, key[5:])  # channel names drop the cses- prefix
+    channel_id = channel_id or find_channel_id(token, key[5:])  # names drop the cses- prefix
     print(f"[{section}] {len(tasks)} tasks")
 
     clear_channel(token, channel_id)
@@ -710,8 +710,8 @@ def fmt_lc_embed(idx, total, name, slug, q):
     }
 
 
-def _dump_topic_list(hook, token, channel_name, author, color, items, theory=None):
-    channel_id = find_channel_id(token, channel_name)
+def _dump_topic_list(hook, token, channel_name, author, color, items, theory=None, channel_id=None):
+    channel_id = channel_id or find_channel_id(token, channel_name)
     clear_channel(token, channel_id)
 
     intro = {
