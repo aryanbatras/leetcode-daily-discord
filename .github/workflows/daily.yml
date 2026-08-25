@@ -1,4 +1,4 @@
-name: Post LeetCode Daily
+name: Daily Post
 
 on:
   schedule:
@@ -13,7 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Post today's problem to Discord
+      - name: Post daily problem
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python3 post_daily.py
+      - name: Post upcoming contests
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          FEED_WEBHOOKS: ${{ secrets.FEED_WEBHOOKS }}
+        run: python3 -u scripts/build_catalog.py contests
