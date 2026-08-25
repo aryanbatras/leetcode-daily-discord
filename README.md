@@ -1,15 +1,16 @@
 # leetcode-daily-discord
 
-Mission Faang's automation: daily LeetCode problem + local weekly leaderboard, zero servers.
+Mission Faang's automation: daily LeetCode problem + CodeGrind leaderboard, zero servers.
 
 ## What runs here
 | Workflow | Schedule (IST) | What it does |
 |---|---|---|
 | Post LeetCode Daily | 06:00 daily | Fetches today's problem from LeetCode's API, posts full statement + examples + rating into #daily-problem, pings everyone |
-| Process registrations | every 10 min | Reads `!register <username>` / `!remove` in #leaderboard via the bot token, validates against LeetCode, reacts |
 | Post weekly board | 08:00 daily | Snapshots each member's solved totals, computes week-to-date deltas (Mon reset), posts the board |
 
-State (`data/*.json`) is committed back by Actions — that IS the database.
+The leaderboard is managed by **CodeGrind bot** — members join via `/add` in #leaderboard (no `!register` needed).
+
+State (`data/*.json`) is committed back by the bot.
 
 ## Secrets
 - `DISCORD_WEBHOOK_URL` — #daily-problem webhook

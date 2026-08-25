@@ -121,6 +121,24 @@ def send_embed(hook, embed):
     time.sleep(SEND_PACE)
 
 
+def send_catalog(hook, lines):
+    """Send catalog lines, splitting into multiple messages if needed."""
+    full = "\n".join(lines)
+    chunks = []
+    while len(full) > 2000:
+        cut = full[:2000].rfind("\n")
+        if cut < 100:
+            cut = 2000
+        chunks.append(full[:cut])
+        full = full[cut:].lstrip("\n")
+    if full:
+        chunks.append(full)
+    for chunk in chunks:
+        payload = {"content": chunk[:2000], "allowed_mentions": {"parse": []}}
+        call(hook, method="POST", body=payload)
+        time.sleep(SEND_PACE)
+
+
 def latest_message_id(token, channel_id):
     msgs = call(f"{BASE}/channels/{channel_id}/messages?limit=1", token=token)
     return msgs[0]["id"] if msgs else None
@@ -239,9 +257,7 @@ def dump_cses_section(hooks, token, section, tasks, channel_id=None):
         print(f"[{section}] posted {i}/{len(tasks)} {task['name']}")
         time.sleep(FETCH_PACE)
 
-    payload = {"content": "\n".join(catalog)[:2000], "allowed_mentions": {"parse": []}}
-    call(hook, method="POST", body=payload)
-    time.sleep(SEND_PACE)
+    send_catalog(hook, catalog)
     print(f"[{section}] catalog posted — done")
 
 
@@ -617,9 +633,7 @@ def dump_cp31_band(hooks, token, band, problems, start_slot=1):
         print(f"[cp31 {band}] posted {p['slot']}/{len(problems)} {p['name']}")
         time.sleep(0.1)
 
-    payload = {"content": "\n".join(catalog)[:2000], "allowed_mentions": {"parse": []}}
-    call(hook, method="POST", body=payload)
-    time.sleep(SEND_PACE)
+    send_catalog(hook, catalog)
     print(f"[cp31 {band}] catalog posted — done")
 
 
@@ -744,9 +758,7 @@ def _dump_topic_list(hook, token, channel_name, author, color, items, theory=Non
         print(f"[{channel_name}] posted {i}/{len(items)} {name}")
         time.sleep(0.1)
 
-    payload = {"content": "\n".join(catalog)[:2000], "allowed_mentions": {"parse": []}}
-    call(hook, method="POST", body=payload)
-    time.sleep(SEND_PACE)
+    send_catalog(hook, catalog)
     print(f"[{channel_name}] catalog posted — done")
 
 
@@ -910,10 +922,7 @@ def mode_notes(only=None):
             })
             catalog.append(f"**{i}.** {gtitle}")
             time.sleep(0.2)
-        payload = {"content": "\n".join(catalog)[:2000],
-                   "allowed_mentions": {"parse": []}}
-        call(hook, method="POST", body=payload)
-        time.sleep(SEND_PACE)
+        send_catalog(hook, catalog)
         print(f"[{key}] done")
 
 
@@ -958,10 +967,7 @@ def mode_langs(only=None, path="data/lang_notes.json"):
                 "description": "\n".join(lines)[:3900],
             })
             catalog.append(f"**{len(note['groups']) + 1}.** Topic-wise Resources")
-        payload = {"content": "\n".join(catalog)[:2000],
-                   "allowed_mentions": {"parse": []}}
-        call(hook, method="POST", body=payload)
-        time.sleep(SEND_PACE)
+        send_catalog(hook, catalog)
         print(f"[{key}] done")
 
 
@@ -1027,10 +1033,7 @@ def mode_core(only=None):
                 "description": "\n".join(lines)[:3900],
             })
             catalog.append(f"**{len(note['groups']) + 1}.** Topic-wise Resources")
-        payload = {"content": "\n".join(catalog)[:2000],
-                   "allowed_mentions": {"parse": []}}
-        call(hook, method="POST", body=payload)
-        time.sleep(SEND_PACE)
+        send_catalog(hook, catalog)
         print(f"[{key}] done")
 
 

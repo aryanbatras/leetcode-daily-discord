@@ -86,7 +86,7 @@ def build_embed(daily):
     embed["fields"] = fields
 
     embed["footer"] = {
-        "text": "Progress counts automatically once you've run !register in #leaderboard",
+        "text": "Progress tracked automatically via CodeGrind — /add to join the leaderboard",
     }
     return embed
 
