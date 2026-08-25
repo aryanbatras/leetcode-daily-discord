@@ -1,27 +1,29 @@
 # leetcode-daily-discord
 
-Mission Faang's automation: daily LeetCode problem + CodeGrind leaderboard, zero servers.
+Mission Faang's automation: daily LeetCode problem, contests, and leaderboard — zero servers.
 
 ## What runs here
-| Workflow | Schedule (IST) | What it does |
+| Step | Schedule (IST) | What it does |
 |---|---|---|
-| Post LeetCode Daily | 06:00 daily | Fetches today's problem from LeetCode's API, posts full statement + examples + rating into #daily-problem, pings everyone |
-| Post weekly board | 08:00 daily | Snapshots each member's solved totals, computes week-to-date deltas (Mon reset), posts the board |
+| Daily problem | 06:00 daily | Fetches today's LeetCode problem, posts to #daily-problem (clears old messages first) |
+| Contest calendar | 06:00 daily | Posts upcoming LeetCode + Codeforces contests to #upcoming-contests |
+| Poll registrations | 06:00 daily | Scans #register for new usernames, validates against LeetCode, reacts ✅/❌ |
+| Leaderboard | 06:00 daily | Fetches stats for all registered members, posts ranked board to #leaderboard |
 
-The leaderboard is managed by **CodeGrind bot** — members join via `/add` in #leaderboard (no `!register` needed).
+All automated via a single GitHub Actions workflow (`daily.yml`).
 
-State (`data/*.json`) is committed back by the bot.
+## How to join the leaderboard
+1. Go to **#register**
+2. Type your **LeetCode username**
+3. Bot validates and reacts ✅ — you're in
 
 ## Secrets
+- `DISCORD_BOT_TOKEN` — bot token (MESSAGE CONTENT intent required)
 - `DISCORD_WEBHOOK_URL` — #daily-problem webhook
 - `LEADERBOARD_WEBHOOK_URL` — #leaderboard webhook
-- `DISCORD_BOT_TOKEN` — bot application token; needs MESSAGE CONTENT intent enabled in the dev portal
+- `FEED_WEBHOOKS` — full webhook map JSON for build_catalog.py
 
 ## Manual runs
 ```
-gh workflow run post-daily.yml
-gh workflow run register.yml
-gh workflow run weekly-board.yml
+gh workflow run daily.yml
 ```
-
-Note: GitHub pauses cron workflows on repos with no commits for 60 days — any commit re-enables.
