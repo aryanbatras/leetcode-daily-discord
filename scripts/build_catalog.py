@@ -847,11 +847,32 @@ MODES = {
 
 
 
+SDE_GROUPS = ["arrays", "linked-list", "stacks-queues-strings",
+              "trees-heaps", "graphs", "dp-greedy"]
+
+
+def mode_sde_all(only=None):
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    sheet = json.load(open("data/sde_sheet.json"))
+    groups = [only] if only else SDE_GROUPS
+    for g in groups:
+        hook = hooks.get(f"sde-{g}")
+        if not hook:
+            print(f"[sde {g}] no webhook — skipped")
+            continue
+        items = [(r[0], r[1] if len(r) > 1 else "") for r in sheet[g]]
+        _dump_topic_list(hook, token, f"sde-{g}", "Striver SDE Sheet",
+                         0x1A5276, items)
+
+
 MODES.update({
     "topics-all": mode_topics_all,
     "topics-concepts": mode_topics_concepts,
     "revision": mode_revision,
     "blind75": mode_blind75,
+    "sde-all": mode_sde_all,
 })
 
 
@@ -873,6 +894,9 @@ def resolve_mode(mode):
     m = re.fullmatch(r"topics-(.+)", mode)
     if m and m.group(1) in json.load(open("data/topics_sheet.json"))["topics"]:
         return lambda: mode_topics_all(only=m.group(1))
+    m = re.fullmatch(r"sde-(.+)", mode)
+    if m and m.group(1) in SDE_GROUPS:
+        return lambda: mode_sde_all(only=m.group(1))
     raise SystemExit(f"unknown mode '{mode}'")
 
 
