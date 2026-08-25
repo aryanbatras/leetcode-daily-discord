@@ -1,0 +1,60 @@
+{
+  "dbms": {
+    "title": "Databases · Core Notes",
+    "color": 11737217,
+    "groups": [
+      ["Introduction to DBMS", "Data, Database and File System. Types of Database. What is DBMS and its applications. Need, advantages and disadvantages of DBMS. Data Abstraction. DBMS Architecture, 3-tier Architecture."],
+      ["Data Models", "Data Models and their types. ER Model and its components - Entity, Attributes & Relationship. Extended ER features. Entity-Relationship Diagrams."],
+      ["Relational Model / RDBMS", "What is RDBMS. Essential Components of a table. Intension and Extension in a Database. Keys. Normalisation and its Types (1NF, 2NF, 3NF). Functional dependency. Denormalization."],
+      ["SQL", "SQL Commands and their types (INSERT, UPDATE, DELETE, SELECT, ALTER). Operators and Aggregation in SQL. SQL clauses (WHERE, GROUP BY, HAVING, ORDER BY, LIMIT). Joins in SQL (INNER, OUTER, LEFT, RIGHT). Unions in SQL. Views in SQL. Sub Queries."],
+      ["Transactions and Concurrency Control", "ACID properties. Schedules (SERIAL, PARALLEL). Isolation levels and their types. Serializability and concurrency control. Locking protocols (shared locks, exclusive locks). Database recovery management."],
+      ["Query Optimization", "Techniques for optimizing SQL queries. Indexing and its types. B and B+ trees."],
+      ["Scalability, Integrity & Security", "Vertical and Horizontal scaling. Sharding. Data Integrity and Security. RBAC (Role-based access control). Encryption. Data masking techniques."]
+    ]
+  },
+  "os": {
+    "title": "Operating Systems · Core Notes",
+    "color": 3059753,
+    "groups": [
+      ["Introduction to OS", "OS and main functions. Process vs Program vs Thread. Types of OS - Batch OS, Multiprogramming and Multitasking OS. Kernel and user modes. Process states. Normal function call vs System Calls."],
+      ["Process Management", "Process scheduling algorithms (Preemptive and Non-Preemptive): FCFS, SJF, SRTF, HRNN, RR, PBS, MLQ, MLFQ. Starvation and Aging. Producer-consumer problem. Critical Section Problem. Process synchronization tools. Semaphores and their types. Deadlock and methods for preventing it. Banker's algorithm."],
+      ["Memory Management", "Memory management techniques (First Fit, Best Fit, Worst Fit). Virtual Memory. Contiguous allocation. Paging and Segmentation. Dynamic binding. Page Faults. Page replacement algorithms (LRU, Optimal, FIFO). Belady's Anomaly. Thrashing."],
+      ["File Systems", "What is a file system and its components. Types of file systems. File allocation and deallocation. Fragmentation."],
+      ["I/O Systems", "Blocking vs non-blocking I/O. Synchronous vs asynchronous I/O. Spooling."],
+      ["Storage Management & Data Protection", "RAID and its types. Security threats and vulnerabilities. Disk Scheduling algorithms. Cache - direct and associative mapping."]
+    ]
+  },
+  "cn": {
+    "title": "Computer Networks · Core Notes",
+    "color": 15105570,
+    "groups": [
+      ["Introduction to Networks", "What is a network. Types of Network (LAN, WAN, MAN). Hub, Switch and Router. Network Topologies. Nodes and Links."],
+      ["OSI Model", "OSI model overview. Layers of the OSI model."],
+      ["TCP/IP Model", "TCP/IP protocol suite. Different layers of the TCP/IP model. Difference between OSI and TCP/IP models."],
+      ["Physical Layer", "Data transmission. Bandwidth. Transmission media and wireless transmission."],
+      ["Data Link Layer", "Error detection and correction. Data link protocols. Multiple Access protocols. MAC Address. Channel allocation problem. Data Link Layer Switching. Ethernet LANs."],
+      ["Network Layer", "Routing algorithms. Congestion control algorithms. IP addressing and subnetting. IPv4 and IPv6. ICMP. Fragmentation. Tunneling. Subnet, Gateway and Router. Count-to-infinity problem."],
+      ["Transport Layer", "Elements of transport protocol. TCP. UDP. State transition diagram. 3-way Handshaking. Congestion control mechanisms."],
+      ["Session, Presentation & Application Layers", "Session Layer basics. Presentation Layer basics. Application Layer: DNS, WWW, HTTP, FTP, SMTP, DHCP."],
+      ["Network Security", "What is network security. Cryptography. Types of Encryption (RSA, DES, AES, Diffie-Hellman). Hash Functions. Digital Signatures. Network Security Protocols. VPNs. Network Attacks."],
+      ["Network Troubleshooting", "Ping command. Delays and their types."]
+    ]
+  },
+  "hld": {
+    "title": "System Design · HLD Notes",
+    "color": 16093285,
+    "groups": [
+      ["Basics", "What is System Design? Horizontal vs Vertical Scaling. Capacity Estimation. What is HTTP? The Internet TCP/IP stack. What happens when you enter Google.com? Relational Databases. Database Indexes. NoSQL databases. Caches. Thrashing. Threads."],
+      ["Load Balancing", "What is Load Balancing? Consistent Hashing. Sharding."],
+      ["Data Stores", "Bloom Filters. Data Replication. How NoSQL databases are optimized. Location-based Databases. Database Migrations."],
+      ["Consistency vs Availability", "Data Consistency. Consistency Levels. Transaction Isolation Levels."],
+      ["Message Queues", "What is a Message Queue? Publisher-subscriber model. Event-driven systems. Database as a Message Queue."],
+      ["DevOps Concepts", "Single Point of Failure. Containers. Service Discovery and Heartbeats. Avoiding Cascading Failures. Anomaly Detection in Distributed Systems. Distributed Rate Limiting."],
+      ["Caching", "Distributed Caching. Content Delivery Networks. Write Policies. Replacement Policies."],
+      ["Microservices & API Gateways", "Microservices vs Monoliths. How monoliths are migrated. How APIs are designed. Asynchronous APIs."],
+      ["Authentication", "OAuth. Token Based Auth. Access Control Lists and Rule Engines."],
+      ["Tradeoffs", "Pull vs Push. Memory vs Latency. Throughput vs Latency. Consistency vs Availability. Latency vs Accuracy. SQL vs NoSQL."],
+      ["Practice Problems", "Live-Streaming App · Instagram · Tinder · WhatsApp · TikTok · Online Coding Judge (Part 1 & 2) · UPI Payments · IRCTC · Netflix Video Onboarding Pipeline · Doordash · Amazon Online Shops · Google Maps · Gmail · Chess Website · Uber · Google Docs.\n\nAdditional resources: InterviewReady course, Designing Data-Intensive Applications (book), System Design Primer (GitHub)."]
+    ]
+  }
+}

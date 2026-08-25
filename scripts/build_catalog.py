@@ -876,6 +876,50 @@ MODES.update({
 })
 
 
+def mode_notes(only=None):
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    assert token, "DISCORD_BOT_TOKEN required"
+    hooks = hooks_map()
+    notes = json.load(open("data/core_notes.json"))
+    keys = [only] if only else list(notes)
+    for key in keys:
+        note = notes[key]
+        hook = hooks.get(key)
+        if not hook:
+            print(f"[{key}] no webhook — skipped")
+            continue
+        channel_id = find_channel_id(token, key)
+        clear_channel(token, channel_id)
+        send_embed(hook, {
+            "author": {"name": "Core Engineering"},
+            "title": note["title"],
+            "color": note["color"],
+            "description": ("Full syllabus, one card per topic area. "
+                            "Catalog at the end."),
+            "footer": {"text": f"{len(note['groups'])} areas"},
+        })
+        catalog = [f"**Catalog — {note['title']}**", ""]
+        for i, (gtitle, gbody) in enumerate(note["groups"], 1):
+            send_embed(hook, {
+                "author": {"name": "Core Engineering"},
+                "title": f"{i}. {gtitle}",
+                "color": note["color"],
+                "description": truncate(gbody, 3900, "\n…"),
+            })
+            catalog.append(f"**{i}.** {gtitle}")
+            time.sleep(0.2)
+        payload = {"content": "\n".join(catalog)[:2000],
+                   "allowed_mentions": {"parse": []}}
+        call(hook, method="POST", body=payload)
+        time.sleep(SEND_PACE)
+        print(f"[{key}] done")
+
+
+MODES.update({
+    "notes": mode_notes,
+})
+
+
 def resolve_mode(mode):
     """cses-intro / cses-all / cses-<section-slug> for any single section."""
     if mode in MODES:
