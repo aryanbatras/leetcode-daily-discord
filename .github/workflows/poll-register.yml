@@ -2,7 +2,7 @@ name: Poll Registrations
 
 on:
   schedule:
-    - cron: "*/10 * * * *"  # every 10 minutes
+    - cron: "0 * * * *"  # every hour
   workflow_dispatch:
 
 permissions:
@@ -16,10 +16,10 @@ jobs:
       - name: Poll #register for new usernames
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: python3 leaderboard.py poll
-      - name: Commit processed IDs
+        run: python3 -u leaderboard.py poll
+      - name: Commit member updates
         run: |
           git config user.name "mf-bot"
           git config user.email "bot@missionfaang.local"
-          git add data/processed_ids.json data/members.json
-          if git diff --cached --quiet; then echo "nothing to commit"; else git commit -m "registration update [skip ci]" && git push; fi
+          git add data/members.json
+          if git diff --cached --quiet; then echo "nothing to commit"; else git commit -m "members update [skip ci]" && git push; fi

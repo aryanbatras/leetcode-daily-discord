@@ -186,6 +186,77 @@ def save(name, obj):
 USERNAME_RE = re.compile(r"^\s*([A-Za-z0-9_\-]{2,40})\s*$")
 
 
+def clear_channel(token, channel_id):
+    """Delete all messages in a channel."""
+    after = "0"
+    ids = []
+    while True:
+        url = f"https://discord.com/api/v10/channels/{channel_id}/messages?limit=100&after={after}"
+        batch = dapi(url, token=token)
+        if not batch:
+            break
+        ids += [m["id"] for m in batch]
+        after = max(ids)
+        if len(batch) < 100:
+            break
+        time.sleep(0.3)
+    while ids:
+        chunk = ids[-100:]
+        del ids[-100:]
+        dapi(f"https://discord.com/api/v10/channels/{channel_id}/messages/bulk-delete",
+             method="POST", token=token, body={"messages": chunk})
+        time.sleep(0.5)
+
+
+def post_register_message(token, channel_id, members):
+    """Post the current members list + instructions."""
+    embeds = []
+
+    # Members list
+    if members:
+        lines = []
+        for i, (did, m) in enumerate(members.items(), 1):
+            lines.append(f"**{i}.** {m.get('display_name', m['lc_username'])} — `{m['lc_username']}`")
+        desc = "\n".join(lines)
+        if len(desc) > 4000:
+            desc = desc[:3997] + "..."
+        embeds.append({
+            "title": f"Registered Members ({len(members)})",
+            "description": desc,
+            "color": 0x2ECC71,
+        })
+    else:
+        embeds.append({
+            "title": "Registered Members",
+            "description": "*No one registered yet. Be the first!*",
+            "color": 0x95A5A6,
+        })
+
+    # Instructions
+    embeds.append({
+        "title": "How to Register",
+        "description": (
+            "Type **only your LeetCode username** (e.g. `aryanbatra`) in this channel.\n"
+            "The bot validates it every hour and adds you to the board.\n\n"
+            "**Rules:**\n"
+            "• One message = one username\n"
+            "• Just the username, no extra text\n"
+            "• Alphanumeric, hyphens, underscores only\n"
+            "• 2-40 characters"
+        ),
+        "color": 0x5865F2,
+        "footer": {"text": "Auto-updated every hour · leaderboard in #leaderboard"},
+    })
+
+    body = {
+        "username": "Register",
+        "embeds": embeds,
+        "allowed_mentions": {"parse": []},
+    }
+    dapi(f"https://discord.com/api/v10/channels/{channel_id}/messages",
+         method="POST", token=token, body=body)
+
+
 def cmd_poll():
     token = os.environ.get("DISCORD_BOT_TOKEN")
     if not token:
@@ -196,50 +267,39 @@ def cmd_poll():
         sys.exit("#register channel not found")
 
     members = load("members.json", {})
-    processed = load("processed_ids.json", [])
-    seen = set(processed)
+    messages = fetch_messages(token, reg_id)
 
-    msgs = fetch_messages(token, reg_id)
-    new_count = 0
+    # Skip if no messages at all
+    if not messages:
+        print("No messages in #register — skipping")
+        return
 
-    for m in msgs:
-        mid = m["id"]
-        if mid in seen:
-            continue
-        seen.add(mid)
-        processed.append(mid)
+    # Parse usernames from messages (skip bots, skip already registered)
+    existing_lc = {m["lc_username"].lower() for m in members.values()}
+    new_registrations = []
 
-        # Skip bot messages
+    for m in messages:
         if m.get("author", {}).get("bot"):
             continue
-
         content = (m.get("content") or "").strip()
         match = USERNAME_RE.match(content)
         if not match:
             continue
 
         lc_username = match.group(1)
-        discord_id = m["author"]["id"]
-        discord_name = m["author"].get("global_name") or m["author"]["username"]
-
-        # Check if already registered
-        already = False
-        for existing in members.values():
-            if existing.get("lc_username", "").lower() == lc_username.lower():
-                already = True
-                break
-
-        if already:
-            react(token, reg_id, mid, "\u274C")  # ❌
+        if lc_username.lower() in existing_lc:
             continue
 
         # Validate against LeetCode
+        print(f"Validating: {lc_username}")
         profile = lc_validate(lc_username)
         if not profile:
-            react(token, reg_id, mid, "\u274C")  # ❌
+            print(f"  Rejected: {lc_username} (not found on LeetCode)")
             continue
 
         # Store member
+        discord_id = m["author"]["id"]
+        discord_name = m["author"].get("global_name") or m["author"]["username"]
         members[discord_id] = {
             "lc_username": profile["username"],
             "display_name": discord_name,
@@ -247,17 +307,21 @@ def cmd_poll():
             "totals": profile["totals"],
             "registered": datetime.now(IST).strftime("%Y-%m-%d"),
         }
-        react(token, reg_id, mid, "\u2705")  # ✅
-        new_count += 1
-        print(f"Registered: {discord_name} -> {profile['username']}")
+        existing_lc.add(lc_username.lower())
+        new_registrations.append(discord_name)
+        print(f"  Registered: {discord_name} -> {profile['username']}")
 
-    # Trim processed_ids to last 2000
-    if len(processed) > 2000:
-        processed = processed[-2000:]
-
+    # Save members
     save("members.json", members)
-    save("processed_ids.json", processed)
-    print(f"Poll done: {new_count} new registrations, {len(members)} total members")
+
+    if not new_registrations:
+        print("No new valid usernames found — skipping channel refresh")
+        return
+
+    # Clear channel and post fresh list
+    clear_channel(token, reg_id)
+    post_register_message(token, reg_id, members)
+    print(f"Refreshed #register: {len(new_registrations)} new, {len(members)} total")
 
 
 # ── Post leaderboard ────────────────────────────────────────────────────────

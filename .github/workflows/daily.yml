@@ -23,10 +23,6 @@ jobs:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           FEED_WEBHOOKS: ${{ secrets.FEED_WEBHOOKS }}
         run: python3 -u scripts/build_catalog.py contests
-      - name: Poll registrations
-        env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: python3 leaderboard.py poll
       - name: Post leaderboard
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
