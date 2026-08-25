@@ -1,6 +1,8 @@
 import json
 import os
 import sys
+import time
+import urllib.request
 
 from mfcommon import (
     DESCRIPTION_LIMIT,
@@ -91,11 +93,58 @@ def build_embed(daily):
     return embed
 
 
+def clear_channel(token, channel_id):
+    """Delete all messages in a channel."""
+    base = "https://discord.com/api/v10"
+    headers = {"Authorization": f"Bot {token}", "User-Agent": "MFGrindBot/1.0"}
+    after = "0"
+    ids = []
+    while True:
+        req = urllib.request.Request(
+            f"{base}/channels/{channel_id}/messages?limit=100&after={after}",
+            headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                batch = json.loads(r.read().decode())
+        except Exception:
+            break
+        if not batch:
+            break
+        ids += [m["id"] for m in batch]
+        after = max(ids)
+        if len(batch) < 100:
+            break
+        time.sleep(0.4)
+    while ids:
+        chunk = ids[-100:]
+        del ids[-100:]
+        data = json.dumps({"messages": chunk}).encode()
+        req = urllib.request.Request(
+            f"{base}/channels/{channel_id}/messages/bulk-delete",
+            data=data, headers={**headers, "Content-Type": "application/json"},
+            method="POST")
+        try:
+            urllib.request.urlopen(req, timeout=30)
+        except Exception:
+            pass
+        time.sleep(0.5)
+
+
 def main():
     webhook_url = os.environ.get("DISCORD_WEBHOOK_URL")
     if not webhook_url:
         print("DISCORD_WEBHOOK_URL is not set")
         sys.exit(1)
+
+    # Clear channel before posting fresh content
+    token = os.environ.get("DISCORD_BOT_TOKEN")
+    if token:
+        import re
+        m = re.search(r"/webhooks/(\d+)/", webhook_url)
+        if m:
+            channel_id = m.group(1)
+            clear_channel(token, channel_id)
+            print(f"Cleared channel {channel_id}")
 
     data = lc_graphql(QUERY)
     daily = data.get("data", {}).get("activeDailyCodingChallengeQuestion")

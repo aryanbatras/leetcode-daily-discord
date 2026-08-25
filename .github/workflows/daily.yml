@@ -16,6 +16,7 @@ jobs:
       - name: Post daily problem
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: python3 post_daily.py
       - name: Post upcoming contests
         env:
