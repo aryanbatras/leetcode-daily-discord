@@ -154,7 +154,10 @@ def parse_availability(text):
 
 
 def hour_to_str(h):
-    if h == 0 or h == 24:
+    # Handle overnight hours (e.g., 25 = 1am next day)
+    if h >= 24:
+        h -= 24
+    if h == 0:
         return "12am"
     elif h == 12:
         return "12pm"
