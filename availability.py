@@ -108,7 +108,7 @@ TIME_RE = re.compile(
 
 
 def parse_time_block(block_str):
-    """Parse '4am-10am' or '2pm-6pm' into (start_hour, end_hour)."""
+    """Parse '4am-10am' or '2pm-6pm' or '9pm-1am' into (start_hour, end_hour)."""
     m = TIME_RE.search(block_str)
     if not m:
         return None
@@ -126,9 +126,12 @@ def parse_time_block(block_str):
     elif end_ampm == "am" and end_h == 12:
         end_h = 0
 
-    if start_h < end_h:
-        return (start_h, end_h)
-    return None
+    if start_h == end_h:
+        return None
+    # Handle overnight (e.g., 9pm-1am: start=21, end=1)
+    if start_h > end_h:
+        return (start_h, 24 + end_h)  # end_h=1 -> 25, meaning 9pm to 1am next day
+    return (start_h, end_h)
 
 
 def parse_availability(text):
@@ -234,9 +237,19 @@ def cmd_chart():
     hourly_users = [[] for _ in range(24)]
     for did, info in users.items():
         for start_h, end_h in info["blocks"]:
-            for h in range(start_h, min(end_h, 24)):
-                hourly_count[h] += 1
-                hourly_users[h].append(info["username"])
+            if end_h <= 24:
+                for h in range(start_h, min(end_h, 24)):
+                    hourly_count[h] += 1
+                    hourly_users[h].append(info["username"])
+            else:
+                # Overnight block: split into two parts
+                # e.g., 21-25 -> hours 21-23 and hours 0-1
+                for h in range(start_h, 24):
+                    hourly_count[h] += 1
+                    hourly_users[h].append(info["username"])
+                for h in range(0, end_h - 24):
+                    hourly_count[h] += 1
+                    hourly_users[h].append(info["username"])
 
     # Find top 3 best hours
     ranked = sorted(range(24), key=lambda h: -hourly_count[h])
