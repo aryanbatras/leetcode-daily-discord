@@ -526,19 +526,23 @@ def cmd_board():
         did = [d for d, m in members.items() if m["lc_username"] == r["lc_username"]][0]
         store = snapshots.get(did, {})
         
-        # Calculate streak (consecutive days with problems solved)
+        # Calculate streak (consecutive days with NEW problems solved)
         streak = 0
-        check_date = today
-        while check_date in store:
-            day_data = store[check_date]
-            if day_data.get("All", 0) > 0:
-                streak += 1
-                # Move to previous day
-                from datetime import datetime as dt
-                prev = dt.strptime(check_date, "%Y-%m-%d") - timedelta(days=1)
-                check_date = prev.strftime("%Y-%m-%d")
+        sorted_dates = sorted(store.keys(), reverse=True)
+        for i, date in enumerate(sorted_dates):
+            if i == 0:
+                # Today — check if daily_subs exist (problems solved today)
+                if len(r.get("daily_subs", [])) > 0:
+                    streak += 1
+                else:
+                    break
             else:
-                break
+                # Previous days — check if total increased from day before
+                prev_date = sorted_dates[i - 1]
+                if store[date].get("All", 0) > store[prev_date].get("All", 0):
+                    streak += 1
+                else:
+                    break
         r["streak"] = streak
         
         # Calculate XP (1 XP per easy, 2 per medium, 3 per hard)
