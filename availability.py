@@ -280,15 +280,15 @@ def cmd_chart():
     for h in range(24):
         count = hourly_count[h]
         bar = "\u2588" * count + "\u2591" * (10 - count) if count <= 10 else "\u2588" * 10
-        marker = " \u2b50" if h in best_hours and count > 0 else ""
         if count > 0:
             names = ", ".join(hourly_users[h][:3])
             if len(hourly_users[h]) > 3:
                 names += f" +{len(hourly_users[h])-3} more"
-            lines.append(f"`{hour_to_str(h):>4}` {bar} **{count}** — {names}{marker}")
+            lines.append(f"`{hour_to_str(h):>4}` {bar} **{count}** — {names}")
         else:
             lines.append(f"`{hour_to_str(h):>4}` {bar}")
 
+    embeds = []
     embeds.append({
         "title": "Timeline",
         "description": "\n".join(lines),
