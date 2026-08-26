@@ -48,13 +48,9 @@ jobs:
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: python3 -u weekly_availability.py chart
-      - name: Enforce thread-only channels
-        env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-        run: python3 -u enforce_threads.py
       - name: Commit state
         run: |
           git config user.name "mf-bot"
           git config user.email "bot@missionfaang.local"
-          git add data/members.json data/snapshots.json data/availability.json
+          git add data/members.json data/snapshots.json data/availability.json data/weekly_availability.json
           if git diff --cached --quiet; then echo "nothing to commit"; else git commit -m "daily update [skip ci]" && git push; fi
