@@ -30,6 +30,28 @@ IST = timezone(timedelta(hours=5, minutes=30))
 DISCORD_UA = CFG["bot"]["ua"]
 
 
+def clear_channel(token, channel_id):
+    """Delete all messages in a channel."""
+    after = "0"
+    ids = []
+    while True:
+        url = f"https://discord.com/api/v10/channels/{channel_id}/messages?limit=100&after={after}"
+        batch = dapi(url, token=token)
+        if not batch:
+            break
+        ids += [m["id"] for m in batch]
+        after = max(ids)
+        if len(batch) < 100:
+            break
+        time.sleep(0.3)
+    while ids:
+        chunk = ids[-100:]
+        del ids[-100:]
+        dapi(f"https://discord.com/api/v10/channels/{channel_id}/messages/bulk-delete",
+             method="POST", token=token, body={"messages": chunk})
+        time.sleep(0.5)
+
+
 def dapi(url, token=None, method="GET", body=None):
     data = json.dumps(body).encode() if body else None
     headers = {"User-Agent": DISCORD_UA}
@@ -40,7 +62,9 @@ def dapi(url, token=None, method="GET", body=None):
     req = urllib.request.Request(url, data=data, method=method, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
-            return json.loads(r.read().decode()) if r.read else None
+            if r.status == 204:
+                return None
+            return json.loads(r.read().decode())
     except Exception as e:
         print(f"  API error: {e}")
         return None
@@ -181,6 +205,10 @@ def cmd_chart():
     ch_id = resolve_channel(token, "availability")
     if not ch_id:
         sys.exit("#availability channel not found")
+
+    # Clear old messages
+    clear_channel(token, ch_id)
+    print("Cleared #availability")
 
     data = load("availability.json", {"date": "", "users": {}})
     users = data.get("users", {})
