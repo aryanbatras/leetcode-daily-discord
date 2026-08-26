@@ -18,16 +18,24 @@ from datetime import datetime, timedelta, timezone
 
 # ── Config ──────────────────────────────────────────────────────────────────
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
-GUILD_ID = 1541028379598397452
-CHANNEL_NAMES = {"register": None, "leaderboard": None}  # resolved at runtime
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(SCRIPT_DIR, "data")
+CONFIG_PATH = os.path.join(SCRIPT_DIR, "config.json")
+
+def load_config():
+    with open(CONFIG_PATH) as f:
+        return json.load(f)
+
+CFG = load_config()
+GUILD_ID = CFG["guild_id"]
+CHANNEL_NAMES = {k: None for k in CFG["channels"]}  # resolved at runtime
 
 IST = timezone(timedelta(hours=5, minutes=30))
 LC_UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 )
-DISCORD_UA = "MFGrindBot/1.0 (github.com/aryanbatras/leetcode-daily-discord)"
+DISCORD_UA = CFG["bot"]["ua"]
 LC_DELAY = 1.0  # seconds between LeetCode API calls
 
 # ── LeetCode ────────────────────────────────────────────────────────────────
@@ -50,6 +58,15 @@ LC_CONTEST_QUERY = """query userContestRankingInfo($username: String!) {
         rating
         globalRanking
         topPercentage
+    }
+}"""
+
+LC_RECENT_SUBS_QUERY = """query recentAcSubmissions($username: String!, $limit: Int!) {
+    recentAcSubmissionList(username: $username, limit: $limit) {
+        id
+        title
+        titleSlug
+        timestamp
     }
 }"""
 
@@ -87,13 +104,21 @@ def lc_validate(username):
 
 
 def lc_stats(username):
-    """Fetch full stats (totals + contest info) for a user."""
+    """Fetch full stats (totals + contest + recent subs) for a user."""
     profile = lc_request(LC_PROFILE_QUERY, {"username": username})
     time.sleep(LC_DELAY)
     contest = lc_request(LC_CONTEST_QUERY, {"username": username})
     time.sleep(LC_DELAY)
+    subs_data = lc_request(LC_RECENT_SUBS_QUERY, {"username": username, "limit": 20})
+    time.sleep(LC_DELAY)
 
-    result = {"username": username, "totals": {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0}, "avatar": "", "contest": None}
+    result = {
+        "username": username,
+        "totals": {"All": 0, "Easy": 0, "Medium": 0, "Hard": 0},
+        "avatar": "",
+        "contest": None,
+        "recent_subs": [],
+    }
 
     if profile:
         user = (profile.get("data") or {}).get("matchedUser")
@@ -112,7 +137,26 @@ def lc_stats(username):
                 "top_pct": round(ranking.get("topPercentage", 0), 1),
             }
 
+    if subs_data:
+        raw_subs = (subs_data.get("data") or {}).get("recentAcSubmissionList") or []
+        result["recent_subs"] = [
+            {
+                "id": s["id"],
+                "title": s["title"],
+                "titleSlug": s["titleSlug"],
+                "timestamp": int(s["timestamp"]),
+            }
+            for s in raw_subs
+        ]
+
     return result
+
+
+def filter_subs_by_date(recent_subs, start_dt, end_dt):
+    """Filter recent submissions to those between start_dt and end_dt (datetime, naive IST)."""
+    start_ts = int(start_dt.timestamp())
+    end_ts = int(end_dt.timestamp())
+    return [s for s in recent_subs if start_ts <= s["timestamp"] <= end_ts]
 
 
 # ── Discord ─────────────────────────────────────────────────────────────────
@@ -237,7 +281,7 @@ def post_register_message(token, channel_id, members):
         "title": "How to Register",
         "description": (
             "Type **only your LeetCode username** (e.g. `aryanbatra`) in this channel.\n"
-            "The bot validates it every hour and adds you to the board.\n\n"
+            "The bot validates it daily and adds you to the board.\n\n"
             "**Rules:**\n"
             "• One message = one username\n"
             "• Just the username, no extra text\n"
@@ -245,7 +289,7 @@ def post_register_message(token, channel_id, members):
             "• 2-40 characters"
         ),
         "color": 0x5865F2,
-        "footer": {"text": "Auto-updated every hour · leaderboard in #leaderboard"},
+        "footer": {"text": "Auto-updated daily · leaderboard in #leaderboard"},
     })
 
     body = {
@@ -389,6 +433,11 @@ def cmd_board():
     today = today_ist()
     week_start = week_start_ist(today)
 
+    # Date boundaries (naive IST)
+    today_start = datetime(now.year, now.month, now.day, tzinfo=IST)
+    today_end = today_start + timedelta(days=1)
+    week_start_dt = datetime.strptime(week_start, "%Y-%m-%d").replace(tzinfo=IST)
+
     # ── Clear channel ──
     clear_leaderboard(token, lb_id)
     print("Cleared #leaderboard")
@@ -398,7 +447,7 @@ def cmd_board():
             "username": "Leaderboard",
             "embeds": [{
                 "title": "LeetCode Leaderboard",
-                "description": "No one registered yet.\nType your LeetCode username in #register to join.",
+                "description": "No one registered yet.\nType your LeetCode username in **#register** to join.",
                 "color": 0x95A5A6,
             }],
             "allowed_mentions": {"parse": []},
@@ -434,6 +483,10 @@ def cmd_board():
         weekly_medium = stats["totals"]["Medium"] - baseline.get("Medium", 0)
         weekly_hard = stats["totals"]["Hard"] - baseline.get("Hard", 0)
 
+        # Filter recent submissions by date
+        daily_subs = filter_subs_by_date(stats["recent_subs"], today_start, today_end)
+        weekly_subs = filter_subs_by_date(stats["recent_subs"], week_start_dt, today_end)
+
         rows.append({
             "name": member.get("display_name", lc_user),
             "lc_username": lc_user,
@@ -447,6 +500,8 @@ def cmd_board():
             "weekly_easy": weekly_easy,
             "weekly_medium": weekly_medium,
             "weekly_hard": weekly_hard,
+            "daily_subs": daily_subs,
+            "weekly_subs": weekly_subs,
         })
 
     # Save snapshots
@@ -481,25 +536,51 @@ def cmd_board():
         "color": 0xF1C40F,
     })
 
-    # --- Weekly Grind (sorted by weekly delta) ---
-    by_weekly = sorted(rows, key=lambda r: (-r["weekly_delta"], -r["total"]))
-    lines = []
+    # --- Daily Grind (today's solved problems) ---
+    any_daily = False
+    daily_lines = []
+    for r in sorted(rows, key=lambda x: -len(x["daily_subs"])):
+        if not r["daily_subs"]:
+            continue
+        any_daily = True
+        problems = "\n".join(
+            f"    \u2022 [{s['title']}](https://leetcode.com/problems/{s['titleSlug']}/)"
+            for s in r["daily_subs"][:10]
+        )
+        extra = f"\n    ...and {len(r['daily_subs'])-10} more" if len(r["daily_subs"]) > 10 else ""
+        daily_lines.append(
+            f"**{r['name']}** — **{len(r['daily_subs'])}** solved today\n{problems}{extra}"
+        )
+    embeds.append({
+        "title": f"\U0001F525 Daily Grind — {now.strftime('%B %d')}",
+        "description": "\n\n".join(daily_lines)[:4000] if any_daily else "*No problems solved today yet — get grinding!*",
+        "color": 0xE67E22,
+    })
+
+    # --- Weekly Grind (this week's solved + delta) ---
+    by_weekly = sorted(rows, key=lambda r: (-len(r["weekly_subs"]), -r["weekly_delta"]))
+    weekly_lines = []
     for i, r in enumerate(by_weekly):
         medal = medals[i] if i < 3 else f"**{i+1}.**"
         delta = r["weekly_delta"]
-        if delta > 0:
-            delta_str = f"**+{delta}**"
-        elif delta < 0:
-            delta_str = f"**{delta}**"
+        delta_str = f"**+{delta}**" if delta > 0 else (f"**{delta}**" if delta < 0 else "0")
+        sub_count = len(r["weekly_subs"])
+        if sub_count > 0:
+            problems = "\n".join(
+                f"    \u2022 [{s['title']}](https://leetcode.com/problems/{s['titleSlug']}/)"
+                for s in r["weekly_subs"][:5]
+            )
+            extra = f"\n    ...and {sub_count-5} more" if sub_count > 5 else ""
+            weekly_lines.append(
+                f"{medal} **{r['name']}** — {delta_str} this week ({sub_count} solved)\n{problems}{extra}"
+            )
         else:
-            delta_str = "0"
-        lines.append(
-            f"{medal} **{r['name']}** — {delta_str} this week "
-            f"({r['weekly_easy']}E / {r['weekly_medium']}M / {r['weekly_hard']}H)"
-        )
+            weekly_lines.append(
+                f"{medal} **{r['name']}** — {delta_str} this week"
+            )
     embeds.append({
         "title": f"\U0001F4C8 Weekly Grind (since {week_start})",
-        "description": "\n".join(lines)[:4000] if any(r["weekly_delta"] != 0 for r in rows) else "*No progress yet this week — start solving!*",
+        "description": "\n\n".join(weekly_lines)[:4000] if weekly_lines else "*No progress yet this week — start solving!*",
         "color": 0x2ECC71,
     })
 
@@ -507,17 +588,17 @@ def cmd_board():
     total_easy = sum(r["easy"] for r in rows)
     total_medium = sum(r["medium"] for r in rows)
     total_hard = sum(r["hard"] for r in rows)
-    total_all = sum(r["total"] for r in rows)
-    lines = [
+    total_all = sum(r["total"] for r in lines) if False else sum(r["total"] for r in rows)
+    lines_stat = [
         f"**Total solved across all members:** {total_all}",
         f"\u2705 Easy: **{total_easy}** · \U0001F7E1 Medium: **{total_medium}** · \U0001F534 Hard: **{total_hard}**",
     ]
     if rows:
         avg = total_all // len(rows)
-        lines.append(f"**Average per member:** {avg} problems")
+        lines_stat.append(f"**Average per member:** {avg} problems")
     embeds.append({
         "title": "\U0001F4CA Server Stats",
-        "description": "\n".join(lines),
+        "description": "\n".join(lines_stat),
         "color": 0xE74C3C,
     })
 
@@ -525,17 +606,17 @@ def cmd_board():
     contest_rows = [r for r in rows if r["contest"]]
     if contest_rows:
         by_rating = sorted(contest_rows, key=lambda r: -r["contest"]["rating"])
-        lines = []
+        c_lines = []
         for i, r in enumerate(by_rating[:10]):
             medal = medals[i] if i < 3 else f"**{i+1}.**"
             c = r["contest"]
-            lines.append(
+            c_lines.append(
                 f"{medal} **{r['name']}** — **{c['rating']}** rating "
                 f"(#{c['global_rank']:,} global · top {c['top_pct']}%)"
             )
         embeds.append({
             "title": "\U0001F3AE Contest Champions",
-            "description": "\n".join(lines),
+            "description": "\n".join(c_lines),
             "color": 0x9B59B6,
         })
 
@@ -544,7 +625,7 @@ def cmd_board():
         "title": "\U00002753 How to Join",
         "description": "Type your LeetCode username in **#register** to get on the board.",
         "color": 0x95A5A6,
-        "footer": {"text": f"Resets weekly (Monday) · register in #register"},
+        "footer": {"text": "Resets weekly (Monday) · register in #register"},
     })
 
     post_webhook_embeds(webhook, embeds)

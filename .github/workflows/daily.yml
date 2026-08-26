@@ -2,17 +2,21 @@ name: Daily Post
 
 on:
   schedule:
-    - cron: "30 0 * * *" # 00:30 UTC = 06:00 IST daily
+    - cron: "45 0 * * *" # 00:45 UTC = 06:15 IST daily (avoid peak hour traffic)
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   post:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Poll registrations
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python3 -u leaderboard.py poll
       - name: Post daily problem
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -27,4 +31,10 @@ jobs:
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           LEADERBOARD_WEBHOOK_URL: ${{ secrets.LEADERBOARD_WEBHOOK_URL }}
-        run: python3 leaderboard.py board
+        run: python3 -u leaderboard.py board
+      - name: Commit state
+        run: |
+          git config user.name "mf-bot"
+          git config user.email "bot@missionfaang.local"
+          git add data/members.json data/snapshots.json
+          if git diff --cached --quiet; then echo "nothing to commit"; else git commit -m "daily update [skip ci]" && git push; fi
