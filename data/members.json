@@ -1,28 +1,4 @@
 {
-  "527486730677256193": {
-    "avatar": "https://assets.leetcode.com/users/avatars/avatar_1691924960.png",
-    "display_name": "Aryan",
-    "lc_username": "aryanbatra",
-    "registered": "2026-08-24",
-    "totals": {
-      "All": 217,
-      "Easy": 109,
-      "Hard": 19,
-      "Medium": 89
-    }
-  },
-  "701046499055894589": {
-    "avatar": "https://assets.leetcode.com/users/vickyfruit/avatar_1745480299.png",
-    "display_name": "wikifruit",
-    "lc_username": "vickyfruit",
-    "registered": "2026-08-25",
-    "totals": {
-      "All": 273,
-      "Easy": 91,
-      "Hard": 24,
-      "Medium": 158
-    }
-  },
   "1196847674746486874": {
     "avatar": "https://assets.leetcode.com/users/Surendar_05/avatar_1719116080.png",
     "display_name": "Surendar |  Contributor",
@@ -57,6 +33,30 @@
       "Easy": 47,
       "Hard": 3,
       "Medium": 35
+    }
+  },
+  "527486730677256193": {
+    "avatar": "https://assets.leetcode.com/users/avatars/avatar_1691924960.png",
+    "display_name": "Aryan",
+    "lc_username": "aryanbatra",
+    "registered": "2026-08-24",
+    "totals": {
+      "All": 217,
+      "Easy": 109,
+      "Hard": 19,
+      "Medium": 89
+    }
+  },
+  "701046499055894589": {
+    "avatar": "https://assets.leetcode.com/users/vickyfruit/avatar_1745480299.png",
+    "display_name": "wikifruit",
+    "lc_username": "vickyfruit",
+    "registered": "2026-08-25",
+    "totals": {
+      "All": 273,
+      "Easy": 91,
+      "Hard": 24,
+      "Medium": 158
     }
   }
 }

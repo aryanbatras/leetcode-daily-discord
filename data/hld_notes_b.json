@@ -1,0 +1,256 @@
+{
+  "hld-resilience-ratelimiting": {
+    "title": "Resilience & Rate Limiting",
+    "color": 6510833,
+    "intro": "Designing for failure: timeouts, retries, breakers, bulkheads, and rate-limiting algorithms.",
+    "groups": [
+      [
+        "Timeout Discipline",
+        "• EVERY network call gets a timeout; default-infinity causes cascade outages (thread pools exhaust waiting).\n• Budget cascades: parent deadline split across hops with slack reserve; propagate deadlines in headers/contexts so children abort early.\n• Timeout values from MEASUREMENT: p99.9 of dependency x small multiple; revisit after latency-profile changes.\n• Ambiguous outcomes: timeout != failure — work may still complete! Resolution via idempotency keys + reconciliation queries — say this explicitly.\n• Deadline propagation: gRPC deadlines, W3C traceparent, Go ctx cancellation — name your mechanism."
+      ],
+      [
+        "Retry Engineering",
+        "• Retry ONLY idempotent ops (or attach idempotency keys); retry only TRANSIENT classes (timeouts, 502/503/429-with-retry-after), never 4xx.\n• Exponential backoff + full jitter: base x 2^n capped, random [0,cap] desynchronizing herds (AWS blog formula).\n• Retry budgets: cap retries at N% globally — prevents retry storms converting brownouts into blackouts (Finagle pattern).\n• Hedged requests: fire duplicate after p95 delay, take first winner — tail-latency killer for idempotent reads (Dean-Barroso paper).\n• Interaction with LB: retries should hit DIFFERENT backend else you re-punish the same hot node."
+      ],
+      [
+        "Circuit Breakers & Bulkheads",
+        "• States: closed -> open after threshold -> half-open probe; per-dependency instances with dashboards.\n• Fallbacks menu: cached value, default payload, feature-degradation flag, queued-deferred — graceful degradation BEFORE incidents.\n• Bulkhead isolation: separate thread/connection pools per dependency — slow X can't starve healthy Y.\n• Adaptive concurrency: measure inflight x RTT vs Little's-law ideal, shed excess.\n• Load shedding hierarchy: reject lowest-priority first (batch < background < paying), return 503+Retry-After."
+      ],
+      [
+        "Rate Limiter Algorithms",
+        "• Fixed window: INCR+EXPIRE; boundary burst flaw (2x at edge).\n• Sliding window log: exact timestamps, memory-heavy O(requests).\n• Sliding window counter: weighted blend of current+previous (Cloudflare approach) — sweet-spot default.\n• Token bucket: refill rate r, capacity b allowing bursts; versatile (cost-based limits: tokens = request weight).\n• GCRA: single-timestamp elegance for telecom-grade precision."
+      ],
+      [
+        "Distributed Rate Limiting",
+        "• Central Redis Lua atomic check-and-decrement — simple, RTT + hotspot risk.\n• Local shards + periodic sync: each node quota slice, sync drift — approximate but resilient.\n• Consistent-hashing for affinity; fallback posture when limiter down (fail-open vs fail-closed by risk profile).\n• Multi-dimension keys: user, API-key, IP, endpoint-class; nested limits composed.\n• Cost-based quotas: LLM token counting / CPU-weighted endpoints — modern API necessity."
+      ],
+      [
+        "Chaos & Verification Culture",
+        "• Fault injection: kill instances, inject latency, exhaust pools — resilience claims VERIFIED (Netflix Chaos Kong heritage).\n• Game days: rehearsed region-evacuation with shadowing; postmortem-driven scenario selection.\n• Metrics: error-budget burn-rate alarms, breaker-open frequency, time-to-detect vs time-to-mitigate.\n• Load-testing: production-shape replays (GoReplay) vs closed-loop distortion — methodology vocabulary.\n• Drill: 'payment provider degrades to 8s' -> timeout-budget -> breaker -> queue-for-later -> user-messaging sequence."
+      ]
+    ],
+    "resources": [
+      [
+        "Google SRE workbook — overload",
+        "https://sre.google/workbook/handling-overload/"
+      ],
+      [
+        "AWS exponential backoff+jitter",
+        "https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/"
+      ],
+      [
+        "Tail at scale (Dean/Barroso)",
+        "https://research.google/pubs/pub40801/"
+      ]
+    ]
+  },
+  "hld-realtime-push": {
+    "title": "Real-Time & Push Systems",
+    "color": 6510833,
+    "intro": "Live updates at scale: connection infrastructure, fan-out economics, presence, delivery guarantees.",
+    "groups": [
+      [
+        "Connection Layer Architecture",
+        "• Gateway tier: persistent sockets (WS/SSE/WebTransport) + external state registry (conn-id -> gateway in Redis) enabling any-node routing.\n• Scale: 100k-1M sockets/node depending language/frame-size; kernel tuning + io_uring/epoll; Go/Elixir stories.\n• Shared pub/sub backbone makes gateways interchangeable (deploy-safe); stickiness only optimization.\n• Reconnect storms: jittered exponential backoff CLIENT-side + server admission control (token-bucket).\n• Auth: short-lived ticket over HTTPS -> upgrade validates -> per-message authorization for sensitive channels."
+      ],
+      [
+        "Fan-Out Economics",
+        "• Write-time fan-out: precompute timelines — fast reads, celebrity explosion (10M writes per tweet).\n• Read-time merge: assemble on open — cheap writes, expensive reads; hybrid thresholds by follower-count (Twitter published).\n• Push-notification tier: APNs/FCM own quotas; batching/digest policies reduce fatigue AND throttling.\n• Room/channel: membership sets + message bus partitioned by channel-id; hot-channel read-cache (Discord pattern).\n• Backpressure: bounded send queues, slow-consumer eviction — one slow phone can't OOM gateway."
+      ],
+      [
+        "Presence & State Sync",
+        "• Pipeline: heartbeats -> membership ZSET scored last-beat -> sweeper expires ghosts -> delta broadcasts to INTERESTED only.\n• Multi-device aggregation rules (online if ANY device fresh).\n• Collaborative apps: CRDT libraries (Yjs/Automerge); OT legacy comparison; cursors/presence ephemeral.\n• Hydration: snapshot-on-connect + live-delta via sequence cursors; missed-events refill endpoint.\n• Server-authoritative timestamps everywhere; client clocks only display."
+      ],
+      [
+        "Delivery Guarantees",
+        "• Classify: ephemeral (typing/presence — drop), durable-chat (at-least-once + dedupe + cursors), transactional-critical (payments NEVER via push alone).\n• Ordering: per-conversation sequence numbers; gap triggers refill; cross-channel ordering abandoned deliberately.\n• Offline queue: TTL per channel-type; unread-count rollups incremental; catch-up on reconnect.\n• Read-markers: batched upstream sync; last-writer-wins per key.\n• E2E encryption sketch (Signal-style double-ratchet) when privacy appears — scope honestly."
+      ],
+      [
+        "Notification Pipeline",
+        "• Stages: events -> orchestrator (dedupe, preferences, quiet-hours) -> adapters (push/email/SMS) -> providers with retry+DLQ -> receipt reconciliation.\n• Idempotency keys prevent double-pushes; provider webhooks update delivered/opened states.\n• Preference engine: opt-outs, frequency caps, snooze windows; compliance enforced centrally.\n• Campaign bursts: 10M pushes -> provider rate limits -> sharded sender pool pacing.\n• Observability: funnel conversion (queued->sent->delivered->opened), per-provider error taxonomies."
+      ]
+    ],
+    "resources": [
+      [
+        "Discord engineering blog",
+        "https://blog.discord.com/tagged/engineering"
+      ],
+      [
+        "Yjs CRDT docs",
+        "https://docs.yjs.dev/"
+      ],
+      [
+        "Twitter fan-out references",
+        "https://www.infoq.com/presentations/Twitter-Timeline-Scalability/"
+      ]
+    ]
+  },
+  "hld-hashing-probabilistic": {
+    "title": "Hashing & Probabilistic Structures",
+    "color": 6510833,
+    "intro": "Consistent hashing, bloom filters, sketches — small structures answering big-scale questions.",
+    "groups": [
+      [
+        "Consistent Hashing Complete",
+        "• mod-N resize moves ALL keys; ring hashing moves ~K/N only.\n• Virtual nodes (100-200 per physical) smooth variance + enable heterogeneous weights.\n• Rendezvous HRW: hash(key,node) for all, pick max — no ring metadata, O(N) lookup, great small clusters.\n• Maglev lookup table: precomputed, minimal-disruption permutation — Google LB heritage.\n• Bounded loads: ring + per-node max -> overflow clockwise (Vimeo/Cloudflare) preventing hotspots."
+      ],
+      [
+        "Bloom Filters & Variants",
+        "• FP rate approx (1-e^{-kn/m})^k; optimal k=0.7*bits-per-key; 10 bits/key ~1% FP.\n• Apps: LSM gates, cache-admission, crawl-seen, malicious-URL checks.\n• Counting bloom enables deletes; cuckoo filter: better space + deletion + cache-friendly.\n• Scalable blooms grow with saturation; stable bloom for streams.\n• Drill: 1B URLs @1% -> m~1.2GB, k~7 — do arithmetic live."
+      ],
+      [
+        "Sketch Zoo",
+        "• HyperLogLog: cardinality 0.81% SE @12KB (Redis PFADD).\n• Count-Min Sketch: frequency estimates one-sided-overcounted; heavy-hitters via Space-Saving.\n• Quantile: t-digest/DDSketch computing p99s across merged distributed agents.\n• Map: membership -> bloom, frequency -> CMS, cardinality -> HLL, rank -> t-digest.\n• Error direction: CMS overestimates-only (safe for admission); choose by tolerance."
+      ],
+      [
+        "Sharding Math & Hot Keys",
+        "• Salt hotkeys (key{n%16} sub-shards), aggregate on read; tradeoffs kill range-scans.\n• Celebrity: replicate read-hot across followers + local caches; write-hot split into accumulators.\n• Jump/truncated hashes: stateless shard-count changes.\n• Rebalancing estimate: ring w/vnodes ~K/N moved.\n• Geo-aware: ring per-region + prefix steering; data residency layered atop."
+      ],
+      [
+        "Probabilistic Interview Framing",
+        "• Frame as accuracy-vs-resources: exact top-100 in MBs vs estimate all in KBs at +/-2%.\n• Pipeline: bloom-gate -> CMS-count -> HLL-unique -> t-digest-latencies.\n• Failure modes: bloom FP harmless for admission, CMS saturation grow depth, HLL sparse encoding.\n• Anchors: Redis PFCOUNT, Prometheus quantile caveats, Cloudflare CM sketches.\n• Drills: unique-IP (HLL), trending-tags (CMS+SpaceSaving), URL filter (bloom math), mergeable p99 (DDSketch)."
+      ]
+    ],
+    "resources": [
+      [
+        "Maglev paper",
+        "https://research.google/pubs/pub44824/"
+      ],
+      [
+        "HyperLogLog paper",
+        "https://research.google/pubs/pub40671/"
+      ],
+      [
+        "DDSketch paper",
+        "https://arxiv.org/abs/1908.10693"
+      ]
+    ]
+  },
+  "hld-observability-security": {
+    "title": "Observability & Security",
+    "color": 6510833,
+    "intro": "Metrics/logs/traces done right, SLO engineering, authN/Z architecture, secrets, audit trails.",
+    "groups": [
+      [
+        "Three Pillars Done Right",
+        "• Metrics: counters/histograms (Prometheus), label-cardinality discipline, recording rules.\n• Logs: structured JSON with trace/correlation ids; sampling; retention tiering; NEVER log secrets/PII.\n• Traces: W3C traceparent propagation; head-vs-tail sampling (tail captures errors/slow — useful).\n• Exemplars: histogram bucket <-> trace bridges anomaly -> root-cause (Grafana Tempo).\n• Horror story: user-id-as-label killed clusters — aggregate-first principle."
+      ],
+      [
+        "SLO Engineering & Alerting",
+        "• SLIs user-centric: availability, latency p99 at CLIENT edge, freshness.\n• Error budgets: burn-rate alerts (14.4x/1h fast + 6x/6h slow — Google Workbook recipe).\n• Page ONLY user-impacting burn; tickets for trends; dashboards for exploration.\n• Capacity alerts: disk-full-in-14d forecasts, not static 80%.\n• Blameless postmortems with action-items tracked to closure."
+      ],
+      [
+        "AuthN/AuthZ Architecture",
+        "• Triangle: human SSO (OIDC), service mTLS/JWT, workload identity (SPIFFE).\n• Short-lived access + refresh rotation; audience-bound; JWKS rotation; revocation via TTL.\n• RBAC -> ABAC (OPA/Cedar) -> ReBAC (Zanzibar/SpiceDB) by complexity.\n• Policy-as-code repos with tests; decision logs audited.\n• Edge enforcement: gateway basic scopes, services re-verify audience (zero-trust)."
+      ],
+      [
+        "Secrets & Key Management",
+        "• Lifecycle: generation, storage (Vault/KMS/HSM), automated rotation, tested revocation.\n• Envelope encryption: DEKs + KEKs; KMS calls amortized via local cache.\n• Internal PKI: Vault/step-ca, short-lived certs auto-renewed.\n• Leakage runbook: secret-scan CI, rotate-assume-breached, git-history purge reality.\n• Sealed-secrets/SOPS for k8s GitOps flows."
+      ],
+      [
+        "Audit, Compliance & Abuse",
+        "• Append-only security events with actor/target/context; immutable storage for regulated retention.\n• Anomaly hooks: impossible-travel, privilege-escalation, unusual exports — SIEM ingestion.\n• Abuse: credential-stuffing walls (rate+fingerprint); bot management at edge.\n• Privacy: field-level encryption, purpose-bound access logging, crypto-shredding for GDPR.\n• SOC2 evidence automation; subprocessor list; data-residency pinning."
+      ]
+    ],
+    "resources": [
+      [
+        "Google SRE book + workbook",
+        "https://sre.google/books/"
+      ],
+      [
+        "OpenTelemetry docs",
+        "https://opentelemetry.io/docs/"
+      ],
+      [
+        "OWASP Top 10",
+        "https://owasp.org/www-project-top-ten/"
+      ]
+    ]
+  },
+  "hld-back-of-envelope": {
+    "title": "Back-of-Envelope Estimation",
+    "color": 6510833,
+    "intro": "Rapid capacity math: translate requirements into QPS, storage, bandwidth, and memory numbers before drawing diagrams.",
+    "groups": [
+      [
+        "Estimation Framework",
+        "• Flow: requirements -> users -> QPS (avg+peak) -> bytes/request -> bandwidth -> storage -> memory -> cost.\n• Peak vs avg: 3x peak is standard; 10x for batch/integration, 50x for flash-sale scenarios — state assumptions explicitly.\n• Read:write ratio: social 100:1, chat 5:1, IoT ingest 10:1, CRUD app 10:1 — drives cache vs queue decisions.\n• Growth model: linear vs viral vs seasonal; multiply final numbers by 2-3x headroom.\n• Arithmetic fluency: 1M DAU x 10 req/day = ~120 QPS avg; 1B rows x 500B = 500GB raw; SSD ~$0.10/GB-month."
+      ],
+      [
+        "Traffic & Bandwidth",
+        "• Users -> QPS: MAU/30/86400 = avg concurrent; multiply by requests-per-session.\n• Payload sizes: JSON API ~1-5KB, image ~200KB, video chunk ~2-5MB, CDN static ~50KB.\n• Bandwidth = QPS x avg_response_size x (1 + read_replication_factor).\n• Egress pricing: AWS ~$0.09/GB; multi-CDN egress reduction is a cost lever.\n• WebSocket: concurrent_conns x heartbeat_interval -> sustained Kbps; burst amplification factor 2-5x."
+      ],
+      [
+        "Storage Estimation",
+        "• Row math: num_objects x avg_row_size x years x replication_factor x overhead (1.3-2x).\n• Index overhead: 1.5-3x raw data depending number of secondary indexes + B-tree fill factor.\n• Partition boundaries: keep partitions under 100GB for hot data; cold data can be larger in data lake.\n• Time-series: 1 metric x 10s interval = ~3M points/year x 8B = ~24MB/year per metric.\n• Blob: video = views x resolution x duration; 10M daily views x 10s 720p ~30-50TB/day."
+      ],
+      [
+        "Memory & Cache Sizing",
+        "• Hot set: active_users x avg_metadata_size; pin in Redis with TTL.\n• Cache hit-rate math: 95% hit means 5% miss hitting origin; origin capacity = total_QPS x 0.05.\n• Connection pools: postprocess = num_app_nodes x pool_size_per_node; must fit DB max_connections.\n• Bloom filter sizing: 10 bits/key for 1% FP; 1B keys -> 1.25GB.\n• Working set: if fits in RAM -> SSD offload unnecessary; if 10x RAM -> tiered storage mandatory."
+      ],
+      [
+        "Interview Execution",
+        "• Time-box: 2-3 min estimation at START of interview; write numbers on board; refer back throughout.\n• Anchor with real-world: 'Instagram serves 2B photos/day' or 'Twitter processes 500M tweets/day' — calibrates.\n• Explicit assumptions list: write them down so interviewer can correct early ('assume 300M MAU, is that right?').\n• Scale-up narrative: 'at 10K QPS single Postgres handles it; at 100K QPS add read replicas; at 1M QPS shard by user_id' — show progression.\n• Cost awareness: rough $/month estimates for storage+compute+egress; mention reserved instances vs on-demand tradeoffs."
+      ]
+    ],
+    "resources": [
+      [
+        "System Design Primer — estimation",
+        "https://github.com/donnemartin/system-design-primer"
+      ],
+      [
+        "ByteByteGo estimation examples",
+        "https://blog.bytebytego.com/"
+      ],
+      [
+        "Grokking the system design interview",
+        "https://www.educative.io/courses/grokking-modern-system-design-interview-for-engineers-managers"
+      ]
+    ]
+  },
+  "hld-playbook-case-studies": {
+    "title": "Playbook & Case Studies",
+    "color": 6510833,
+    "intro": "Real-world architecture case studies: what companies built, why, and lessons learned — the senior engineering interview edge.",
+    "groups": [
+      [
+        "Social Feed Systems",
+        "• Twitter timeline: fan-out-on-write (pull model) for <10K followers, pull-on-read (merge) for celebrities — hybrid threshold published 2013.\n• Facebook News Feed: ranked by EdgeRank (affinity x weight x time_decay); ML re-ranking at read-time; real-time updates via LiveData.\n• Instagram: pulled MySQL with memcache + delayed fanout for large followers; later moved to Kafka-based fanout.\n• Common lessons: write amplification of fan-out-on-write (celebrity problem), consistency tradeoffs acceptable for feeds (eventual is fine), storage explosion of precomputed timelines."
+      ],
+      [
+        "Messaging & Chat Systems",
+        "• WhatsApp: Erlang-based, 2M connections/machine, mnesia for small state, MySQL for messages, push via APNs/FCM.\n• Discord: Go + Rust services, Elixir for voice (soft real-time), Cassandra for message storage, Redis for presence.\n• Slack: single-channel-adjacent model, Molt/Manta for message storage, eventual consistency accepted, WebSocket + long-polling fallback.\n• Lessons: message ordering is per-conversation (not global), offline storage + sync protocol critical, read receipts are expensive (fan-out on read)."
+      ],
+      [
+        "Search & Recommendation",
+        "• Google search: inverted index sharded by document, MapReduce-era batch, real-time signals via streaming.\n• Netflix: row-based personalization (taste vectors), contextual bandits for thumbnails, A/B testing infrastructure as core platform.\n• Spotify: Explore/Exploit via multi-armed bandits, collaborative filtering + content-based hybrid, podcast ranking separate pipeline.\n• Common: two-tower retrieval + scoring pipeline, A/B testing as first-class capability, offline metrics (NDCG/MAP) vs online (CTR/engagement)."
+      ],
+      [
+        "Infrastructure Case Studies",
+        "• AWS S3: availability-first design, 11 nines durability via replication, eventual consistency (now read-after-write), bucket policies as access control.\n• Netflix: Chaos Monkey, circuit breakers, zone-aware routing, bulk migration to cloud (2008-2016), ZUUL edge.\n• Uber: microservices explosion (10K+), domain-oriented microservice architecture (DOMA) as consolidation, cab-signaling real-time via custom protocols.\n• Lessons: complexity cost of microservices (Netflix calmed down), chaos testing culture as competitive advantage, platform teams as force multiplier."
+      ],
+      [
+        "Interview Integration",
+        "• Case study as evidence: 'Twitter's hybrid fanout tells us...' — connects theory to practice.\n• Failure mode recall: 'Remember Uber's 2017 outage was cascading via service mesh — that's why we need bulkhead isolation.'\n• Numbers as credibility: cite real metrics (WhatsApp 2M conn/machine, S3 11 nines) — demonstrates engineering depth.\n• Tradeoff storytelling: 'Netflix chose eventual consistency for recommendations because immediate consistency isn't worth 10x latency' — shows judgment.\n• Anti-pattern: name-dropping without understanding; better to deeply know 3 case studies than surface 10."
+      ]
+    ],
+    "resources": [
+      [
+        "Twitter timeline architecture",
+        "https://www.infoq.com/presentations/Twitter-Timeline-Scalability/"
+      ],
+      [
+        "Netflix tech blog",
+        "https://netflixtechblog.com/"
+      ],
+      [
+        "Uber DOMA architecture",
+        "https://www.uber.com/blog/microservice-architecture/"
+      ],
+      [
+        "Discord voice infra",
+        "https://discord.com/blog/how-discord-serves-millions-of-users-with-a-single-sql-database"
+      ]
+    ]
+  }
+}
