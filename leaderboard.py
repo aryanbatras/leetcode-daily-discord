@@ -521,6 +521,34 @@ def cmd_board():
             "weekly_subs": weekly_subs,
         })
 
+    # Calculate streaks, XP, and levels
+    for r in rows:
+        did = [d for d, m in members.items() if m["lc_username"] == r["lc_username"]][0]
+        store = snapshots.get(did, {})
+        
+        # Calculate streak (consecutive days with problems solved)
+        streak = 0
+        check_date = today
+        while check_date in store:
+            day_data = store[check_date]
+            if day_data.get("All", 0) > 0:
+                streak += 1
+                # Move to previous day
+                from datetime import datetime as dt
+                prev = dt.strptime(check_date, "%Y-%m-%d") - timedelta(days=1)
+                check_date = prev.strftime("%Y-%m-%d")
+            else:
+                break
+        r["streak"] = streak
+        
+        # Calculate XP (1 XP per easy, 2 per medium, 3 per hard)
+        xp = r["easy"] * 1 + r["medium"] * 2 + r["hard"] * 3
+        r["xp"] = xp
+        
+        # Calculate level (every 100 XP = 1 level)
+        level = max(1, xp // 100)
+        r["level"] = level
+
     # Save snapshots
     save("snapshots.json", snapshots)
     save("members.json", members)
@@ -635,6 +663,25 @@ def cmd_board():
             "title": "\U0001F3AE Contest Champions",
             "description": "\n".join(c_lines),
             "color": 0x9B59B6,
+        })
+
+    # --- Accountability Report ---
+    acc_lines = []
+    for r in sorted(rows, key=lambda x: -x.get("streak", 0)):
+        streak = r.get("streak", 0)
+        daily = len(r.get("daily_subs", []))
+        xp = r.get("xp", 0)
+        level = r.get("level", 1)
+        fire = f"\U0001F525 {streak}" if streak > 0 else "0"
+        acc_lines.append(
+            f"**{r['name']}** — Lv.{level} ({xp} XP)\n"
+            f"    Streak: {fire} · Today: {daily} solved"
+        )
+    if acc_lines:
+        embeds.append({
+            "title": "\U0001F3AF Accountability Report",
+            "description": "\n".join(acc_lines)[:4000],
+            "color": 0x1ABC9C,
         })
 
     # --- Footer ---
