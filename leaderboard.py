@@ -37,6 +37,7 @@ LC_UA = (
 )
 DISCORD_UA = CFG["bot"]["ua"]
 LC_DELAY = 1.0  # seconds between LeetCode API calls
+MEMBERS_ROLE_ID = "1542013440715923506"  # auto-assigned to registered members
 
 # ── LeetCode ────────────────────────────────────────────────────────────────
 
@@ -176,6 +177,16 @@ def dapi(url, method="GET", token=None, body=None):
             return json.loads(raw.decode()) if raw else {}
     except urllib.error.HTTPError as e:
         return None
+
+
+def assign_members_role(token, user_id):
+    """Assign the Members role to a user."""
+    url = f"https://discord.com/api/v10/guilds/{GUILD_ID}/members/{user_id}/roles/{MEMBERS_ROLE_ID}"
+    result = dapi(url, method="PUT", token=token)
+    if result is not None:
+        print(f"  Assigned Members role to {user_id}")
+    else:
+        print(f"  Failed to assign Members role to {user_id}")
 
 
 def resolve_channels(token):
@@ -354,6 +365,9 @@ def cmd_poll():
         existing_lc.add(lc_username.lower())
         new_registrations.append(discord_name)
         print(f"  Registered: {discord_name} -> {profile['username']}")
+
+        # Assign Members role
+        assign_members_role(token, discord_id)
 
     # Save members
     save("members.json", members)
