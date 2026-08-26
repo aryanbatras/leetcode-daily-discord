@@ -31,7 +31,7 @@ DISCORD_UA = CFG["bot"]["ua"]
 
 
 def clear_channel(token, channel_id):
-    """Delete all messages in a channel."""
+    """Delete all non-pinned messages in a channel."""
     after = "0"
     ids = []
     while True:
@@ -39,8 +39,10 @@ def clear_channel(token, channel_id):
         batch = dapi(url, token=token)
         if not batch:
             break
-        ids += [m["id"] for m in batch]
-        after = max(ids)
+        for m in batch:
+            if not m.get("pinned"):
+                ids.append(m["id"])
+        after = max(m["id"] for m in batch)
         if len(batch) < 100:
             break
         time.sleep(0.3)
