@@ -169,7 +169,7 @@ def main():
         webhook_url,
         embed,
         username="Daily Problem",
-        content="Today's problem is up — first solve takes the crown.",
+        content="<@&1542013440715923506> Today's problem is up — first solve takes the crown.",
         ping_everyone=False,
     )
     if not ok:

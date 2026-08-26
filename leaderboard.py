@@ -425,6 +425,9 @@ def post_webhook_embeds(webhook, embeds):
             "embeds": chunk,
             "allowed_mentions": {"parse": []},
         }
+        # Mention Members role on first batch only
+        if i == 0:
+            body["content"] = "<@&1542013440715923506>"
         dapi(webhook, method="POST", body=body)
         time.sleep(0.5)
 

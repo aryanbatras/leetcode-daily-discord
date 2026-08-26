@@ -136,8 +136,11 @@ def send_catalog(hook, lines):
         full = full[cut:].lstrip("\n")
     if full:
         chunks.append(full)
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks):
         payload = {"content": chunk[:2000], "allowed_mentions": {"parse": []}}
+        # Mention Members role on first chunk only
+        if i == 0:
+            payload["content"] = "<@&1542013440715923506>\n" + payload["content"]
         call(hook, method="POST", body=payload)
         time.sleep(SEND_PACE)
 
