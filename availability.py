@@ -102,13 +102,15 @@ def load(name, default=None):
 # ── Time parsing ────────────────────────────────────────────────────────────
 
 TIME_RE = re.compile(
-    r"(\d{1,2})\s*(am|pm)\s*[-–to]+\s*(\d{1,2})\s*(am|pm)",
+    r"(\d{1,2})\s*(am|pm)\s*[-–—to]+\s*(\d{1,2})\s*(am|pm)",
     re.IGNORECASE,
 )
 
 
 def parse_time_block(block_str):
     """Parse '4am-10am' or '2pm-6pm' or '9pm-1am' into (start_hour, end_hour)."""
+    # Normalize: strip extra spaces, lowercase
+    block_str = block_str.strip().lower()
     m = TIME_RE.search(block_str)
     if not m:
         return None
@@ -130,16 +132,22 @@ def parse_time_block(block_str):
         return None
     # Handle overnight (e.g., 9pm-1am: start=21, end=1)
     if start_h > end_h:
-        return (start_h, 24 + end_h)  # end_h=1 -> 25, meaning 9pm to 1am next day
+        return (start_h, 24 + end_h)
     return (start_h, end_h)
 
 
 def parse_availability(text):
     """Parse availability text like '4am-10am, 2pm-6pm' into list of (start, end) tuples."""
-    blocks = re.split(r"[,;]+", text)
+    # Normalize: replace various separators with comma
+    text = text.strip().lower()
+    text = re.sub(r"[;|/]+", ",", text)
+    blocks = re.split(r"[,]+", text)
     result = []
     for block in blocks:
-        parsed = parse_time_block(block.strip())
+        block = block.strip()
+        if not block:
+            continue
+        parsed = parse_time_block(block)
         if parsed:
             result.append(parsed)
     return result
