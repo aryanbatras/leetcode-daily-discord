@@ -1,4 +1,5 @@
 name: Daily Post
+# re-register schedule trigger (file rename broke the cron registration)
 
 on:
   schedule:
