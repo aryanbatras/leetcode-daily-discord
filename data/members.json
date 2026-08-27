@@ -29,10 +29,10 @@
     "lc_username": "Naresh070",
     "registered": "2026-08-25",
     "totals": {
-      "All": 85,
-      "Easy": 47,
+      "All": 87,
+      "Easy": 48,
       "Hard": 3,
-      "Medium": 35
+      "Medium": 36
     }
   },
   "527486730677256193": {
@@ -41,10 +41,22 @@
     "lc_username": "aryanbatra",
     "registered": "2026-08-24",
     "totals": {
-      "All": 217,
-      "Easy": 109,
+      "All": 223,
+      "Easy": 111,
       "Hard": 19,
-      "Medium": 89
+      "Medium": 93
+    }
+  },
+  "613305900593184779": {
+    "avatar": "https://assets.leetcode.com/users/zxmkTC29gJ/avatar_1732484454.png",
+    "display_name": "\u0645\u0646\u0648\u0631",
+    "lc_username": "Manoor08",
+    "registered": "2026-08-27",
+    "totals": {
+      "All": 298,
+      "Easy": 96,
+      "Hard": 38,
+      "Medium": 164
     }
   },
   "701046499055894589": {
@@ -57,6 +69,18 @@
       "Easy": 91,
       "Hard": 24,
       "Medium": 158
+    }
+  },
+  "761926993938874379": {
+    "avatar": "https://assets.leetcode.com/users/Dev_Agarwal07/avatar_1710828552.png",
+    "display_name": "Mr_shadow",
+    "lc_username": "Dev_Agarwal07",
+    "registered": "2026-08-27",
+    "totals": {
+      "All": 310,
+      "Easy": 96,
+      "Hard": 55,
+      "Medium": 159
     }
   }
 }

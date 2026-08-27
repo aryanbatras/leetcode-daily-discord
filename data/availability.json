@@ -1,19 +1,4 @@
 {
-  "date": "2026-08-26",
-  "users": {
-    "527486730677256193": {
-      "username": "Aryan Batra",
-      "blocks": [
-        [
-          21,
-          25
-        ],
-        [
-          6,
-          8
-        ]
-      ],
-      "message_id": "manual"
-    }
-  }
+  "date": "2026-08-27",
+  "users": {}
 }
