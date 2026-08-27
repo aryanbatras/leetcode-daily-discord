@@ -16,30 +16,30 @@ jobs:
       - uses: actions/checkout@v4
       - name: Poll registrations
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: python3 -u leaderboard.py poll
       - name: Post daily problem
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: python3 post_daily.py
       - name: Post upcoming contests
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           FEED_WEBHOOKS: ${{ secrets.FEED_WEBHOOKS }}
         run: python3 -u scripts/build_catalog.py contests
       - name: Post leaderboard
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           LEADERBOARD_WEBHOOK_URL: ${{ secrets.LEADERBOARD_WEBHOOK_URL }}
         run: python3 -u leaderboard.py board
       - name: Scan availability
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: python3 -u availability.py scan
       - name: Post availability chart
         env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: python3 -u availability.py chart
       - name: Commit state
         run: |

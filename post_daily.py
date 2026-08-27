@@ -138,7 +138,7 @@ def main():
         sys.exit(1)
 
     # Clear channel before posting fresh content
-    token = os.environ.get("DISCORD_BOT_TOKEN")
+    token = os.environ.get("DISCORD_TOKEN")
     if token:
         m = re.search(r"/webhooks/(\d+)/", webhook_url)
         if m:
@@ -169,7 +169,7 @@ def main():
         webhook_url,
         embed,
         username="Daily Problem",
-        content="<@&1542013440715923506> Today's problem is up — first solve takes the crown.",
+        content="Today's problem is up — first solve takes the crown.",
         ping_everyone=False,
     )
     if not ok:

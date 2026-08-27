@@ -88,9 +88,11 @@ def fetch_messages(token, channel_id, limit=100):
 
 
 def save(name, obj):
-    p = os.path.join(DATA_DIR, name)
+    os.makedirs(DATA_DIR, exist_ok=True)
+    p = os.path.join(DATA_DIR, name) + ".tmp"
     with open(p, "w") as f:
         json.dump(obj, f, indent=2, sort_keys=True)
+    os.replace(p, os.path.join(DATA_DIR, name))
 
 
 def load(name, default=None):
@@ -172,9 +174,9 @@ def hour_to_str(h):
 # ── Commands ────────────────────────────────────────────────────────────────
 
 def cmd_scan():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
+    token = os.environ.get("DISCORD_TOKEN")
     if not token:
-        sys.exit("DISCORD_BOT_TOKEN required")
+        sys.exit("DISCORD_TOKEN required")
 
     ch_id = resolve_channel(token, "availability")
     if not ch_id:
@@ -204,9 +206,22 @@ def cmd_scan():
             "message_id": m["id"],
         }
 
+    # Load existing data and accumulate history by user
+    data = load("availability.json", {"date": "", "users": {}, "history": {}})
+    history = data.get("history", {})
+
+    # Update history: user_id -> {username, dates: [list of dates]}
+    for did, info in availability.items():
+        if did not in history:
+            history[did] = {"username": info["username"], "dates": []}
+        history[did]["username"] = info["username"]
+        if today not in history[did]["dates"]:
+            history[did]["dates"].append(today)
+
     save("availability.json", {
         "date": today,
         "users": availability,
+        "history": history,
     })
 
     print(f"Scanned {len(availability)} users with availability")
@@ -214,9 +229,9 @@ def cmd_scan():
 
 
 def cmd_chart():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
+    token = os.environ.get("DISCORD_TOKEN")
     if not token:
-        sys.exit("DISCORD_BOT_TOKEN required")
+        sys.exit("DISCORD_TOKEN required")
 
     ch_id = resolve_channel(token, "availability")
     if not ch_id:
@@ -226,8 +241,9 @@ def cmd_chart():
     clear_channel(token, ch_id)
     print("Cleared #availability")
 
-    data = load("availability.json", {"date": "", "users": {}})
+    data = load("availability.json", {"date": "", "users": {}, "history": {}})
     users = data.get("users", {})
+    history = data.get("history", {})
 
     if not users:
         # Post empty chart
@@ -323,6 +339,22 @@ def cmd_chart():
         "description": "\n".join(ind_lines),
         "color": 0x9B59B6,
     })
+
+    # Attendance history (by user)
+    if history:
+        hist_lines = []
+        for did, info in sorted(history.items(), key=lambda x: -len(x[1].get("dates", []))):
+            dates = info.get("dates", [])
+            recent = ", ".join(dates[-7:])
+            hist_lines.append(
+                f"**{info['username']}** — {len(dates)} days\n"
+                f"    Recent: {recent}"
+            )
+        embeds.append({
+            "title": "\U0001F4CB Attendance History",
+            "description": "\n".join(hist_lines),
+            "color": 0x3498DB,
+        })
 
     # Post all embeds (Discord limit: 10 per message)
     for i in range(0, len(embeds), 5):

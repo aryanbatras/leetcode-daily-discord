@@ -7,7 +7,7 @@ Modes:
     core-<slug>  — single key from the domain files (e.g. core-tdgis)
 
 Webhooks come from $FEED_WEBHOOKS or the local map file. Channel ids resolve
-via the bot token in $DISCORD_BOT_TOKEN.
+via the bot token in $DISCORD_TOKEN.
 """
 
 import html as htmllib
@@ -138,9 +138,6 @@ def send_catalog(hook, lines):
         chunks.append(full)
     for i, chunk in enumerate(chunks):
         payload = {"content": chunk[:2000], "allowed_mentions": {"parse": []}}
-        # Mention Members role on first chunk only
-        if i == 0:
-            payload["content"] = "<@&1542013440715923506>\n" + payload["content"]
         call(hook, method="POST", body=payload)
         time.sleep(SEND_PACE)
 
@@ -268,8 +265,8 @@ def dump_cses_section(hooks, token, section, tasks, channel_id=None):
 
 
 def mode_cses_all(only=None):
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     tasks_by_section = {}
     for t in json.load(open("data/cses.json")):
@@ -656,8 +653,8 @@ def load_cp31():
 
 
 def mode_cp31_all(only=None):
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     by_band = load_cp31()
     bands = [only] if only else CP31_BANDS
@@ -776,8 +773,8 @@ THEORY_KEYS = {
 
 
 def mode_topics_all(only=None):
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     sheet = json.load(open("data/topics_sheet.json"))
     topics = sheet["topics"]
@@ -796,8 +793,8 @@ def mode_topics_all(only=None):
 
 
 def mode_topics_concepts():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     sheet = json.load(open("data/topics_sheet.json"))
     hook = hooks.get("dsa-concepts")
@@ -836,8 +833,8 @@ def mode_topics_concepts():
 
 
 def mode_revision():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     sheet = json.load(open("data/topics_sheet.json"))
     hook = hooks.get("dsa-revision")
@@ -850,8 +847,8 @@ def mode_revision():
 
 
 def mode_blind75():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     sheet = json.load(open("data/topics_sheet.json"))
     hook = hooks.get("blind-75")
@@ -872,8 +869,8 @@ SDE_GROUPS = ["arrays", "linked-list", "stacks-queues-strings",
 
 
 def mode_sde_all(only=None):
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     sheet = json.load(open("data/sde_sheet.json"))
     groups = [only] if only else SDE_GROUPS
@@ -897,8 +894,8 @@ MODES.update({
 
 
 def mode_notes(only=None):
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     notes = json.load(open("data/core_notes.json"))
     keys = [only] if only else list(notes)
@@ -933,8 +930,8 @@ def mode_notes(only=None):
 
 
 def mode_langs(only=None, path="data/lang_notes.json"):
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     notes = json.load(open(path))
     keys = [only] if only else list(notes)
@@ -997,8 +994,8 @@ DOMAIN_MAP = {
 
 
 def mode_core(only=None):
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     notes = _load_domain_notes()
     keys = [only] if only else list(notes)
@@ -1045,8 +1042,8 @@ def mode_core(only=None):
 
 def mode_contests():
     """Fetch upcoming LeetCode + Codeforces contests and post to #upcoming-contests."""
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    assert token, "DISCORD_BOT_TOKEN required"
+    token = os.environ.get("DISCORD_TOKEN")
+    assert token, "DISCORD_TOKEN required"
     hooks = hooks_map()
     hook = hooks.get("upcoming-contests")
     if not hook:

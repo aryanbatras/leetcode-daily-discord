@@ -18,7 +18,7 @@ All automated via a single GitHub Actions workflow (`daily.yml`).
 3. Bot validates and reacts ✅ — you're in
 
 ## Secrets
-- `DISCORD_BOT_TOKEN` — bot token (MESSAGE CONTENT intent required)
+- `DISCORD_TOKEN` — bot token (MESSAGE CONTENT intent required)
 - `DISCORD_WEBHOOK_URL` — #daily-problem webhook
 - `LEADERBOARD_WEBHOOK_URL` — #leaderboard webhook
 - `FEED_WEBHOOKS` — full webhook map JSON for build_catalog.py

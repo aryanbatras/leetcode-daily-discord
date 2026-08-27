@@ -37,7 +37,6 @@ LC_UA = (
 )
 DISCORD_UA = CFG["bot"]["ua"]
 LC_DELAY = 1.0  # seconds between LeetCode API calls
-MEMBERS_ROLE_ID = "1542013440715923506"  # auto-assigned to registered members
 
 # ── LeetCode ────────────────────────────────────────────────────────────────
 
@@ -110,7 +109,7 @@ def lc_stats(username):
     time.sleep(LC_DELAY)
     contest = lc_request(LC_CONTEST_QUERY, {"username": username})
     time.sleep(LC_DELAY)
-    subs_data = lc_request(LC_RECENT_SUBS_QUERY, {"username": username, "limit": 20})
+    subs_data = lc_request(LC_RECENT_SUBS_QUERY, {"username": username, "limit": 50})
     time.sleep(LC_DELAY)
 
     result = {
@@ -127,6 +126,8 @@ def lc_stats(username):
             result["avatar"] = user.get("profile", {}).get("userAvatar", "")
             for row in user.get("submitStats", {}).get("acSubmissionNum", []):
                 result["totals"][row["difficulty"]] = row["count"]
+    else:
+        print(f"  WARNING: profile fetch failed for {username}")
 
     if contest:
         ranking = (contest.get("data") or {}).get("userContestRanking")
@@ -137,6 +138,8 @@ def lc_stats(username):
                 "global_rank": ranking.get("globalRanking", 0),
                 "top_pct": round(ranking.get("topPercentage", 0), 1),
             }
+    else:
+        print(f"  WARNING: contest fetch failed for {username}")
 
     if subs_data:
         raw_subs = (subs_data.get("data") or {}).get("recentAcSubmissionList") or []
@@ -177,16 +180,6 @@ def dapi(url, method="GET", token=None, body=None):
             return json.loads(raw.decode()) if raw else {}
     except urllib.error.HTTPError as e:
         return None
-
-
-def assign_members_role(token, user_id):
-    """Assign the Members role to a user."""
-    url = f"https://discord.com/api/v10/guilds/{GUILD_ID}/members/{user_id}/roles/{MEMBERS_ROLE_ID}"
-    result = dapi(url, method="PUT", token=token)
-    if result is not None:
-        print(f"  Assigned Members role to {user_id}")
-    else:
-        print(f"  Failed to assign Members role to {user_id}")
 
 
 def resolve_channels(token):
@@ -313,9 +306,9 @@ def post_register_message(token, channel_id, members):
 
 
 def cmd_poll():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
+    token = os.environ.get("DISCORD_TOKEN")
     if not token:
-        sys.exit("DISCORD_BOT_TOKEN required")
+        sys.exit("DISCORD_TOKEN required")
     resolve_channels(token)
     reg_id = CHANNEL_NAMES.get("register")
     if not reg_id:
@@ -365,9 +358,6 @@ def cmd_poll():
         existing_lc.add(lc_username.lower())
         new_registrations.append(discord_name)
         print(f"  Registered: {discord_name} -> {profile['username']}")
-
-        # Assign Members role
-        assign_members_role(token, discord_id)
 
     # Save members
     save("members.json", members)
@@ -425,20 +415,15 @@ def post_webhook_embeds(webhook, embeds):
             "embeds": chunk,
             "allowed_mentions": {"parse": []},
         }
-        # Mention Members role on first batch only
-        if i == 0:
-            body["content"] = "<@&1542013440715923506>"
         dapi(webhook, method="POST", body=body)
         time.sleep(0.5)
 
 
 def cmd_board():
-    token = os.environ.get("DISCORD_BOT_TOKEN")
-    webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL")
+    token = os.environ.get("DISCORD_TOKEN")
+    webhook = os.environ.get("LEADERBOARD_WEBHOOK_URL", "https://discord.com/api/webhooks/1541814326556491778/_Sa-daohbVwSV6wMbT0xowNWe_NrBjy90hpre7HPR7XPG2nJmkOJGrRthfksz3xZSZDx")
     if not token:
-        sys.exit("DISCORD_BOT_TOKEN required")
-    if not webhook:
-        sys.exit("LEADERBOARD_WEBHOOK_URL required")
+        sys.exit("DISCORD_TOKEN required")
     resolve_channels(token)
     lb_id = CHANNEL_NAMES.get("leaderboard")
     if not lb_id:
@@ -448,12 +433,14 @@ def cmd_board():
     snapshots = load("snapshots.json", {})
     now = datetime.now(IST)
     today = today_ist()
+    yesterday = (now - timedelta(days=1)).strftime("%Y-%m-%d")
     week_start = week_start_ist(today)
 
     # Date boundaries (naive IST)
-    today_start = datetime(now.year, now.month, now.day, tzinfo=IST)
-    today_end = today_start + timedelta(days=1)
+    yesterday_start = datetime.strptime(yesterday, "%Y-%m-%d").replace(tzinfo=IST)
+    yesterday_end = yesterday_start + timedelta(days=1)
     week_start_dt = datetime.strptime(week_start, "%Y-%m-%d").replace(tzinfo=IST)
+    today_end = datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=IST) + timedelta(days=1)
 
     # ── Clear channel ──
     clear_leaderboard(token, lb_id)
@@ -501,7 +488,7 @@ def cmd_board():
         weekly_hard = stats["totals"]["Hard"] - baseline.get("Hard", 0)
 
         # Filter recent submissions by date
-        daily_subs = filter_subs_by_date(stats["recent_subs"], today_start, today_end)
+        daily_subs = filter_subs_by_date(stats["recent_subs"], yesterday_start, yesterday_end)
         weekly_subs = filter_subs_by_date(stats["recent_subs"], week_start_dt, today_end)
 
         rows.append({
@@ -521,38 +508,6 @@ def cmd_board():
             "weekly_subs": weekly_subs,
         })
 
-    # Calculate streaks, XP, and levels
-    for r in rows:
-        did = [d for d, m in members.items() if m["lc_username"] == r["lc_username"]][0]
-        store = snapshots.get(did, {})
-        
-        # Calculate streak (consecutive days with NEW problems solved)
-        streak = 0
-        sorted_dates = sorted(store.keys(), reverse=True)
-        for i, date in enumerate(sorted_dates):
-            if i == 0:
-                # Today — check if daily_subs exist (problems solved today)
-                if len(r.get("daily_subs", [])) > 0:
-                    streak += 1
-                else:
-                    break
-            else:
-                # Previous days — check if total increased from day before
-                prev_date = sorted_dates[i - 1]
-                if store[date].get("All", 0) > store[prev_date].get("All", 0):
-                    streak += 1
-                else:
-                    break
-        r["streak"] = streak
-        
-        # Calculate XP (1 XP per easy, 2 per medium, 3 per hard)
-        xp = r["easy"] * 1 + r["medium"] * 2 + r["hard"] * 3
-        r["xp"] = xp
-        
-        # Calculate level (every 100 XP = 1 level)
-        level = max(1, xp // 100)
-        r["level"] = level
-
     # Save snapshots
     save("snapshots.json", snapshots)
     save("members.json", members)
@@ -569,7 +524,7 @@ def cmd_board():
         "color": 0x5865F2,
     })
 
-    # --- Overall Rankings (sorted by total) ---
+    # --- All-Time Rankings (sorted by total) ---
     by_total = sorted(rows, key=lambda r: (-r["total"], -r["hard"], -r["medium"], -r["easy"]))
     lines = []
     for i, r in enumerate(by_total):
@@ -585,24 +540,30 @@ def cmd_board():
         "color": 0xF1C40F,
     })
 
-    # --- Daily Grind (today's solved problems) ---
-    any_daily = False
+    # --- Daily Grind (yesterday's solved problems) ---
+    by_daily = sorted(rows, key=lambda x: -len(x["daily_subs"]))
     daily_lines = []
-    for r in sorted(rows, key=lambda x: -len(x["daily_subs"])):
-        if not r["daily_subs"]:
-            continue
-        any_daily = True
-        problems = "\n".join(
-            f"    \u2022 [{s['title']}](https://leetcode.com/problems/{s['titleSlug']}/)"
-            for s in r["daily_subs"][:10]
-        )
-        extra = f"\n    ...and {len(r['daily_subs'])-10} more" if len(r["daily_subs"]) > 10 else ""
-        daily_lines.append(
-            f"**{r['name']}** — **{len(r['daily_subs'])}** solved today\n{problems}{extra}"
-        )
+    for i, r in enumerate(by_daily):
+        medal = medals[i] if i < 3 else f"**{i+1}.**"
+        count = len(r["daily_subs"])
+        if count > 0:
+            problems = "\n".join(
+                f"    \u2022 [{s['title']}](https://leetcode.com/problems/{s['titleSlug']}/)"
+                for s in r["daily_subs"][:10]
+            )
+            extra = f"\n    ...and {count-10} more" if count > 10 else ""
+            daily_lines.append(
+                f"{medal} **{r['name']}** (`{r['lc_username']}`)\n"
+                f"    **{count}** solved\n{problems}{extra}"
+            )
+        else:
+            daily_lines.append(
+                f"{medal} **{r['name']}** (`{r['lc_username']}`)\n"
+                f"    No problems solved"
+            )
     embeds.append({
-        "title": f"\U0001F525 Daily Grind — {now.strftime('%B %d')}",
-        "description": "\n\n".join(daily_lines)[:4000] if any_daily else "*No problems solved today yet — get grinding!*",
+        "title": f"\U0001F525 Daily Grind — {yesterday}",
+        "description": "\n\n".join(daily_lines)[:4000] if daily_lines else "*No data*",
         "color": 0xE67E22,
     })
 
@@ -621,71 +582,36 @@ def cmd_board():
             )
             extra = f"\n    ...and {sub_count-5} more" if sub_count > 5 else ""
             weekly_lines.append(
-                f"{medal} **{r['name']}** — {delta_str} this week ({sub_count} solved)\n{problems}{extra}"
+                f"{medal} **{r['name']}** (`{r['lc_username']}`)\n"
+                f"    {delta_str} this week ({sub_count} solved)\n{problems}{extra}"
             )
         else:
             weekly_lines.append(
-                f"{medal} **{r['name']}** — {delta_str} this week"
+                f"{medal} **{r['name']}** (`{r['lc_username']}`)\n"
+                f"    {delta_str} this week"
             )
     embeds.append({
         "title": f"\U0001F4C8 Weekly Grind (since {week_start})",
-        "description": "\n\n".join(weekly_lines)[:4000] if weekly_lines else "*No progress yet this week — start solving!*",
+        "description": "\n\n".join(weekly_lines)[:4000] if weekly_lines else "*No progress yet this week*",
         "color": 0x2ECC71,
     })
 
-    # --- Difficulty Breakdown ---
-    total_easy = sum(r["easy"] for r in rows)
-    total_medium = sum(r["medium"] for r in rows)
-    total_hard = sum(r["hard"] for r in rows)
-    total_all = sum(r["total"] for r in lines) if False else sum(r["total"] for r in rows)
-    lines_stat = [
-        f"**Total solved across all members:** {total_all}",
-        f"\u2705 Easy: **{total_easy}** · \U0001F7E1 Medium: **{total_medium}** · \U0001F534 Hard: **{total_hard}**",
-    ]
-    if rows:
-        avg = total_all // len(rows)
-        lines_stat.append(f"**Average per member:** {avg} problems")
-    embeds.append({
-        "title": "\U0001F4CA Server Stats",
-        "description": "\n".join(lines_stat),
-        "color": 0xE74C3C,
-    })
-
-    # --- Contest Champions (if anyone has contest data) ---
+    # --- Contest Rankings (just rating) ---
     contest_rows = [r for r in rows if r["contest"]]
     if contest_rows:
         by_rating = sorted(contest_rows, key=lambda r: -r["contest"]["rating"])
         c_lines = []
-        for i, r in enumerate(by_rating[:10]):
+        for i, r in enumerate(by_rating):
             medal = medals[i] if i < 3 else f"**{i+1}.**"
             c = r["contest"]
             c_lines.append(
-                f"{medal} **{r['name']}** — **{c['rating']}** rating "
-                f"(#{c['global_rank']:,} global · top {c['top_pct']}%)"
+                f"{medal} **{r['name']}** (`{r['lc_username']}`)\n"
+                f"    **{c['rating']}** rating"
             )
         embeds.append({
-            "title": "\U0001F3AE Contest Champions",
+            "title": "\U0001F3AE Contest Rankings",
             "description": "\n".join(c_lines),
             "color": 0x9B59B6,
-        })
-
-    # --- Accountability Report ---
-    acc_lines = []
-    for r in sorted(rows, key=lambda x: -x.get("streak", 0)):
-        streak = r.get("streak", 0)
-        daily = len(r.get("daily_subs", []))
-        xp = r.get("xp", 0)
-        level = r.get("level", 1)
-        fire = f"\U0001F525 {streak}" if streak > 0 else "0"
-        acc_lines.append(
-            f"**{r['name']}** — Lv.{level} ({xp} XP)\n"
-            f"    Streak: {fire} · Today: {daily} solved"
-        )
-    if acc_lines:
-        embeds.append({
-            "title": "\U0001F3AF Accountability Report",
-            "description": "\n".join(acc_lines)[:4000],
-            "color": 0x1ABC9C,
         })
 
     # --- Footer ---
